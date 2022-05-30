@@ -1,0 +1,41 @@
+modLoader="javafml" #mandatory
+loaderVersion="[40,)" #mandatory
+license="MIT"
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+[[mods]] #mandatory
+modId="technomancy" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Create: Technomancy" #mandatory
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+#logoFile="technomancy.png" #optional
+credits="" #optional
+authors="Cosmos616, The_seVen_, Chazbomb" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+???
+'''
+[[dependencies.technomancy]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[40,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.technomancy]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.technomancy]]
+    modId="create"
+    mandatory=true
+    versionRange="[mc1.18.1_v0.4f,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.technomancy]]
+    modId="flywheel"
+    mandatory=true
+    versionRange="[1.18-0.6.0,)"
+    ordering="AFTER"
+    side="CLIENT"
