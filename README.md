@@ -10,8 +10,8 @@ Due to the latest advances in magical, technological, and soul based sciences, t
 
 For more information on mod use the in-game tooltips or go for feedback on the discord
 
-[<img src="https://i.imgur.com/0lLX9Oy.jpg" width="49.78%">](https://github.com/Cosmos616/Technomancy/issues "Report Issues")
-[<img src="https://i.imgur.com/aWrjfKJ.jpg" width="49.78%">](https://discord.gg/acQ2tgkW "Feedback & Help")
+[<img src="https://i.imgur.com/0lLX9Oy.jpg" width="49%">](https://github.com/Cosmos616/Technomancy/issues "Report Issues")
+[<img src="https://i.imgur.com/aWrjfKJ.jpg" width="49%">](https://discord.gg/acQ2tgkW "Feedback & Help")
  
 - Support for Minecraft 1.16: Not planned
 - Support for Fabric: Not planned
