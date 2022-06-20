@@ -2,6 +2,9 @@ package dev.Cosmos616.technomancy;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.repack.registrate.util.nullness.NonNullSupplier;
+import dev.Cosmos616.technomancy.registry.TMBlockPartials;
+import dev.Cosmos616.technomancy.registry.TMBlocks;
+import dev.Cosmos616.technomancy.registry.TMTileEntities;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,13 +25,13 @@ public class Technomancy {
         MinecraftForge.EVENT_BUS.register(this);
 
 //        TMItems.register();
-//        TMBlocks.register();
-//        TMTileEntities.register();
-//        TMBlockPartials.register();
+        TMBlocks.register();
+        TMTileEntities.register();
+        TMBlockPartials.init();
 
     }
 
-    public static ResourceLocation CTLoc(String path) { return new ResourceLocation(MOD_ID, path); }
+    public static ResourceLocation TMLoc(String path) { return new ResourceLocation(MOD_ID, path); }
 
     public static CreateRegistrate getRegistrate() {
         return REGISTRATE.get();

@@ -124,6 +124,8 @@ dependencies {
     implementation fg.deobf("com.simibubi.create:Create:mc${mc_version}_v${create_version}")
     implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheel_version}")
 
+    implementation fg.deobf("curse.maven:craftadditions-439890:3794929") // CC&A
+
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
 }
 

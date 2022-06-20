@@ -1,0 +1,36 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "technomancy:block/cables",
+		"particle": "technomancy:block/cables"
+	},
+	"elements": [
+		{
+			"name": "rim",
+			"from": [-1, 4, 4],
+			"to": [2, 12, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [9.5, 0, 11, 4], "texture": "#0"},
+				"east": {"uv": [0, 0, 4, 4], "texture": "#0"},
+				"south": {"uv": [9.5, 0, 11, 4], "texture": "#0"},
+				"west": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"up": {"uv": [11, 0, 12.5, 4], "texture": "#0"},
+				"down": {"uv": [8, 0, 9.5, 4], "texture": "#0"}
+			}
+		},
+		{
+			"name": "west",
+			"from": [0, 5, 5],
+			"to": [5, 11, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [3, 7.5, 6, 10], "rotation": 270, "texture": "#0"},
+				"south": {"uv": [0, 7.5, 3, 10], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [0, 7.5, 3, 10], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [0, 7.5, 3, 10], "rotation": 270, "texture": "#0"}
+			}
+		}
+	]
+}

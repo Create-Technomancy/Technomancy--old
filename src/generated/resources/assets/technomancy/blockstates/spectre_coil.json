@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "bottom=false,top=false": {
+      "model": "technomancy:block/spectre_coil/coil_middle"
+    },
+    "bottom=true,top=false": {
+      "model": "technomancy:block/spectre_coil/coil_bottom"
+    },
+    "bottom=false,top=true": {
+      "model": "technomancy:block/spectre_coil/coil_top"
+    },
+    "bottom=true,top=true": {
+      "model": "technomancy:block/spectre_coil/coil_single"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "technomancy:block/encased_cable/block_flat",
+        "x": -90
+      }
+    },
+    {
+      "apply": {
+        "model": "technomancy:block/encased_cable/block_flat",
+        "x": 90
+      }
+    },
+    {
+      "apply": {
+        "model": "technomancy:block/encased_cable/block_flat",
+        "y": 180
+      }
+    },
+    {
+      "apply": {
+        "model": "technomancy:block/encased_cable/block_flat"
+      }
+    },
+    {
+      "apply": {
+        "model": "technomancy:block/encased_cable/block_flat",
+        "y": 90
+      }
+    },
+    {
+      "apply": {
+        "model": "technomancy:block/encased_cable/block_flat",
+        "y": 270
+      }
+    }
+  ]
+}
