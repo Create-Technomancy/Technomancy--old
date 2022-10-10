@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
+import com.simibubi.create.repack.registrate.providers.loot.RegistrateBlockLootTables;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.QuantumBatteryBlock;
@@ -15,10 +16,19 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableB
 import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilGenerator;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraftforge.common.Tags;
 
 import static com.simibubi.create.AllTags.pickaxeOnly;
+import static com.simibubi.create.AllTags.tagBlockAndItem;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TMBlocks {
@@ -75,6 +85,24 @@ public class TMBlocks {
             .block("cable_casing", CasingBlock::new)
             .transform(BuilderTransformers.casing(() -> TMSpriteShifts.CABLE_CASING))
             .properties(p -> p.sound(SoundType.COPPER))
+            .register();
+
+    public static final BlockEntry<OreBlock> ZIRCONIUM_ORE = REGISTRATE
+            .block("zirconium_ore", OreBlock::new)
+            .initialProperties(() -> Blocks.NETHER_GOLD_ORE)
+            .properties(p -> p.color(MaterialColor.METAL))
+            .properties(p -> p.requiresCorrectToolForDrops()
+                    .sound(SoundType.NETHER_ORE))
+            .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b,
+                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            RegistrateBlockLootTables.applyExplosionDecay(b, LootItem.lootTableItem(TMItems.RAW_ZIRCONIUM.get())
+                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.ORES)
+            .transform(tagBlockAndItem("ores/zirconium", "ores_in_ground/netherrack"))
+            .tag(Tags.Items.ORES)
+            .build()
             .register();
 
     public static void register() {}
