@@ -1,10 +1,10 @@
 
 
-<p align="center"><img src="https://user-images.githubusercontent.com/106500067/170905868-c33d367b-cd5a-44b4-bf47-302b45fee682.png" alt="Create: Ablaze Logo" width="200"></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/106500067/194943861-8a15aa07-2f95-4459-a6a6-41b3a56296b3.png" alt="Create: Ablaze Logo" width="200"></p>
 <h1 align="center">Create: Technomancy  <br>
  </h1>
-Technomancy, the mod about using the soul energy and tech to control the magical world through a form of mad science.
-Due to the latest advances in magical, technological, and soul based sciences, the creation of life death and the universe’s fundamental physics are now in your grasp. With this new initiative tech, you too can learn what it its like to will the souls of the dammed into your reality shifting based reactor and triumph over life itself! With new features such as spell casing, golomancy, alchemy and much more.
+Technomancy, is a mod about using magical energy to advance science. Whether through souls, magical fields, or stellar wind is irrelevant only progress matters. Some may call it "mad science" but it's for progress. When traditional science has failed you look for alternatives, collect souls or shadows to make your coffee maker run. Power your high tech laser weaponry with oil, made from trapped creatures possibly still alive, the sky's the limit until we find our way around that at least.
+Technomancy employs magic as an alternative to most things technical. With The Create Mod lacking in technology it's the job of technomancy to add more to the table by whatever methods necessary.
 
 </h1>
 
@@ -16,4 +16,5 @@ For more information on mod use the in-game tooltips or go for feedback on the d
 
 - Support for Minecraft 1.16: Not planned
 - Support for Fabric: Not planned
+
 
