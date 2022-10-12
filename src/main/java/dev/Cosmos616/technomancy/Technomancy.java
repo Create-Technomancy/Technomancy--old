@@ -4,8 +4,12 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.repack.registrate.util.nullness.NonNullSupplier;
 import dev.Cosmos616.technomancy.registry.TMBlockPartials;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
+import dev.Cosmos616.technomancy.registry.TMItems;
 import dev.Cosmos616.technomancy.registry.TMTileEntities;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +23,11 @@ public class Technomancy {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(MOD_ID);
+    public static final CreativeModeTab BASE_CREATIVE_TAB = new CreativeModeTab("technomancy"){
+        @Override
+        public ItemStack makeIcon(){
+            return new ItemStack(TMBlocks.QUANTUM_BATTERY_BLOCK.get());
+        }};
 
     public Technomancy() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -26,6 +35,7 @@ public class Technomancy {
 
 //        TMItems.register();
         TMBlocks.register();
+        TMItems.register();
         TMTileEntities.register();
         TMBlockPartials.init();
 

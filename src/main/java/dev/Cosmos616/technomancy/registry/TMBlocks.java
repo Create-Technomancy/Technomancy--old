@@ -32,7 +32,8 @@ import static com.simibubi.create.AllTags.tagBlockAndItem;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TMBlocks {
-    private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate();
+    private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
+            .creativeModeTab(() -> Technomancy.BASE_CREATIVE_TAB);
 
     public static final BlockEntry<SpectreCoilBlock> SPECTRE_COIL_BLOCK = REGISTRATE
             .block("spectre_coil", SpectreCoilBlock::new)
@@ -102,6 +103,7 @@ public class TMBlocks {
             .tag(Tags.Blocks.ORES)
             .transform(tagBlockAndItem("ores/zirconium", "ores_in_ground/netherrack"))
             .tag(Tags.Items.ORES)
+            .lang("Zirconium Ore")
             .build()
             .register();
 

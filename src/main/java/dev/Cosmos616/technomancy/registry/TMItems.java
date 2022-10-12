@@ -10,7 +10,7 @@ import static com.simibubi.create.AllTags.forgeItemTag;
 
 public class TMItems {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
-            ;
+            .creativeModeTab(() -> Technomancy.BASE_CREATIVE_TAB);
 
     public static final ItemEntry<Item> RAW_ZIRCONIUM =
     taggedIngredient("raw_zirconium",forgeItemTag("raw_materials/zirconium"), forgeItemTag("raw_materials"));
