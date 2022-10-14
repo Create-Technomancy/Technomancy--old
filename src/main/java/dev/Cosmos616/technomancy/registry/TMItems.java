@@ -1,7 +1,7 @@
 package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.repack.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

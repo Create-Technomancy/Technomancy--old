@@ -129,6 +129,31 @@ public class SpectreCoilTileEntity extends QuantumTileEntity implements IHaveGog
     }
 
     @Override
+    public void preventConnectivityUpdate() {
+
+    }
+
+    @Override
+    public void notifyMultiUpdated() {
+
+    }
+
+    @Override
+    public Direction.Axis getMainConnectionAxis() {
+        return null;
+    }
+
+    @Override
+    public int getMaxLength(Direction.Axis longAxis, int width) {
+        return 0;
+    }
+
+    @Override
+    public int getMaxWidth() {
+        return 0;
+    }
+
+    @Override
     public boolean isController() {
         return controller == null
                 || worldPosition.getX() == controller.getX()
@@ -177,6 +202,11 @@ public class SpectreCoilTileEntity extends QuantumTileEntity implements IHaveGog
         this.controller = controller;
         setChanged();
         sendData();
+    }
+
+    @Override
+    public void removeController(boolean keepContents) {
+
     }
 
     @Override
@@ -239,5 +269,20 @@ public class SpectreCoilTileEntity extends QuantumTileEntity implements IHaveGog
 
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public void setHeight(int height) {
+
+    }
+
+    @Override
+    public int getWidth() {
+        return 0;
+    }
+
+    @Override
+    public void setWidth(int width) {
+
     }
 }

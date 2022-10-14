@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
 import dev.Cosmos616.technomancy.content.contraptions.energy.QuantumTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -37,6 +38,11 @@ public class QuantumBatteryTileEntity extends QuantumTileEntity implements IHave
     }
 
     @Override
+    public <T extends BlockEntity & IMultiTileContainer> T getControllerTE() {
+        return null;
+    }
+
+    @Override
     public boolean isController() {
         return false;
     }
@@ -47,7 +53,57 @@ public class QuantumBatteryTileEntity extends QuantumTileEntity implements IHave
     }
 
     @Override
+    public void removeController(boolean keepContents) {
+
+    }
+
+    @Override
     public BlockPos getLastKnownPos() {
         return null;
+    }
+
+    @Override
+    public void preventConnectivityUpdate() {
+
+    }
+
+    @Override
+    public void notifyMultiUpdated() {
+
+    }
+
+    @Override
+    public Direction.Axis getMainConnectionAxis() {
+        return null;
+    }
+
+    @Override
+    public int getMaxLength(Direction.Axis longAxis, int width) {
+        return 0;
+    }
+
+    @Override
+    public int getMaxWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getHeight() {
+        return 0;
+    }
+
+    @Override
+    public void setHeight(int height) {
+
+    }
+
+    @Override
+    public int getWidth() {
+        return 0;
+    }
+
+    @Override
+    public void setWidth(int width) {
+
     }
 }

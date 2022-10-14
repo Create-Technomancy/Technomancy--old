@@ -1,9 +1,8 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil;
 
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
-import com.simibubi.create.repack.registrate.providers.DataGenContext;
-import com.simibubi.create.repack.registrate.providers.RegistrateBlockstateProvider;
-import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilBlock;
+import com.tterrag.registrate.providers.DataGenContext;
+import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.ModelFile;

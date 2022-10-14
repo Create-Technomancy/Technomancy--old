@@ -1,11 +1,15 @@
 package dev.Cosmos616.technomancy.registry;
 
+import com.simibubi.create.Create;
+import com.simibubi.create.content.contraptions.base.CutoutRotatingInstance;
+import com.simibubi.create.content.contraptions.base.KineticTileEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.repack.registrate.util.entry.BlockEntityEntry;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.QuantumBatteryTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilTileEntity;
 
 public class TMTileEntities {
 
@@ -29,6 +33,13 @@ public class TMTileEntities {
     public static final BlockEntityEntry<CableTileEntity> ENCASED_CABLE = REGISTRATE
             .tileEntity("encased_cable", CableTileEntity::new)
             .validBlocks(TMBlocks.ENCASED_CABLE_BLOCK)
+            .register();
+
+    public static final BlockEntityEntry<SoulEngineTileEntity> SOUL_ENGINE = Create.registrate()
+            .tileEntity("soul_engine", SoulEngineTileEntity::new)
+            .instance(() -> CutoutRotatingInstance::new, false)
+            .validBlocks(TMBlocks.SOUL_ENGINE)
+            .renderer(() -> KineticTileEntityRenderer::new)
             .register();
 
     public static void register() {}

@@ -115,16 +115,19 @@ configurations {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    def registrate = "com.tterrag.registrate:Registrate:${registrate_version}"
-    implementation fg.deobf(registrate)
-    shade registrate
+//    def registrate = "com.tterrag.registrate:Registrate:${registrate_version}"
+//    implementation fg.deobf(registrate)
+//    shade registrate
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
-    implementation fg.deobf("com.simibubi.create:Create:mc${mc_version}_v${create_version}")
-    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheel_version}")
+//    implementation fg.deobf("com.simibubi.create:Create:mc${mc_version}_v${create_version}")
+//    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheel_version}")
+    implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:all") { transitive = false }
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
+    compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
-    implementation fg.deobf("curse.maven:craftadditions-439890:3794929") // CC&A
+    implementation fg.deobf("curse.maven:craftadditions-439890:3989191") // CC&A
 
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
 }

@@ -34,8 +34,8 @@ public class CableTileEntity extends SmartTileEntity implements ITransformableTE
 
     @Override
     public void addBehaviours(List<TileEntityBehaviour> behaviours) {
-        behaviours.add(new BracketedTileEntityBehaviour(this, this::canHaveBracket)
-                .withTrigger(state -> AllTriggers.BRACKET_APPLY_TRIGGER.constructTriggerFor(state.getBlock())));
+        behaviours.add(new BracketedTileEntityBehaviour(this, this::canHaveBracket));
+//                .withTrigger(state -> AllTriggers.BRACKET_APPLY_TRIGGER.constructTriggerFor(state.getBlock())));
     }
 
     @Override

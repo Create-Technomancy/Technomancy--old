@@ -30,12 +30,12 @@ description='''
 [[dependencies.technomancy]]
     modId="create"
     mandatory=true
-    versionRange="[mc1.18.1_v0.4f,)"
+    versionRange="[0.5.0.d,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.technomancy]]
     modId="flywheel"
     mandatory=true
-    versionRange="[1.18-0.6.0,)"
+    versionRange="[0.6.5-91,)"
     ordering="AFTER"
     side="CLIENT"

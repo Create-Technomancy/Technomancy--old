@@ -1,15 +1,11 @@
 package dev.Cosmos616.technomancy;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.repack.registrate.util.nullness.NonNullSupplier;
-import dev.Cosmos616.technomancy.registry.TMBlockPartials;
-import dev.Cosmos616.technomancy.registry.TMBlocks;
-import dev.Cosmos616.technomancy.registry.TMItems;
-import dev.Cosmos616.technomancy.registry.TMTileEntities;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import dev.Cosmos616.technomancy.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -33,9 +29,9 @@ public class Technomancy {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
 
-//        TMItems.register();
         TMBlocks.register();
         TMItems.register();
+        TMFluids.register();
         TMTileEntities.register();
         TMBlockPartials.init();
 

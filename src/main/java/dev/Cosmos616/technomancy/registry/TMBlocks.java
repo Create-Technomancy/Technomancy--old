@@ -1,14 +1,14 @@
 package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.content.contraptions.base.CasingBlock;
+import com.simibubi.create.content.contraptions.components.waterwheel.WaterWheelBlock;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedCTBehaviour;
-import com.simibubi.create.foundation.data.AssetLookup;
-import com.simibubi.create.foundation.data.BuilderTransformers;
-import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.data.SharedProperties;
-import com.simibubi.create.repack.registrate.providers.loot.RegistrateBlockLootTables;
-import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
+import com.simibubi.create.foundation.block.BlockStressDefaults;
+import com.simibubi.create.foundation.data.*;
+import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.QuantumBatteryBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
@@ -27,8 +27,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraftforge.common.Tags;
 
-import static com.simibubi.create.AllTags.pickaxeOnly;
-import static com.simibubi.create.AllTags.tagBlockAndItem;
+import static com.simibubi.create.AllTags.*;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TMBlocks {
@@ -105,6 +104,18 @@ public class TMBlocks {
             .tag(Tags.Items.ORES)
             .lang("Zirconium Ore")
             .build()
+            .register();
+
+    public static final BlockEntry<SoulEngineBlock> SOUL_ENGINE = REGISTRATE.block("soul_engine", SoulEngineBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(p -> p.color(MaterialColor.METAL))
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(axeOrPickaxe())
+            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
+            .addLayer(() -> RenderType::cutoutMipped)
+            .transform(BlockStressDefaults.setCapacity(1024.0))
+            .transform(BlockStressDefaults.setGeneratorSpeed(SoulEngineBlock::getSpeedRange))
+            .simpleItem()
             .register();
 
     public static void register() {}
