@@ -7,22 +7,26 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.battery.QuantumBatteryTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilTileEntity;
 
 public class TMTileEntities {
 
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate();
 
-    public static final BlockEntityEntry<SpectreCoilTileEntity> SPECTRE_COIL = REGISTRATE
-            .tileEntity("spectre_coil", SpectreCoilTileEntity::new)
-            .validBlocks(TMBlocks.SPECTRE_COIL_BLOCK)
+//    public static final BlockEntityEntry<SpectreCoilTileEntity> SPECTRE_COIL = REGISTRATE
+//            .tileEntity("spectre_coil", SpectreCoilTileEntity::new)
+//            .validBlocks(TMBlocks.SPECTRE_COIL_BLOCK)
+//            .register();
+
+    public static final BlockEntityEntry<SoulBatteryTileEntity> SOUL_BATTERY = REGISTRATE
+            .tileEntity("soul_battery", SoulBatteryTileEntity::new)
+            .validBlocks(TMBlocks.SOUL_BATTERY_BLOCK)
             .register();
 
-    public static final BlockEntityEntry<QuantumBatteryTileEntity> QUANTUM_BATTERY = REGISTRATE
-            .tileEntity("quantum_battery", QuantumBatteryTileEntity::new)
-            .validBlocks(TMBlocks.QUANTUM_BATTERY_BLOCK)
+    public static final BlockEntityEntry<SoulBatteryTileEntity> CREATIVE_SOUL_BATTERY = REGISTRATE
+            .tileEntity("creative_soul_battery", SoulBatteryTileEntity::new)
+            .validBlocks(TMBlocks.CREATIVE_SOUL_BATTERY_BLOCK)
             .register();
 
     public static final BlockEntityEntry<CableTileEntity> CABLE = REGISTRATE

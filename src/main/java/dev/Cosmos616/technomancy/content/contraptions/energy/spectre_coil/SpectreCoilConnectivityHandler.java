@@ -1,5 +1,5 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil;
-
+/*
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -234,3 +234,4 @@ public class SpectreCoilConnectivityHandler {
     }
 
 }
+*/

@@ -1,7 +1,6 @@
 package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.content.contraptions.base.CasingBlock;
-import com.simibubi.create.content.contraptions.components.waterwheel.WaterWheelBlock;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedCTBehaviour;
 import com.simibubi.create.foundation.block.BlockStressDefaults;
 import com.simibubi.create.foundation.data.*;
@@ -9,14 +8,14 @@ import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.battery.QuantumBatteryBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryGenerator;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil.SpectreCoilGenerator;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.OreBlock;
@@ -34,30 +33,49 @@ public class TMBlocks {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
             .creativeModeTab(() -> Technomancy.BASE_CREATIVE_TAB);
 
-    public static final BlockEntry<SpectreCoilBlock> SPECTRE_COIL_BLOCK = REGISTRATE
-            .block("spectre_coil", SpectreCoilBlock::new)
+//    public static final BlockEntry<SpectreCoilBlock> SPECTRE_COIL_BLOCK = REGISTRATE
+//            .block("spectre_coil", SpectreCoilBlock::new)
+//            .initialProperties(SharedProperties::softMetal)
+//            .properties(p -> p
+//                    .sound(SoundType.NETHERITE_BLOCK)
+//                    .explosionResistance(1200)
+//                    .noOcclusion())
+//            .transform(pickaxeOnly())
+//            .blockstate(new SpectreCoilGenerator()::generate)
+//            .addLayer(() -> RenderType::cutoutMipped)
+//            .item()
+//            .model(AssetLookup.customBlockItemModel("_", "coil_single"))
+//            .build()
+//            .register();
+
+    public static final BlockEntry<SoulBatteryBlock> SOUL_BATTERY_BLOCK = REGISTRATE
+            .block("soul_battery", SoulBatteryBlock::regular)
             .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
             .properties(p -> p
                     .sound(SoundType.NETHERITE_BLOCK)
-                    .explosionResistance(1200)
-                    .noOcclusion())
+                    .isRedstoneConductor((p1, p2, p3) -> true))
             .transform(pickaxeOnly())
-            .blockstate(new SpectreCoilGenerator()::generate)
+            .blockstate(new SoulBatteryGenerator()::generate)
             .addLayer(() -> RenderType::cutoutMipped)
             .item()
-            .model(AssetLookup.customBlockItemModel("_", "coil_single"))
+            .model(AssetLookup.customBlockItemModel("_", "block_single"))
             .build()
             .register();
 
-    public static final BlockEntry<QuantumBatteryBlock> QUANTUM_BATTERY_BLOCK = REGISTRATE
-            .block("quantum_battery", QuantumBatteryBlock::new)
+    public static final BlockEntry<SoulBatteryBlock> CREATIVE_SOUL_BATTERY_BLOCK = REGISTRATE
+            .block("creative_soul_battery", SoulBatteryBlock::creative)
             .initialProperties(SharedProperties::softMetal)
-            .properties(p -> p.sound(SoundType.NETHERITE_BLOCK)
-                    .explosionResistance(1200))
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .properties(p -> p
+                    .sound(SoundType.NETHERITE_BLOCK)
+                    .isRedstoneConductor((p1, p2, p3) -> true))
             .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.simpleBlock(c.get(), p.models().getExistingFile(p.modLoc("block/quantum_battery"))))
+            .blockstate(new SoulBatteryGenerator("creative_")::generate)
             .addLayer(() -> RenderType::cutoutMipped)
             .item()
+            .properties(p -> p.rarity(Rarity.EPIC))
+            .model(AssetLookup.customBlockItemModel("_", "block_single"))
             .build()
             .register();
 

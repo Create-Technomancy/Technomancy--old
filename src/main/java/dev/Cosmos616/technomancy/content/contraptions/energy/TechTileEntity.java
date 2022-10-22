@@ -2,7 +2,7 @@ package dev.Cosmos616.technomancy.content.contraptions.energy;
 
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import dev.Cosmos616.technomancy.foundation.quantum.QuantumStorage;
+import dev.Cosmos616.technomancy.foundation.quantum.SoulEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -15,21 +15,21 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import java.util.List;
+/*
+public abstract class TechTileEntity extends SmartTileEntity {
 
-public abstract class QuantumTileEntity extends SmartTileEntity {
-
-    protected QuantumStorage quantumStorage;
+    protected SoulEnergyStorage SEStorage;
     protected LazyOptional<IEnergyStorage> energyCapability;
     protected final int CAPACITY, MAX_IN, MAX_OUT;
     private boolean init = true;
 
-    public QuantumTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int CAPACITY, int MAX_IN, int MAX_OUT) {
+    public TechTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int CAPACITY, int MAX_IN, int MAX_OUT) {
         super(type, pos, state);
-        quantumStorage = new QuantumStorage(CAPACITY, MAX_IN, MAX_OUT);
+        SEStorage = new SoulEnergyStorage(CAPACITY);
         this.CAPACITY = CAPACITY;
         this.MAX_IN = MAX_IN;
         this.MAX_OUT = MAX_OUT;
-        energyCapability = LazyOptional.of(() -> quantumStorage);
+        energyCapability = LazyOptional.of(() -> SEStorage);
         setLazyTickRate(20);
     }
 
@@ -50,13 +50,13 @@ public abstract class QuantumTileEntity extends SmartTileEntity {
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
-        quantumStorage.read(compound);
+        SEStorage.deserializeNBT(compound);
     }
 
     @Override
     public void write(CompoundTag compound, boolean clientPacket) {
         super.write(compound, clientPacket);
-        quantumStorage.write(compound);
+        SEStorage.serializeNBT();
     }
 
     @Override
@@ -120,3 +120,4 @@ public abstract class QuantumTileEntity extends SmartTileEntity {
         };
     }
 }
+*/

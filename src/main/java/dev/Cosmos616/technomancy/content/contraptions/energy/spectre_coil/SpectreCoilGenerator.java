@@ -1,5 +1,5 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil;
-
+/*
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
@@ -35,3 +35,4 @@ public class SpectreCoilGenerator extends SpecialBlockStateGen {
         return prov.models().getExistingFile(prov.modLoc("block/spectre_coil/coil_" + shapeName));
     }
 }
+*/

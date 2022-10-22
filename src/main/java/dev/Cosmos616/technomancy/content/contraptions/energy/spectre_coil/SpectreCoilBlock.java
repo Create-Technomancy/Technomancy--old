@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-
+/*
 @ParametersAreNonnullByDefault
 public class SpectreCoilBlock extends Block implements ITE<SpectreCoilTileEntity> {
 
@@ -65,3 +65,4 @@ public class SpectreCoilBlock extends Block implements ITE<SpectreCoilTileEntity
         return TMTileEntities.SPECTRE_COIL.get();
     }
 }
+*/

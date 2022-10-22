@@ -1,9 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.spectre_coil;
-
+/*
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import dev.Cosmos616.technomancy.content.contraptions.energy.QuantumTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.TechTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-public class SpectreCoilTileEntity extends QuantumTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
+public class SpectreCoilTileEntity extends TechTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
 
     protected BlockPos controller;
     protected BlockPos lastKnownPos;
@@ -286,3 +286,4 @@ public class SpectreCoilTileEntity extends QuantumTileEntity implements IHaveGog
 
     }
 }
+*/

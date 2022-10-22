@@ -10,11 +10,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
+/*
 //Handler for LevelChunk
 public class QuantumHandler implements ICapabilitySerializable<CompoundTag> {
 
@@ -35,11 +36,11 @@ public class QuantumHandler implements ICapabilitySerializable<CompoundTag> {
         });
     }
 
-    private final QuantumStorage handler;
-    private final LazyOptional<QuantumStorage> energyCapability;
+    private final EnergyStorage handler;
+    private final LazyOptional<EnergyStorage> energyCapability;
 
     public QuantumHandler() {
-        handler = new QuantumStorage(100, 100, 100 , 100); // initial energy should be slightly random
+        handler = new EnergyStorage(100, 100, 100 , 100); // initial energy should be slightly random
         energyCapability = LazyOptional.of(() -> handler);
     }
 
@@ -51,10 +52,10 @@ public class QuantumHandler implements ICapabilitySerializable<CompoundTag> {
     }
 
     public CompoundTag serializeNBT(){
-        return handler.write(new CompoundTag());
+        return (CompoundTag) handler.serializeNBT();
     }
 
     public void deserializeNBT(CompoundTag nbt){
-        handler.read(nbt);
+        handler.deserializeNBT(nbt);
     }
-}
+}*/
