@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 @Mod(Technomancy.MOD_ID)
 public class Technomancy {
     public static final String MOD_ID = "technomancy";
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(MOD_ID);
     public static final CreativeModeTab BASE_CREATIVE_TAB = new CreativeModeTab("technomancy"){
@@ -28,6 +28,8 @@ public class Technomancy {
     public Technomancy() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
+        
+        eventBus.addListener(TMCapabilities::registerCapabilities);
 
         TMBlocks.register();
         TMItems.register();
@@ -42,4 +44,6 @@ public class Technomancy {
     public static CreateRegistrate getRegistrate() {
         return REGISTRATE.get();
     }
+    
+    
 }

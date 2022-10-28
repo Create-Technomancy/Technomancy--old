@@ -1,20 +1,5 @@
-package dev.Cosmos616.technomancy.foundation.quantum;
+package dev.Cosmos616.technomancy.foundation.energy;
 
-import dev.Cosmos616.technomancy.Technomancy;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 /*
 //Handler for LevelChunk
 public class QuantumHandler implements ICapabilitySerializable<CompoundTag> {

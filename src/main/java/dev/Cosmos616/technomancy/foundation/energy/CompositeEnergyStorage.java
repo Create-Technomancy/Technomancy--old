@@ -1,4 +1,4 @@
-package dev.Cosmos616.technomancy.foundation.quantum;
+package dev.Cosmos616.technomancy.foundation.energy;
 
 import net.minecraftforge.energy.IEnergyStorage;
 

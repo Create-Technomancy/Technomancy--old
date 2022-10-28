@@ -3,7 +3,7 @@ package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 import com.simibubi.create.content.contraptions.fluids.pipes.AxisPipeBlock;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Pair;
-import dev.Cosmos616.technomancy.foundation.quantum.CompositeEnergyStorage;
+import dev.Cosmos616.technomancy.foundation.energy.CompositeEnergyStorage;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

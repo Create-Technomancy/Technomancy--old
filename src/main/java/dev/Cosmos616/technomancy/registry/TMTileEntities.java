@@ -6,6 +6,8 @@ import com.simibubi.create.content.contraptions.base.KineticTileEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRenderer;
+import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
@@ -44,6 +46,12 @@ public class TMTileEntities {
             .instance(() -> CutoutRotatingInstance::new, false)
             .validBlocks(TMBlocks.SOUL_ENGINE)
             .renderer(() -> KineticTileEntityRenderer::new)
+            .register();
+    
+    public static final BlockEntityEntry<LaserTileEntity> LASER = REGISTRATE
+            .tileEntity("laser", LaserTileEntity::new)
+            .validBlocks(TMBlocks.LASER)
+            .renderer(() -> LaserRenderer::new)
             .register();
 
     public static void register() {}

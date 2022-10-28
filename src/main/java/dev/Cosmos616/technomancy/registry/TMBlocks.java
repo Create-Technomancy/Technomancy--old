@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlock;
 import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryGenerator;
@@ -135,6 +136,16 @@ public class TMBlocks {
             .transform(BlockStressDefaults.setGeneratorSpeed(SoulEngineBlock::getSpeedRange))
             .simpleItem()
             .register();
+    
+    public static final BlockEntry<LaserBlock> LASER = REGISTRATE
+            .block("laser", LaserBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .properties((p) -> p.sound(SoundType.NETHERITE_BLOCK))
+            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
+            .simpleItem()
+            .register();
+            
 
     public static void register() {}
 }

@@ -14,7 +14,10 @@ import java.util.Map;
 public class TMBlockPartials {
 
     public static final PartialModel
-            CABLE_CASING = block("cable/casing");
+            CABLE_CASING = block("cable/casing"),
+    
+            LASER_BEAM_INNER = block("laser/beam_inner"),
+            LASER_BEAM_OUTER = block("laser/beam_outer");
 
     public static final Map<CableTileEntity.AttachmentTypes, Map<Direction, PartialModel>> CABLE_ATTACHMENTS =
             new EnumMap<>(CableTileEntity.AttachmentTypes.class);

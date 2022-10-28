@@ -2,15 +2,11 @@ package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.contraptions.fluids.tank.FluidTankBlock;
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankTileEntity;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.config.AllConfigs;
-import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import dev.Cosmos616.technomancy.foundation.quantum.SoulEnergyStorage;
+import dev.Cosmos616.technomancy.foundation.energy.SoulEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -23,10 +19,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
