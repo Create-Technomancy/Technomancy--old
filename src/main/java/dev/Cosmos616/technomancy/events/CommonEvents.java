@@ -2,8 +2,12 @@ package dev.Cosmos616.technomancy.events;
 
 import com.simibubi.create.content.contraptions.components.structureMovement.train.capability.CapabilityMinecartController;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.foundation.energy.ISoulEnergyStorage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -30,13 +34,14 @@ public class CommonEvents {
     public static void onWorldTick(TickEvent.WorldTickEvent event){
 
     }
-
+    
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModBusEvents {
 
         @SubscribeEvent
         public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 //            event.register(QuantumHandler.class);
+            event.register(ISoulEnergyStorage.class); // Soul Energy
         }
 
     }
