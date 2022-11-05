@@ -1,6 +1,5 @@
 package dev.Cosmos616.technomancy.registry;
 
-import com.simibubi.create.content.curiosities.tools.ExtendoGripItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
@@ -22,8 +21,8 @@ public class TMItems {
             .model(AssetLookup.itemModelWithPartials())
             .register();
 
-    public static final ItemEntry<Item> RAW_ZIRCONIUM =
-    taggedIngredient("raw_zirconium",forgeItemTag("raw_materials/zirconium"), forgeItemTag("raw_materials"));
+    public static final ItemEntry<Item> ZIRCON_SHARD =
+    taggedIngredient("zircon_shard",forgeItemTag("gem/zircon_shard"), forgeItemTag("gem"));
 
     @SafeVarargs
     private static ItemEntry<Item> taggedIngredient(String name, TagKey<Item>... tags) {

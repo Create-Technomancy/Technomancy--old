@@ -2,13 +2,11 @@ package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.content.contraptions.base.CasingBlock;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedCTBehaviour;
-import com.simibubi.create.foundation.block.BlockStressDefaults;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlock;
-import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryGenerator;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
@@ -27,7 +25,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraftforge.common.Tags;
 
-import static com.simibubi.create.AllTags.*;
+import static com.simibubi.create.AllTags.pickaxeOnly;
+import static com.simibubi.create.AllTags.tagBlockAndItem;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TMBlocks {
@@ -106,8 +105,8 @@ public class TMBlocks {
             .properties(p -> p.sound(SoundType.COPPER))
             .register();
 
-    public static final BlockEntry<OreBlock> ZIRCONIUM_ORE = REGISTRATE
-            .block("zirconium_ore", OreBlock::new)
+    public static final BlockEntry<OreBlock> ZIRCON_ORE = REGISTRATE
+            .block("zircon_ore", OreBlock::new)
             .initialProperties(() -> Blocks.NETHER_GOLD_ORE)
             .properties(p -> p.color(MaterialColor.METAL))
             .properties(p -> p.requiresCorrectToolForDrops()
@@ -115,34 +114,22 @@ public class TMBlocks {
             .transform(pickaxeOnly())
             .loot((lt, b) -> lt.add(b,
                     RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
-                            RegistrateBlockLootTables.applyExplosionDecay(b, LootItem.lootTableItem(TMItems.RAW_ZIRCONIUM.get())
+                            RegistrateBlockLootTables.applyExplosionDecay(b, LootItem.lootTableItem(TMItems.ZIRCON_SHARD.get())
                                     .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
-            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(BlockTags.NEEDS_DIAMOND_TOOL)
             .tag(Tags.Blocks.ORES)
-            .transform(tagBlockAndItem("ores/zirconium", "ores_in_ground/netherrack"))
+            .transform(tagBlockAndItem("ores/zircon", "ores_in_ground/netherrack"))
             .tag(Tags.Items.ORES)
-            .lang("Zirconium Ore")
+            .lang("Zircon Ore")
             .build()
             .register();
 
-    public static final BlockEntry<SoulEngineBlock> SOUL_ENGINE = REGISTRATE.block("soul_engine", SoulEngineBlock::new)
-            .initialProperties(SharedProperties::softMetal)
-            .properties(p -> p.color(MaterialColor.METAL))
-            .properties(BlockBehaviour.Properties::noOcclusion)
-            .transform(axeOrPickaxe())
-            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
-            .addLayer(() -> RenderType::cutoutMipped)
-            .transform(BlockStressDefaults.setCapacity(1024.0))
-            .transform(BlockStressDefaults.setGeneratorSpeed(SoulEngineBlock::getSpeedRange))
-            .simpleItem()
-            .register();
-    
     public static final BlockEntry<LaserBlock> LASER = REGISTRATE
             .block("laser", LaserBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .properties((p) -> p.sound(SoundType.NETHERITE_BLOCK))
-            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
+//            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
             .simpleItem()
             .register();
             

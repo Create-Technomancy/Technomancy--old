@@ -25,7 +25,7 @@
                   }
                 }
               ],
-              "name": "technomancy:zirconium_ore"
+              "name": "technomancy:zircon_ore"
             },
             {
               "type": "minecraft:item",
@@ -39,7 +39,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "technomancy:zircon"
+              "name": "technomancy:zircon_shard"
             }
           ]
         }
