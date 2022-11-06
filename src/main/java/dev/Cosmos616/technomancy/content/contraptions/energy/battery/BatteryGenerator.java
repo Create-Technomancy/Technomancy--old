@@ -1,6 +1,5 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankBlock;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -9,15 +8,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.ModelFile;
 
-public class SoulBatteryGenerator extends SpecialBlockStateGen {
+public class BatteryGenerator extends SpecialBlockStateGen {
 
     private String prefix;
 
-    public SoulBatteryGenerator() {
+    public BatteryGenerator() {
         this("");
     }
 
-    public SoulBatteryGenerator(String prefix) {
+    public BatteryGenerator(String prefix) {
         this.prefix = prefix;
     }
 
@@ -34,23 +33,25 @@ public class SoulBatteryGenerator extends SpecialBlockStateGen {
     @Override
     public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
                                                 BlockState state) {
-        Boolean top = state.getValue(SoulBatteryBlock.TOP);
-        Boolean bottom = state.getValue(SoulBatteryBlock.BOTTOM);
+        Boolean top = state.getValue(BatteryBlock.TOP);
+        Boolean bottom = state.getValue(BatteryBlock.BOTTOM);
+        BatteryBlock.Shape shape = state.getValue(BatteryBlock.SHAPE);
 
-        String modelName = "single";
-//        String modelName = "middle";
-//        if (top && bottom)
-//            modelName = "single";
-//        else if (top)
-//            modelName = "top";
-//        else if (bottom)
-//            modelName = "bottom";
+        String shapeName = "middle";
+        if (top && bottom)
+            shapeName = "single";
+        else if (top)
+            shapeName = "top";
+        else if (bottom)
+            shapeName = "bottom";
+
+        String modelName = shapeName + (shape == BatteryBlock.Shape.SINGLE ? "" : "_" + shape.getSerializedName());
 
         if (!prefix.isEmpty())
-            modelName = prefix + modelName;
-//            return prov.models()
-//                    .withExistingParent(prefix + modelName, prov.modLoc("block/soul_battery/block_" + modelName))
-//                    .texture("0", prov.modLoc("block/" + prefix + "casing"))
+//            modelName = prefix + modelName;
+            return prov.models()
+                    .withExistingParent(prefix + modelName, prov.modLoc("block/battery/block_" + modelName));
+//                    .texture("0", prov.modLoc("block/" + prefix + "casing"));
 //                    .texture("1", prov.modLoc("block/" + prefix + "fluid_tank"))
 //                    .texture("3", prov.modLoc("block/" + prefix + "fluid_tank_window"))
 //                    .texture("4", prov.modLoc("block/" + prefix + "casing"))

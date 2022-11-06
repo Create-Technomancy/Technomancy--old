@@ -8,9 +8,8 @@ import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlock;
-import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryGenerator;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryGenerator;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
@@ -49,30 +48,30 @@ public class TMBlocks {
 //            .build()
 //            .register();
 
-    public static final BlockEntry<SoulBatteryBlock> SOUL_BATTERY_BLOCK = REGISTRATE
-            .block("soul_battery", SoulBatteryBlock::regular)
+    public static final BlockEntry<BatteryBlock> BATTERY_BLOCK = REGISTRATE
+            .block("battery", BatteryBlock::regular)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .properties(p -> p
                     .sound(SoundType.NETHERITE_BLOCK)
                     .isRedstoneConductor((p1, p2, p3) -> true))
             .transform(pickaxeOnly())
-            .blockstate(new SoulBatteryGenerator()::generate)
+            .blockstate(new BatteryGenerator()::generate)
             .addLayer(() -> RenderType::cutoutMipped)
             .item()
             .model(AssetLookup.customBlockItemModel("_", "block_single"))
             .build()
             .register();
 
-    public static final BlockEntry<SoulBatteryBlock> CREATIVE_SOUL_BATTERY_BLOCK = REGISTRATE
-            .block("creative_soul_battery", SoulBatteryBlock::creative)
+    public static final BlockEntry<BatteryBlock> CREATIVE_BATTERY_BLOCK = REGISTRATE
+            .block("creative_battery", BatteryBlock::creative)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .properties(p -> p
                     .sound(SoundType.NETHERITE_BLOCK)
                     .isRedstoneConductor((p1, p2, p3) -> true))
             .transform(pickaxeOnly())
-            .blockstate(new SoulBatteryGenerator("creative_")::generate)
+            .blockstate(new BatteryGenerator("creative_")::generate)
             .addLayer(() -> RenderType::cutoutMipped)
             .item()
             .properties(p -> p.rarity(Rarity.EPIC))
@@ -123,18 +122,6 @@ public class TMBlocks {
             .tag(Tags.Items.ORES)
             .lang("Zirconium Ore")
             .build()
-            .register();
-
-    public static final BlockEntry<SoulEngineBlock> SOUL_ENGINE = REGISTRATE.block("soul_engine", SoulEngineBlock::new)
-            .initialProperties(SharedProperties::softMetal)
-            .properties(p -> p.color(MaterialColor.METAL))
-            .properties(BlockBehaviour.Properties::noOcclusion)
-            .transform(axeOrPickaxe())
-            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
-            .addLayer(() -> RenderType::cutoutMipped)
-            .transform(BlockStressDefaults.setCapacity(1024.0))
-            .transform(BlockStressDefaults.setGeneratorSpeed(SoulEngineBlock::getSpeedRange))
-            .simpleItem()
             .register();
     
     public static final BlockEntry<LaserBlock> LASER = REGISTRATE

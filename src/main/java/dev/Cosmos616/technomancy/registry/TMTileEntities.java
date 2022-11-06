@@ -8,8 +8,7 @@ import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.components.soulengine.SoulEngineTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.battery.SoulBatteryTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
 
 public class TMTileEntities {
@@ -21,14 +20,14 @@ public class TMTileEntities {
 //            .validBlocks(TMBlocks.SPECTRE_COIL_BLOCK)
 //            .register();
 
-    public static final BlockEntityEntry<SoulBatteryTileEntity> SOUL_BATTERY = REGISTRATE
-            .tileEntity("soul_battery", SoulBatteryTileEntity::new)
-            .validBlocks(TMBlocks.SOUL_BATTERY_BLOCK)
+    public static final BlockEntityEntry<BatteryTileEntity> BATTERY = REGISTRATE
+            .tileEntity("soul_battery", BatteryTileEntity::new)
+            .validBlocks(TMBlocks.BATTERY_BLOCK)
             .register();
 
-    public static final BlockEntityEntry<SoulBatteryTileEntity> CREATIVE_SOUL_BATTERY = REGISTRATE
-            .tileEntity("creative_soul_battery", SoulBatteryTileEntity::new)
-            .validBlocks(TMBlocks.CREATIVE_SOUL_BATTERY_BLOCK)
+    public static final BlockEntityEntry<BatteryTileEntity> CREATIVE_BATTERY = REGISTRATE
+            .tileEntity("creative_soul_battery", BatteryTileEntity::new)
+            .validBlocks(TMBlocks.CREATIVE_BATTERY_BLOCK)
             .register();
 
     public static final BlockEntityEntry<CableTileEntity> CABLE = REGISTRATE
@@ -39,13 +38,6 @@ public class TMTileEntities {
     public static final BlockEntityEntry<CableTileEntity> ENCASED_CABLE = REGISTRATE
             .tileEntity("encased_cable", CableTileEntity::new)
             .validBlocks(TMBlocks.ENCASED_CABLE_BLOCK)
-            .register();
-
-    public static final BlockEntityEntry<SoulEngineTileEntity> SOUL_ENGINE = Create.registrate()
-            .tileEntity("soul_engine", SoulEngineTileEntity::new)
-            .instance(() -> CutoutRotatingInstance::new, false)
-            .validBlocks(TMBlocks.SOUL_ENGINE)
-            .renderer(() -> KineticTileEntityRenderer::new)
             .register();
     
     public static final BlockEntityEntry<LaserTileEntity> LASER = REGISTRATE
