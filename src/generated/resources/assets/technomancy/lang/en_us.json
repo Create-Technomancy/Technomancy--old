@@ -1,8 +1,16 @@
 {
+  "block.technomancy.battery": "Battery",
   "block.technomancy.cable": "Cable",
   "block.technomancy.cable_casing": "Cable Casing",
+  "block.technomancy.creative_battery": "Creative Battery",
   "block.technomancy.encased_cable": "Encased Cable",
-  "block.technomancy.quantum_battery": "Quantum Battery",
-  "block.technomancy.spectre_coil": "Spectre Coil",
-  "block.technomancy.zirconium_ore": "Zirconium Ore"
+  "block.technomancy.laser": "Laser",
+  "block.technomancy.zircon_ore": "Zircon Ore",
+  "item.technomancy.ceramic_dust": "Ceramic Dust",
+  "item.technomancy.ceramic_plate": "Ceramic Plate",
+  "item.technomancy.zircon_dust": "Zircon Dust",
+  "item.technomancy.zircon_shard": "Zircon Shard",
+  "item.technomancy.zirconium_ingot": "Zirconium Ingot",
+  "item.technomancy.zirconium_nugget": "Zirconium Nugget",
+  "item.technomancy.zirconium_sheet": "Zirconium Sheet"
 }

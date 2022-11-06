@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "bottom=false,shape=single,top=false": {
+      "model": "technomancy:block/battery/block_middle"
+    },
+    "bottom=true,shape=single,top=false": {
+      "model": "technomancy:block/battery/block_bottom"
+    },
+    "bottom=false,shape=nw,top=false": {
+      "model": "technomancy:block/battery/block_middle_nw"
+    },
+    "bottom=true,shape=nw,top=false": {
+      "model": "technomancy:block/battery/block_bottom_nw"
+    },
+    "bottom=false,shape=sw,top=false": {
+      "model": "technomancy:block/battery/block_middle_sw"
+    },
+    "bottom=true,shape=sw,top=false": {
+      "model": "technomancy:block/battery/block_bottom_sw"
+    },
+    "bottom=false,shape=ne,top=false": {
+      "model": "technomancy:block/battery/block_middle_ne"
+    },
+    "bottom=true,shape=ne,top=false": {
+      "model": "technomancy:block/battery/block_bottom_ne"
+    },
+    "bottom=false,shape=se,top=false": {
+      "model": "technomancy:block/battery/block_middle_se"
+    },
+    "bottom=true,shape=se,top=false": {
+      "model": "technomancy:block/battery/block_bottom_se"
+    },
+    "bottom=false,shape=single,top=true": {
+      "model": "technomancy:block/battery/block_top"
+    },
+    "bottom=true,shape=single,top=true": {
+      "model": "technomancy:block/battery/block_single"
+    },
+    "bottom=false,shape=nw,top=true": {
+      "model": "technomancy:block/battery/block_top_nw"
+    },
+    "bottom=true,shape=nw,top=true": {
+      "model": "technomancy:block/battery/block_single_nw"
+    },
+    "bottom=false,shape=sw,top=true": {
+      "model": "technomancy:block/battery/block_top_sw"
+    },
+    "bottom=true,shape=sw,top=true": {
+      "model": "technomancy:block/battery/block_single_sw"
+    },
+    "bottom=false,shape=ne,top=true": {
+      "model": "technomancy:block/battery/block_top_ne"
+    },
+    "bottom=true,shape=ne,top=true": {
+      "model": "technomancy:block/battery/block_single_ne"
+    },
+    "bottom=false,shape=se,top=true": {
+      "model": "technomancy:block/battery/block_top_se"
+    },
+    "bottom=true,shape=se,top=true": {
+      "model": "technomancy:block/battery/block_single_se"
+    }
+  }
+}

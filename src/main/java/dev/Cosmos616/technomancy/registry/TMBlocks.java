@@ -9,6 +9,7 @@ import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryGenerator;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryItem;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
@@ -58,7 +59,7 @@ public class TMBlocks {
             .transform(pickaxeOnly())
             .blockstate(new BatteryGenerator()::generate)
             .addLayer(() -> RenderType::cutoutMipped)
-            .item()
+            .item(BatteryItem::new)
             .model(AssetLookup.customBlockItemModel("_", "block_single"))
             .build()
             .register();
@@ -73,9 +74,12 @@ public class TMBlocks {
             .transform(pickaxeOnly())
             .blockstate(new BatteryGenerator("creative_")::generate)
             .addLayer(() -> RenderType::cutoutMipped)
-            .item()
+            .item(BatteryItem::new)
             .properties(p -> p.rarity(Rarity.EPIC))
-            .model(AssetLookup.customBlockItemModel("_", "block_single"))
+//            .model(AssetLookup.customBlockItemModel("_", "block_single"))
+            .model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/battery/block_single"))
+                    .texture("0", p.modLoc("block/battery/battery_1x1"))
+                    .texture("particle", p.modLoc("block/battery/battery_1x1")))
             .build()
             .register();
 
@@ -120,7 +124,7 @@ public class TMBlocks {
             .tag(Tags.Blocks.ORES)
             .transform(tagBlockAndItem("ores/zircon", "ores_in_ground/netherrack"))
             .tag(Tags.Items.ORES)
-            .lang("Zircon Ore")
+//            .lang("Zircon Ore")
             .build()
             .register();
 

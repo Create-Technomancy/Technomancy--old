@@ -1,7 +1,16 @@
 {
+  "block.technomancy.battery": "\u028E\u0279\u01DD\u0287\u0287\u0250\u15FA",
   "block.technomancy.cable": "\u01DD\u05DFq\u0250\u0186",
   "block.technomancy.cable_casing": "bu\u0131s\u0250\u0186 \u01DD\u05DFq\u0250\u0186",
+  "block.technomancy.creative_battery": "\u028E\u0279\u01DD\u0287\u0287\u0250\u15FA \u01DD\u028C\u0131\u0287\u0250\u01DD\u0279\u0186",
   "block.technomancy.encased_cable": "\u01DD\u05DFq\u0250\u0186 p\u01DDs\u0250\u0254u\u018E",
-  "block.technomancy.quantum_battery": "\u028E\u0279\u01DD\u0287\u0287\u0250\u15FA \u026Fn\u0287u\u0250n\u1F49",
-  "block.technomancy.spectre_coil": "\u05DF\u0131o\u0186 \u01DD\u0279\u0287\u0254\u01DDdS"
+  "block.technomancy.laser": "\u0279\u01DDs\u0250\uA780",
+  "block.technomancy.zircon_ore": "\u01DD\u0279O uo\u0254\u0279\u0131Z",
+  "item.technomancy.ceramic_dust": "\u0287sn\u15E1 \u0254\u0131\u026F\u0250\u0279\u01DD\u0186",
+  "item.technomancy.ceramic_plate": "\u01DD\u0287\u0250\u05DF\u0500 \u0254\u0131\u026F\u0250\u0279\u01DD\u0186",
+  "item.technomancy.zircon_dust": "\u0287sn\u15E1 uo\u0254\u0279\u0131Z",
+  "item.technomancy.zircon_shard": "p\u0279\u0250\u0265S uo\u0254\u0279\u0131Z",
+  "item.technomancy.zirconium_ingot": "\u0287obuI \u026Fn\u0131uo\u0254\u0279\u0131Z",
+  "item.technomancy.zirconium_nugget": "\u0287\u01DDbbnN \u026Fn\u0131uo\u0254\u0279\u0131Z",
+  "item.technomancy.zirconium_sheet": "\u0287\u01DD\u01DD\u0265S \u026Fn\u0131uo\u0254\u0279\u0131Z"
 }

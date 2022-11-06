@@ -8,15 +8,16 @@ public class SoulEnergyStorage extends EnergyStorage {
         super(capacity);
     }
 
-    public SoulEnergyStorage(int capacity, int energy) {
-        super(capacity);
-        this.energy = energy;
+    public SoulEnergyStorage(int capacity, int maxTransfer) {
+        super(capacity, maxTransfer);
     }
-    
-    public int consumeEnergy(int energy) {
-        int oenergy = this.energy;
-        this.energy = Math.max(0, this.energy - energy);
-        return oenergy - this.energy;
+
+    public SoulEnergyStorage(int capacity, int maxReceive, int maxExtract) {
+        super(capacity, maxReceive, maxExtract);
+    }
+
+    public SoulEnergyStorage(int capacity, int maxReceive, int maxExtract, int energy) {
+        super(capacity, maxReceive, maxExtract, energy);
     }
 
     public int setEnergy(int energy) {

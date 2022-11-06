@@ -25,6 +25,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import static java.lang.Math.abs;
+
 public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
 
     private static final int MAX_SIZE = 3;
@@ -104,6 +106,31 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
         syncCooldown = 0;
         queuedSync = false;
         sendData();
+    }
+
+    public void setShapes() {
+        for (int yOffset = 0; yOffset < height; yOffset++) {
+            for (int xOffset = 0; xOffset < width; xOffset++) {
+                for (int zOffset = 0; zOffset < width; zOffset++) {
+
+                    BlockPos pos = this.worldPosition.offset(xOffset, yOffset, zOffset);
+                    BlockState blockState = level.getBlockState(pos);
+                    if (!BatteryBlock.isBattery(blockState))
+                        continue;
+
+                    BatteryBlock.Shape shape = BatteryBlock.Shape.SINGLE;
+                    // SIZE 2: Every battery is a corner
+                    if (width == 2)
+                        shape = xOffset == 0 ? zOffset == 0 ? BatteryBlock.Shape.NW : BatteryBlock.Shape.SW
+                                : zOffset == 0 ? BatteryBlock.Shape.NE : BatteryBlock.Shape.SE;
+
+                    level.setBlock(pos, blockState.setValue(BatteryBlock.SHAPE, shape), 22);
+                    level.getChunkSource()
+                            .getLightEngine()
+                            .checkBlock(pos);
+                }
+            }
+        }
     }
 
     @Override
@@ -254,9 +281,10 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
         height = 1;
 
         BlockState state = getBlockState();
-        if (FluidTankBlock.isTank(state)) {
-            state = state.setValue(FluidTankBlock.BOTTOM, true);
-            state = state.setValue(FluidTankBlock.TOP, true);
+        if (BatteryBlock.isBattery(state)) {
+            state = state.setValue(BatteryBlock.BOTTOM, true);
+            state = state.setValue(BatteryBlock.TOP, true);
+            state = state.setValue(BatteryBlock.SHAPE, BatteryBlock.Shape.SINGLE);
             getLevel().setBlock(worldPosition, state, 22);
         }
 
@@ -295,6 +323,8 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
             state = state.setValue(BatteryBlock.TOP, getController().getY() + height - 1 == getBlockPos().getY());
             level.setBlock(getBlockPos(), state, 6);
         }
+        if (isController())
+            setShapes();
         setChanged();
     }
 

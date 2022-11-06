@@ -28,7 +28,8 @@ public class LaserTileEntity extends SmartTileEntity implements IHaveGoggleInfor
 	
 	public LaserTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		this.lazyEnergy = LazyOptional.of(() -> (internalCapacity = new SoulEnergyStorage(getCapacity())));
+		this.internalCapacity = new SoulEnergyStorage(getCapacity());
+		this.lazyEnergy = LazyOptional.of(() -> internalCapacity);
 		this.setLazyTickRate(12);
 	}
 	
@@ -74,8 +75,8 @@ public class LaserTileEntity extends SmartTileEntity implements IHaveGoggleInfor
 		
 		// Consume energy
 		if (this.running)
-			this.internalCapacity.consumeEnergy(getConsumptionRate());;
-		//this.internalCapacity.extractEnergy(getConsumptionRate(), true); ???
+//			this.internalCapacity.consumeEnergy(getConsumptionRate());;
+		this.internalCapacity.extractEnergy(getConsumptionRate(), false); //???
 	}
 	
 	public void tickBeam() {

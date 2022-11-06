@@ -19,21 +19,21 @@ public class TMFluids {
 //            .tag(AllTags.forgeFluidTag("liquid_souls"))
 //            .register();
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> LIQUID_SOULS =
-            REGISTRATE.standardFluid("liquid_souls", NoColorFluidAttributes::new)
-                    .lang(f -> "fluid.technomancy.liquid_souls", "Nightmare Fuel")
-                    .attributes(b -> b.viscosity(2000)
-                            .density(1400))
-                    .properties(p -> p.levelDecreasePerBlock(2)
-                            .tickRate(25)
-                            .slopeFindDistance(3)
-                            .explosionResistance(100f))
-                    .tag(AllTags.AllFluidTags.HONEY.tag)
-                    .source(ForgeFlowingFluid.Source::new)
-                    .bucket()
-                    .tag(AllTags.forgeItemTag("buckets/liquid_souls"))
-                    .build()
-                    .register();
+//    public static final FluidEntry<ForgeFlowingFluid.Flowing> LIQUID_SOULS =
+//            REGISTRATE.standardFluid("liquid_souls", NoColorFluidAttributes::new)
+//                    .lang(f -> "fluid.technomancy.liquid_souls", "Nightmare Fuel")
+//                    .attributes(b -> b.viscosity(2000)
+//                            .density(1400))
+//                    .properties(p -> p.levelDecreasePerBlock(2)
+//                            .tickRate(25)
+//                            .slopeFindDistance(3)
+//                            .explosionResistance(100f))
+//                    .tag(AllTags.AllFluidTags.HONEY.tag)
+//                    .source(ForgeFlowingFluid.Source::new)
+//                    .bucket()
+//                    .tag(AllTags.forgeItemTag("buckets/liquid_souls"))
+//                    .build()
+//                    .register();
 
     public static void register() {}
 
