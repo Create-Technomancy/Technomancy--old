@@ -336,17 +336,17 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
     @Override
     public int getMaxLength(Direction.Axis longAxis, int width) {
         if (longAxis == Direction.Axis.Y)
-            return getMaxHeight();
+            return getMaxHeight(width);
         return getMaxWidth();
     }
 
     @Override
     public int getMaxWidth() {
-        return 1;
+        return 2;
     }
 
-    public int getMaxHeight() {
-        return 3;
+    public int getMaxHeight(int width) {
+        return 1 + 2 * width;
     }
 
     @Override
@@ -361,11 +361,11 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
 
     @Override
     public int getWidth() {
-        return 1;
+        return width;
     }
 
     @Override
     public void setWidth(int width) {
-
+        this.width = width;
     }
 }

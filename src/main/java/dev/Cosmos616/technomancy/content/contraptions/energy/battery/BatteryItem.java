@@ -1,8 +1,8 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
-import com.simibubi.create.AllTileEntities;
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
+import dev.Cosmos616.technomancy.registry.TMTileEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -32,8 +32,7 @@ public class BatteryItem extends BlockItem {
     }
 
     @Override
-    protected boolean updateCustomBlockEntityTag(BlockPos pPos, Level pLevel, Player pPlayer,
-                                                 ItemStack pItem, BlockState pState) {
+    protected boolean updateCustomBlockEntityTag(BlockPos pPos, Level pLevel, Player pPlayer, ItemStack pItem, BlockState pState) {
         MinecraftServer minecraftserver = pLevel.getServer();
         if (minecraftserver == null)
             return false;
@@ -73,12 +72,12 @@ public class BatteryItem extends BlockItem {
         if (!BatteryBlock.isBattery(placedOnState))
             return;
         boolean creative = getBlock().equals(TMBlocks.CREATIVE_BATTERY_BLOCK.get());
-        BatteryTileEntity tankAt = ConnectivityHandler.partAt(
-                creative ? AllTileEntities.CREATIVE_FLUID_TANK.get() : AllTileEntities.FLUID_TANK.get(), world, placedOnPos
+        BatteryTileEntity batteryAt = ConnectivityHandler.partAt(
+                creative ? TMTileEntities.CREATIVE_BATTERY.get() : TMTileEntities.BATTERY.get(), world, placedOnPos
         );
-        if (tankAt == null)
+        if (batteryAt == null)
             return;
-        BatteryTileEntity controllerTE = tankAt.getControllerTE();
+        BatteryTileEntity controllerTE = batteryAt.getControllerTE();
         if (controllerTE == null)
             return;
 
@@ -86,7 +85,7 @@ public class BatteryItem extends BlockItem {
         if (width == 1)
             return;
 
-        int tanksToPlace = 0;
+        int batteriesToPlace = 0;
         BlockPos startPos = face == Direction.DOWN ? controllerTE.getBlockPos()
                 .below()
                 : controllerTE.getBlockPos()
@@ -104,11 +103,11 @@ public class BatteryItem extends BlockItem {
                 if (!blockState.getMaterial()
                         .isReplaceable())
                     return;
-                tanksToPlace++;
+                batteriesToPlace++;
             }
         }
 
-        if (!player.isCreative() && stack.getCount() < tanksToPlace)
+        if (!player.isCreative() && stack.getCount() < batteriesToPlace)
             return;
 
         for (int xOffset = 0; xOffset < width; xOffset++) {
