@@ -23,7 +23,7 @@ public class TMItems {
             .register();
 
     public static final ItemEntry<Item> RAW_ZIRCONIUM =
-    taggedIngredient("raw_zirconium",forgeItemTag("raw_materials/zirconium"), forgeItemTag("raw_materials"));
+    taggedIngredient("raw_zirconium", forgeItemTag("raw_materials/zirconium"), forgeItemTag("raw_materials"));
 
     @SafeVarargs
     private static ItemEntry<Item> taggedIngredient(String name, TagKey<Item>... tags) {

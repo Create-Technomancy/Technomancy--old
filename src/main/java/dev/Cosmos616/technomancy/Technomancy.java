@@ -28,8 +28,6 @@ public class Technomancy {
     public Technomancy() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
-        
-        eventBus.addListener(TMCapabilities::registerCapabilities);
 
         TMBlocks.register();
         TMItems.register();

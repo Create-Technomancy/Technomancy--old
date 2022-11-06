@@ -142,7 +142,6 @@ public class TMBlocks {
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .properties((p) -> p.sound(SoundType.NETHERITE_BLOCK))
-            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
             .simpleItem()
             .register();
             
