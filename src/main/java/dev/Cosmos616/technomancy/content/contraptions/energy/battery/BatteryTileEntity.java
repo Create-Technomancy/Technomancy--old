@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
+public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
 
     private static final int MAX_SIZE = 3;
 
@@ -34,17 +34,19 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
     protected BlockPos controller;
     protected BlockPos lastKnownPos;
     protected boolean updateConnectivity;
+    protected int width;
     protected int height;
 
     private static final int SYNC_RATE = 8;
     protected int syncCooldown;
     protected boolean queuedSync;
 
-    public SoulBatteryTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public BatteryTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         batteryInventory = createInventory();
         energyCapability = LazyOptional.of(() -> batteryInventory);
         updateConnectivity = false;
+        width = 1;
         height = 1;
         refreshCapability();
     }
@@ -98,9 +100,15 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
         syncCooldown = SYNC_RATE;
     }
 
+    public void sendDataImmediately() {
+        syncCooldown = 0;
+        queuedSync = false;
+        sendData();
+    }
+
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        SoulBatteryTileEntity controllerTE = getControllerTE();
+        BatteryTileEntity controllerTE = getControllerTE();
         if (controllerTE == null)
             return false;
         return true;
@@ -111,6 +119,7 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
         super.read(compound, clientPacket);
 
         BlockPos controllerBefore = controller;
+        int prevSize = width;
         int prevHeight = height;
 
         updateConnectivity = compound.contains("Uninitialized");
@@ -123,9 +132,10 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
             controller = NbtUtils.readBlockPos(compound.getCompound("Controller"));
 
         if (isController()) {
+            width = compound.getInt("Size");
             height = compound.getInt("Height");
             batteryInventory.setCapacity(getHeight() * getCapacityMultiplier());
-            batteryInventory.deserializeNBT(compound.getCompound("Content"));
+            batteryInventory.deserializeNBT(compound.get("Content"));
             if (batteryInventory.getSpace() < 0)
                 batteryInventory.extractEnergy(-batteryInventory.getSpace(), false);
         }
@@ -133,12 +143,13 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
         if (!clientPacket)
             return;
 
-        boolean changeOfController = !Objects.equals(controllerBefore, controller);
-        if (changeOfController || prevHeight != height) {
+        boolean changeOfController =
+                controllerBefore == null ? controller != null : !controllerBefore.equals(controller);
+        if (changeOfController || prevSize != width || prevHeight != height) {
             if (hasLevel())
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 16);
             if (isController())
-                batteryInventory.setCapacity(getCapacityMultiplier() * getHeight());
+                batteryInventory.setCapacity(getCapacityMultiplier() * getTotalBatterySize());
             invalidateRenderBoundingBox();
         }
     }
@@ -157,6 +168,7 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
             compound.put("Controller", NbtUtils.writeBlockPos(controller));
         if (isController()) {
             compound.put("Content", batteryInventory.serializeNBT());
+            compound.putInt("Size", width);
             compound.putInt("Height", height);
         }
         super.write(compound, clientPacket);
@@ -175,6 +187,10 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
     public IEnergyStorage getBatteryInventory() {
         return batteryInventory;
     }
+
+    public int getTotalBatterySize() {
+        return width * width * height;
+    }
     
     @Override
     public void addBehaviours(List<TileEntityBehaviour> behaviours) {}
@@ -186,12 +202,12 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
 
     @SuppressWarnings("unchecked")
     @Override
-    public SoulBatteryTileEntity getControllerTE() {
+    public BatteryTileEntity getControllerTE() {
         if (isController())
             return this;
         BlockEntity tileEntity = level.getBlockEntity(controller);
-        if (tileEntity instanceof SoulBatteryTileEntity)
-            return (SoulBatteryTileEntity) tileEntity;
+        if (tileEntity instanceof BatteryTileEntity)
+            return (BatteryTileEntity) tileEntity;
         return null;
     }
 
@@ -234,6 +250,7 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
         if (!keepContents)
             applyBatterySize(1);
         controller = null;
+        width = 1;
         height = 1;
 
         BlockState state = getBlockState();
@@ -273,9 +290,9 @@ public class SoulBatteryTileEntity extends SmartTileEntity implements IHaveGoggl
     @Override
     public void notifyMultiUpdated() {
         BlockState state = this.getBlockState();
-        if (SoulBatteryBlock.isBattery(state)) { // safety
-            state = state.setValue(SoulBatteryBlock.BOTTOM, getController().getY() == getBlockPos().getY());
-            state = state.setValue(SoulBatteryBlock.TOP, getController().getY() + height - 1 == getBlockPos().getY());
+        if (BatteryBlock.isBattery(state)) { // safety
+            state = state.setValue(BatteryBlock.BOTTOM, getController().getY() == getBlockPos().getY());
+            state = state.setValue(BatteryBlock.TOP, getController().getY() + height - 1 == getBlockPos().getY());
             level.setBlock(getBlockPos(), state, 6);
         }
         setChanged();

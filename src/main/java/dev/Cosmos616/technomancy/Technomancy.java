@@ -22,13 +22,12 @@ public class Technomancy {
     public static final CreativeModeTab BASE_CREATIVE_TAB = new CreativeModeTab("technomancy"){
         @Override
         public ItemStack makeIcon(){
-            return new ItemStack(TMBlocks.SOUL_BATTERY_BLOCK.get());
+            return new ItemStack(TMBlocks.BATTERY_BLOCK.get());
         }};
 
     public Technomancy() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
-
 
         TMBlocks.register();
         TMItems.register();
