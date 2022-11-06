@@ -22,9 +22,14 @@ public class TMItems {
             .model(AssetLookup.itemModelWithPartials())
             .register();
 
-    public static final ItemEntry<Item> RAW_ZIRCONIUM =
-    taggedIngredient("raw_zirconium", forgeItemTag("raw_materials/zirconium"), forgeItemTag("raw_materials"));
+    public static final ItemEntry<Item> ZIRCON_SHARD =
+    taggedIngredient("zircon_shard", forgeItemTag("gem/zircon_shard"), forgeItemTag("gem"));
 
+    public static final ItemEntry<Item> ZIRCONIUM_NUGGET = REGISTRATE.item("zirconium_nugget",Item::new).register();
+
+    public static final ItemEntry<Item> ZIRCONIUM_INGOT = REGISTRATE.item("zirconium_ingot",Item::new).register();
+
+    public static final  ItemEntry<Item> ZIRCONIUM_CERAMIC = REGISTRATE.item("zirconium_ceramic",Item::new).register();
     @SafeVarargs
     private static ItemEntry<Item> taggedIngredient(String name, TagKey<Item>... tags) {
         return REGISTRATE.item(name, Item::new)
