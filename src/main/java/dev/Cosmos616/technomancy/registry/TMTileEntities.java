@@ -8,6 +8,7 @@ import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAccumulatorTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
 
@@ -44,6 +45,11 @@ public class TMTileEntities {
             .tileEntity("laser", LaserTileEntity::new)
             .validBlocks(TMBlocks.LASER)
             .renderer(() -> LaserRenderer::new)
+            .register();
+    
+    public static final BlockEntityEntry<SoulAccumulatorTileEntity> SOUL_ACCUMULATOR = REGISTRATE
+            .tileEntity("soul_accumulator", SoulAccumulatorTileEntity::new)
+            .validBlocks(TMBlocks.SOUL_ACCUMULATOR)
             .register();
 
     public static void register() {}

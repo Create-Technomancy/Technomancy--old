@@ -7,6 +7,7 @@ import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAccumulatorBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryGenerator;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryItem;
@@ -133,7 +134,16 @@ public class TMBlocks {
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .properties((p) -> p.sound(SoundType.NETHERITE_BLOCK))
-//            .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
+            .blockstate((c, p) -> p.directionalBlock(c.get(), AssetLookup.partialBaseModel(c, p, "base")))
+            .item()
+            .transform(customItemModel("_","block_base"))
+            .register();
+    
+    public static final BlockEntry<SoulAccumulatorBlock> SOUL_ACCUMULATOR = REGISTRATE
+            .block("soul_accumulator", SoulAccumulatorBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .simpleItem()
             .register();
             

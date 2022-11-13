@@ -75,8 +75,7 @@ public class LaserTileEntity extends SmartTileEntity implements IHaveGoggleInfor
 		
 		// Consume energy
 		if (this.running)
-//			this.internalCapacity.consumeEnergy(getConsumptionRate());;
-		this.internalCapacity.extractEnergy(getConsumptionRate(), false); //???
+			this.internalCapacity.extractEnergy(getConsumptionRate(), false);
 	}
 	
 	public void tickBeam() {
