@@ -34,6 +34,8 @@ public class Technomancy {
         TMFluids.register();
         TMTileEntities.register();
         TMBlockPartials.init();
+        TMTags.register();
+        TMOreFeatures.register();
 
     }
 

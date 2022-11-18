@@ -1,5 +1,6 @@
 package dev.Cosmos616.technomancy.registry;
 
+import com.simibubi.create.content.contraptions.itemAssembly.SequencedAssemblyItem;
 import com.simibubi.create.content.curiosities.tools.ExtendoGripItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -32,6 +33,14 @@ public class TMItems {
     public static final  ItemEntry<Item> CERAMIC_DUST = REGISTRATE.item("ceramic_dust",Item::new).register();
 
     public static final  ItemEntry<Item> CERAMIC_PLATE = REGISTRATE.item("ceramic_plate",Item::new).register();
+
+    public static final ItemEntry<Item> AMMO = REGISTRATE.item("ammo",Item::new).register();
+
+    public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_AMMO = REGISTRATE.item("incomplete_ammo", SequencedAssemblyItem::new).register();
+
+    public static final ItemEntry<Item> AMMO_CASING = REGISTRATE.item("ammo_casing",Item::new).register();
+
+
 
     @SafeVarargs
     private static ItemEntry<Item> taggedIngredient(String name, TagKey<Item>... tags) {

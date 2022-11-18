@@ -1,0 +1,51 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "technomancy:ammo_casing"
+  },
+  "transitionalItem": {
+    "item": "technomancy:incomplete_ammo"
+  },
+  "sequence": [
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "technomancy:incomplete_ammo"
+        },
+        {
+          "fluid": "technomancy:liquid_souls",
+          "nbt": {},
+          "amount": 500
+        }
+      ],
+      "results": [
+        {
+          "item": "technomancy:incomplete_ammo"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "technomancy:incomplete_ammo"
+        },
+        {
+          "item": "create:iron_sheet"
+        }
+      ],
+      "results": [
+        {
+          "item": "technomancy:incomplete_ammo"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:ammo"
+    }
+  ],
+  "loops": 1
+}

@@ -14,6 +14,6 @@ public class ConfiguredFeatures {
     public static final List<OreConfiguration.TargetBlockState> ZIRCONIUM_ORES = List.of(
             OreConfiguration.target(OreFeatures.NETHER_ORE_REPLACEABLES, TMBlocks.ZIRCON_ORE.get().defaultBlockState()));
 
-//    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ZIRCON_ORE = FeatureUtils.register("zircon_ore",
-//            Feature.ORE, new OreConfiguration(ZIRCON_ORES, 13));
+    public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ZIRCONIUM_ORE = FeatureUtils.register("zirconium_ore",
+            Feature.ORE, new OreConfiguration(ZIRCONIUM_ORES, 13));
 }
