@@ -5,7 +5,7 @@ public interface ISoulEnergyStorage {
 	int extractSouls(int extracted, boolean simulate);
 	
 	int getStoredSouls();
-	int getSoulCapacity();
+	int getCapacity();
 	
 	boolean canExtract();
 	boolean canReceive();

@@ -14,6 +14,7 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryItem
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Rarity;
@@ -146,7 +147,14 @@ public class TMBlocks {
             .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .simpleItem()
             .register();
-            
+    
+    public static final BlockEntry<SoulCombustorBlock>  SOUL_COMBUSTOR = REGISTRATE
+            .block("soul_combustor", SoulCombustorBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
+            .simpleItem()
+            .register();
 
     public static void register() {}
 }

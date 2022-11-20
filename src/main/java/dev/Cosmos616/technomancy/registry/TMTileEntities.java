@@ -11,6 +11,7 @@ import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserTile
 import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAccumulatorTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorTileEntity;
 
 public class TMTileEntities {
 
@@ -50,6 +51,11 @@ public class TMTileEntities {
     public static final BlockEntityEntry<SoulAccumulatorTileEntity> SOUL_ACCUMULATOR = REGISTRATE
             .tileEntity("soul_accumulator", SoulAccumulatorTileEntity::new)
             .validBlocks(TMBlocks.SOUL_ACCUMULATOR)
+            .register();
+    
+    public static final BlockEntityEntry<SoulCombustorTileEntity> SOUL_COMBUSTOR = REGISTRATE
+            .tileEntity("soul_combustor", SoulCombustorTileEntity::new)
+            .validBlocks(TMBlocks.SOUL_COMBUSTOR)
             .register();
 
     public static void register() {}

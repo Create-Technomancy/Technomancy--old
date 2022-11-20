@@ -63,7 +63,7 @@ public class SoulStorage implements ISoulEnergyStorage {
 		return this.souls;
 	}
 	@Override
-	public int getSoulCapacity() {
+	public int getCapacity() {
 		return this.capacity;
 	}
 	

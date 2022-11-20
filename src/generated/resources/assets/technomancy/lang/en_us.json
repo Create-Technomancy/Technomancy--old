@@ -1,4 +1,6 @@
 {
+  "technomancy.gui.goggles.energy_container": "Energy Storage Info:",
+
   "block.technomancy.battery": "Battery",
   "block.technomancy.cable": "Cable",
   "block.technomancy.cable_casing": "Cable Casing",

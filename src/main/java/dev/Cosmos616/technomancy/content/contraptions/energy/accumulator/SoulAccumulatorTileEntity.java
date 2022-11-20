@@ -1,14 +1,11 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.accumulator;
 
-import com.simibubi.create.AllFluids;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankBehaviour;
-import dev.Cosmos616.technomancy.Technomancy;
-import dev.Cosmos616.technomancy.foundation.energy.SoulStorage;
 import dev.Cosmos616.technomancy.registry.TMFluids;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,9 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,7 +32,7 @@ public class SoulAccumulatorTileEntity extends SmartTileEntity implements IHaveG
 	
 	@Override
 	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
-		tank = SmartFluidTankBehaviour.single(this, 1024);
+		tank = SmartFluidTankBehaviour.single(this, 1000);
 		tank.forbidInsertion();
 		behaviours.add(tank);
 	}
