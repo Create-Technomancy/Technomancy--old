@@ -2,6 +2,7 @@ package dev.Cosmos616.technomancy;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.ProjectileType;
 import dev.Cosmos616.technomancy.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -34,9 +35,10 @@ public class Technomancy {
         TMFluids.register();
         TMTileEntities.register();
         TMBlockPartials.init();
+        TMEntities.register();
         TMTags.register();
         TMOreFeatures.register();
-
+        ProjectileType.initialize();
     }
 
     public static ResourceLocation TMLoc(String path) { return new ResourceLocation(MOD_ID, path); }

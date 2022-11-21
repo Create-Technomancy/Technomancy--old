@@ -1,6 +1,5 @@
-package dev.Cosmos616.technomancy.content.curiosities.weapons.firearm;
+package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
-import com.simibubi.create.content.curiosities.zapper.ZapperItem;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -9,7 +8,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-@MethodsReturnNonnullByDefault
 public class AbstractFirearmItem extends Item {
 	public AbstractFirearmItem(Properties properties) {
 		super(properties);
