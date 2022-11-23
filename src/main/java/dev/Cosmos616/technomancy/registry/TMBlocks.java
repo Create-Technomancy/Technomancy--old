@@ -16,6 +16,7 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorBlock;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -78,10 +79,9 @@ public class TMBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .item(BatteryItem::new)
             .properties(p -> p.rarity(Rarity.EPIC))
-//            .model(AssetLookup.customBlockItemModel("_", "block_single"))
             .model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/battery/block_single"))
-                    .texture("0", p.modLoc("block/battery/battery_1x1"))
-                    .texture("particle", p.modLoc("block/battery/battery_1x1")))
+                    .texture("0", p.modLoc("block/battery/creative_battery")))
+//                    .texture("particle", new ResourceLocation("create", "block/creative_casing"))) //is this even needed?
             .build()
             .register();
 

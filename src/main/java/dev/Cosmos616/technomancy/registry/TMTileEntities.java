@@ -10,6 +10,7 @@ import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRend
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAccumulatorTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.battery.CreativeBatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorTileEntity;
 
@@ -27,8 +28,8 @@ public class TMTileEntities {
             .validBlocks(TMBlocks.BATTERY_BLOCK)
             .register();
 
-    public static final BlockEntityEntry<BatteryTileEntity> CREATIVE_BATTERY = REGISTRATE
-            .tileEntity("creative_soul_battery", BatteryTileEntity::new)
+    public static final BlockEntityEntry<CreativeBatteryTileEntity> CREATIVE_BATTERY = REGISTRATE
+            .tileEntity("creative_soul_battery", CreativeBatteryTileEntity::new)
             .validBlocks(TMBlocks.CREATIVE_BATTERY_BLOCK)
             .register();
 
