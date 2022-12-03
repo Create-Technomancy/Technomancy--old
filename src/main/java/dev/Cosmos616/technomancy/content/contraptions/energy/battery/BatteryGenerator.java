@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -48,15 +49,10 @@ public class BatteryGenerator extends SpecialBlockStateGen {
         String modelName = shapeName + (shape == BatteryBlock.Shape.SINGLE ? "" : "_" + shape.getSerializedName());
 
         if (!prefix.isEmpty())
-//            modelName = prefix + modelName;
             return prov.models()
-                    .withExistingParent(prefix + modelName, prov.modLoc("block/battery/block_" + modelName));
-//                    .texture("0", prov.modLoc("block/" + prefix + "casing"));
-//                    .texture("1", prov.modLoc("block/" + prefix + "fluid_tank"))
-//                    .texture("3", prov.modLoc("block/" + prefix + "fluid_tank_window"))
-//                    .texture("4", prov.modLoc("block/" + prefix + "casing"))
-//                    .texture("5", prov.modLoc("block/" + prefix + "fluid_tank_window_single"))
-//                    .texture("particle", prov.modLoc("block/" + prefix + "fluid_tank"));
+                .withExistingParent(prefix + modelName, prov.modLoc("block/battery/block_" + modelName))
+                .texture("0", prov.modLoc("block/battery/" + prefix + "battery"));
+//                .texture("particle", new ResourceLocation("create", "block/creative_casing")); // WHY IT'S MOT WORKING??
 
         return AssetLookup.partialBaseModel(ctx, prov, modelName);
     }

@@ -41,7 +41,8 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
 
-public class CableBlock extends PipeBlock implements SimpleWaterloggedBlock, IWrenchableWithBracket, ITE<CableTileEntity> {
+public class CableBlock extends PipeBlock
+    implements SimpleWaterloggedBlock, IWrenchableWithBracket, ITE<CableTileEntity> {
 
     public CableBlock(Properties properties) {
         super(3 / 16f, properties);
@@ -97,7 +98,6 @@ public class CableBlock extends PipeBlock implements SimpleWaterloggedBlock, IWr
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block otherBlock, BlockPos neighborPos, boolean isMoving) {
         DebugPackets.sendNeighborsUpdatePacket(world, pos);
         CablePropagator.resetAffectedCableNetworks(world, pos);
-        BlockEntity te = world.getBlockEntity(neighborPos);
         Direction d = CablePropagator.validateNeighbourChange(state, world, pos, otherBlock, neighborPos, isMoving);
         if (d == null)
             return;
@@ -234,12 +234,11 @@ public class CableBlock extends PipeBlock implements SimpleWaterloggedBlock, IWr
     @Override
     public Optional<ItemStack> removeBracket(BlockGetter world, BlockPos pos, boolean inOnReplacedContext) {
         BracketedTileEntityBehaviour behaviour =
-                BracketedTileEntityBehaviour.get(world, pos, BracketedTileEntityBehaviour.TYPE);
+            BracketedTileEntityBehaviour.get(world, pos, BracketedTileEntityBehaviour.TYPE);
         if (behaviour == null)
             return Optional.empty();
-        BlockState bracket = behaviour.getBracket();
-        behaviour.removeBracket(inOnReplacedContext);
-        if (bracket == Blocks.AIR.defaultBlockState())
+        BlockState bracket = behaviour.removeBracket(inOnReplacedContext);
+        if (bracket == null)
             return Optional.empty();
         return Optional.of(new ItemStack(bracket.getBlock()));
     }

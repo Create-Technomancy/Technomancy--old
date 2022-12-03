@@ -1,6 +1,4 @@
 {
-  "technomancy.gui.goggles.energy_container": "Energy Storage Info:",
-
   "block.technomancy.battery": "Battery",
   "block.technomancy.cable": "Cable",
   "block.technomancy.cable_casing": "Cable Casing",
@@ -9,9 +7,14 @@
   "block.technomancy.laser": "Laser",
   "block.technomancy.liquid_souls": "Liquid Souls",
   "block.technomancy.soul_accumulator": "Soul Accumulator",
+  "block.technomancy.soul_combustor": "Soul Combustor",
   "block.technomancy.zircon_ore": "Zircon Ore",
+  "entity.technomancy.firearm_projectile": "Firearm Projectile",
+  "item.technomancy.ammo": "Ammo",
+  "item.technomancy.ammo_casing": "Ammo Casing",
   "item.technomancy.ceramic_dust": "Ceramic Dust",
   "item.technomancy.ceramic_plate": "Ceramic Plate",
+  "item.technomancy.incomplete_ammo": "Incomplete Ammo",
   "item.technomancy.liquid_souls_bucket": "Liquid Souls Bucket",
   "item.technomancy.zircon_dust": "Zircon Dust",
   "item.technomancy.zircon_shard": "Zircon Shard",

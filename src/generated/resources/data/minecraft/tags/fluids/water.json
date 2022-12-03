@@ -1,7 +1,9 @@
 {
   "replace": false,
   "values": [
-    "technomancy:flowing_liquid_souls",
-    "technomancy:liquid_souls"
+    "create:flowing_honey",
+    "create:honey",
+    "create:flowing_chocolate",
+    "create:chocolate"
   ]
 }
