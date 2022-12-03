@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 
 import static com.simibubi.create.AllTags.forgeItemTag;
@@ -28,7 +29,13 @@ public class TMItems {
 
     public static final  ItemEntry<Item> CERAMIC_DUST = REGISTRATE.item("ceramic_dust",Item::new).register();
     public static final  ItemEntry<Item> CERAMIC_PLATE = REGISTRATE.item("ceramic_plate",Item::new).register();
-    
+
+    public static final  ItemEntry<Item> SOUL_ROLL = REGISTRATE.item("soul_roll",Item::new)
+    .properties(p -> p.food(new FoodProperties.Builder().nutrition(6)
+			.saturationMod(0.8F)
+			.build()))
+            .register();
+
     static { REGISTRATE.startSection(CURIOSITIES); }
 
     public static final ItemEntry<Item> AMMO = REGISTRATE.item("ammo", Item::new).register();
