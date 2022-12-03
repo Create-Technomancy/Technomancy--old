@@ -42,34 +42,28 @@ import java.util.Optional;
 import java.util.Random;
 
 public class CableBlock extends PipeBlock
-    implements SimpleWaterloggedBlock, IWrenchableWithBracket, ITE<CableTileEntity> {
+    implements SimpleWaterloggedBlock, /*IWrenchableWithBracket, */ITE<CableTileEntity> {
 
     public CableBlock(Properties properties) {
         super(3 / 16f, properties);
         this.registerDefaultState(super.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
-    @Override
-    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
-        if (tryRemoveBracket(context))
-            return InteractionResult.SUCCESS;
-        return InteractionResult.PASS;
-    }
+//    @Override
+//    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+//        tryRemoveBracket(context);
+//        return InteractionResult.SUCCESS;
+//    }
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        // case: no casing -> ignore
         if (!TMBlocks.CABLE_CASING.isIn(player.getItemInHand(hand)))
             return InteractionResult.PASS;
+        if (world.isClientSide)
+            return InteractionResult.SUCCESS;
 
-        // case: encase with casing block
-//        AllTriggers.triggerFor(AllTriggers.CASING_PIPE, player); // trigger advancement
-        if (!world.isClientSide) {
-            // convert state to encased block
-            world.setBlockAndUpdate(pos, EncasedCableBlock.transferSixWayProperties(state, TMBlocks.ENCASED_CABLE_BLOCK.getDefaultState()));
-        }
+        world.setBlockAndUpdate(pos, EncasedCableBlock.transferSixWayProperties(state, TMBlocks.ENCASED_CABLE_BLOCK.getDefaultState()));
         return InteractionResult.SUCCESS;
-//        return InteractionResult.PASS;
     }
 
     @Override
@@ -79,8 +73,8 @@ public class CableBlock extends PipeBlock
         if (blockTypeChanged && !world.isClientSide)
             CablePropagator.propagateChangedCable(world, pos, state);
 
-        if (state != newState && !isMoving) // change of state -> bracket removed
-            removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
+//        if (state != newState && !isMoving)
+//            removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
 
         if (state.hasBlockEntity() && (blockTypeChanged || !newState.hasBlockEntity()))
             world.removeBlockEntity(pos);
@@ -108,7 +102,7 @@ public class CableBlock extends PipeBlock
 
     @Override
     public void tick(BlockState state, ServerLevel world, BlockPos pos, Random r) {
-//        CablePropagator.propagateChangedCable(world, pos, state); // idk, refresh network connections?
+        CablePropagator.propagateChangedCable(world, pos, state); // idk, refresh network connections?
     }
 
     public static boolean isCable(BlockState state) {
@@ -231,17 +225,17 @@ public class CableBlock extends PipeBlock
                 .setValue(PROPERTY_BY_DIRECTION.get(preferredDirection.getOpposite()), true);
     }
 
-    @Override
-    public Optional<ItemStack> removeBracket(BlockGetter world, BlockPos pos, boolean inOnReplacedContext) {
-        BracketedTileEntityBehaviour behaviour =
-            BracketedTileEntityBehaviour.get(world, pos, BracketedTileEntityBehaviour.TYPE);
-        if (behaviour == null)
-            return Optional.empty();
-        BlockState bracket = behaviour.removeBracket(inOnReplacedContext);
-        if (bracket == null)
-            return Optional.empty();
-        return Optional.of(new ItemStack(bracket.getBlock()));
-    }
+//    @Override
+//    public Optional<ItemStack> removeBracket(BlockGetter world, BlockPos pos, boolean inOnReplacedContext) {
+//        BracketedTileEntityBehaviour behaviour =
+//            BracketedTileEntityBehaviour.get(world, pos, BracketedTileEntityBehaviour.TYPE);
+//        if (behaviour == null)
+//            return Optional.empty();
+//        BlockState bracket = behaviour.removeBracket(inOnReplacedContext);
+//        if (bracket == null)
+//            return Optional.empty();
+//        return Optional.of(new ItemStack(bracket.getBlock()));
+//    }
 
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
