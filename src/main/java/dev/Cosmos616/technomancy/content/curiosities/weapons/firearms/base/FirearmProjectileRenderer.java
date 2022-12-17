@@ -1,7 +1,6 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileEntity;
 import dev.Cosmos616.technomancy.registry.TMItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -23,7 +22,7 @@ public class FirearmProjectileRenderer extends EntityRenderer<FirearmProjectileE
 	public void render(FirearmProjectileEntity entity, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
 		Minecraft.getInstance()
 				.getItemRenderer()
-				.renderStatic(TMItems.AMMO.asStack(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, ms, buffer, 0);
+				.renderStatic(TMItems.HALLOWED_BULLET.asStack(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, ms, buffer, 0);
 	}
 	
 	@Override

@@ -2,13 +2,14 @@ package dev.Cosmos616.technomancy;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.ProjectileType;
 import dev.Cosmos616.technomancy.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -20,15 +21,18 @@ public class Technomancy {
     public static final Logger LOGGER = LogManager.getLogger();
 
     private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(MOD_ID);
-    public static final CreativeModeTab BASE_CREATIVE_TAB = new CreativeModeTab("technomancy"){
+    public static final CreativeModeTab BASE_CREATIVE_TAB = new CreativeModeTab("technomancy") {
         @Override
         public ItemStack makeIcon(){
             return new ItemStack(TMBlocks.BATTERY_BLOCK.get());
-        }};
+        }
+    };
 
     public Technomancy() {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        MinecraftForge.EVENT_BUS.register(this);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+        
+        forgeEventBus.register(this);
 
         TMBlocks.register();
         TMItems.register();
@@ -38,7 +42,9 @@ public class Technomancy {
         TMEntities.register();
         TMTags.register();
         TMOreFeatures.register();
-        ProjectileType.initialize();
+        TMPackets.registerPackets();
+        
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));
     }
 
     public static ResourceLocation TMLoc(String path) { return new ResourceLocation(MOD_ID, path); }
@@ -46,6 +52,4 @@ public class Technomancy {
     public static CreateRegistrate getRegistrate() {
         return REGISTRATE.get();
     }
-    
-    
 }

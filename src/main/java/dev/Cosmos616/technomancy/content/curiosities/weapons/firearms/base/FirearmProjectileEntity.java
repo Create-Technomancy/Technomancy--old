@@ -1,13 +1,15 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
 import com.simibubi.create.content.contraptions.particle.AirParticleData;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import dev.Cosmos616.technomancy.Technomancy;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
@@ -17,25 +19,39 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 public class FirearmProjectileEntity extends AbstractHurtingProjectile implements IEntityAdditionalSpawnData {
 	public FirearmProjectileEntity(EntityType<? extends AbstractHurtingProjectile> type, Level level) {
 		super(type, level);
 	}
 	
 	protected ProjectileType projectileType = ProjectileType.DEFAULT;
+	protected int leftoverPierce;
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
-		projectileType = ProjectileType.fromNBT(compound);
+		projectileType = ProjectileType.deserialize(compound);
+		leftoverPierce = compound.getInt("currentPierce");
 		super.readAdditionalSaveData(compound);
 	}
 	
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
-		projectileType.serializeNBT(compound);
+		projectileType.serialize(compound);
+		compound.putInt("currentPierce", leftoverPierce);
 		super.addAdditionalSaveData(compound);
+	}
+	
+	private static final int UPDATE_MAX_TICKS = 8;
+	private int tickUpdate = UPDATE_MAX_TICKS;
+	@Override
+	public void tick() {
+		super.tick();
+		
+		tickUpdate--;
+		if (tickUpdate > 0)
+			return;
+		this.refreshDimensions();
+		tickUpdate = UPDATE_MAX_TICKS;
 	}
 	
 	@Override
@@ -49,12 +65,17 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 			livingOwner.setLastHurtMob(target);
 		
 		boolean onServer = !level.isClientSide;
-		if (onServer && !target.hurt(projectileType.getSource.apply(target, owner), projectileType.damage)) {
-			kill();
+		boolean passes = canPass(projectileType.entityHitPass.test(target));
+		if (onServer && !target.hurt(projectileType.damageSource
+						.apply(new DamageSource(Technomancy.MOD_ID + ".projectile." + projectileType.toString().toLowerCase()).setProjectile()),
+				Mth.lerp(projectileType.damageDrop.apply(this.flyDist), projectileType.closeDamage, projectileType.farDamage))) {
+			if (!passes)
+				kill();
 			return;
 		}
 		if (!(target instanceof LivingEntity livingTarget)) {
-			kill();
+			if (!passes)
+				kill();
 			return;
 		}
 		
@@ -64,23 +85,33 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 					.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
 		}
 		
-		kill();
+		if (!passes)
+			kill();
 	}
 	
 	@Override
 	protected void onHitBlock(BlockHitResult hitResult) {
 		super.onHitBlock(hitResult);
-		kill();
+		if (!canPass(projectileType.blockHitPass.test(hitResult.getBlockPos())))
+			kill();
+	}
+	
+	protected boolean canPass(boolean testedPredicate) {
+		if (leftoverPierce <= 0 || !testedPredicate)
+			return false;
+		leftoverPierce--;
+		return true;
 	}
 	
 	@Override
 	protected float getInertia() {
-		return 2f * projectileType.speedMultiplier;
+		return 2f * projectileType.baseSpeed * projectileType.speedMultiplier.apply(this);
 	}
+	
 	
 	@Override
 	public EntityDimensions getDimensions(Pose pose) {
-		return super.getDimensions(pose).scale(projectileType.sizeMultiplier);
+		return super.getDimensions(pose).scale(projectileType.baseSize * projectileType.sizeMultiplier.apply(this));
 	}
 	
 	@Override
@@ -95,6 +126,8 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	
 	public FirearmProjectileEntity setProjectile(ProjectileType projectileType) {
 		this.projectileType = projectileType;
+		this.leftoverPierce = this.projectileType.pierce;
+		this.refreshDimensions();
 		return this;
 	}
 	

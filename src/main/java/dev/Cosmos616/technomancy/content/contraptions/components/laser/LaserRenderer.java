@@ -47,9 +47,8 @@ public class LaserRenderer extends SafeTileEntityRenderer<LaserTileEntity> {
 	}
 	
 	private SuperByteBuffer transformed(PartialModel model, BlockState blockState, Direction facing) {
-		return (SuperByteBuffer)((SuperByteBuffer)((SuperByteBuffer)
-				CachedBufferer.partial(model, blockState).centre()).rotateY(
-				AngleHelper.horizontalAngle(facing))).rotateX(AngleHelper.verticalAngle(facing) + 90.0F);
+		return CachedBufferer.partial(model, blockState).centre().rotateY(
+				AngleHelper.horizontalAngle(facing)).rotateX(AngleHelper.verticalAngle(facing) + 90.0F);
 	}
 	
 	@Override

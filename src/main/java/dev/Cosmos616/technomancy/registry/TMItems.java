@@ -1,14 +1,18 @@
 package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.content.contraptions.itemAssembly.SequencedAssemblyItem;
+import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.BulletItem;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.repeater.EnergyRepeaterItem;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 
-import static com.simibubi.create.AllTags.forgeItemTag;
+import static dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.BulletItem.*;
 import static com.simibubi.create.content.AllSections.*;
 
 public class TMItems {
@@ -38,11 +42,14 @@ public class TMItems {
 
     static { REGISTRATE.startSection(CURIOSITIES); }
 
-    public static final ItemEntry<Item> AMMO = REGISTRATE.item("ammo", Item::new).register();
-    public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_AMMO = REGISTRATE.item("incomplete_ammo", SequencedAssemblyItem::new).register();
-    public static final ItemEntry<Item> AMMO_CASING = REGISTRATE.item("ammo_casing", Item::new).register();
+    public static final ItemEntry<BulletItem> HALLOWED_BULLET = REGISTRATE.item("hallowed_bullet", p -> new BulletItem(p, AmmoType.DEFAULT)).register();
+    public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_HALLOWED_BULLET = REGISTRATE.item("incompleted_hallowed_bullet", SequencedAssemblyItem::new).register();
+    public static final ItemEntry<Item> HALLOWED_BULLET_CASING = REGISTRATE.item("hallowed_bullet_casing", Item::new).register();
 
-
+    public static final ItemEntry<EnergyRepeaterItem> ENERGY_REPEATER = REGISTRATE.item("energy_repeater", EnergyRepeaterItem::new)
+            .properties(p -> p.rarity(Rarity.UNCOMMON))
+            .model(AssetLookup.itemModelWithPartials())
+            .register();
 
     @SafeVarargs
     private static ItemEntry<Item> taggedIngredient(String name, TagKey<Item>... tags) {
