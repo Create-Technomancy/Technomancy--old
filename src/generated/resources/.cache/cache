@@ -7,9 +7,10 @@ c9b53c0e0ad23d7704d2b212eab3f2886f0d5b49 assets/technomancy/blockstates/laser.js
 e8df861028bfb9f0aab05ff9b9f416267e144d75 assets/technomancy/blockstates/liquid_souls.json
 465aa4f6b86d94475a4e4157c9c921cc4ee1b323 assets/technomancy/blockstates/soul_accumulator.json
 41286d7a1b08410073fdb400956a931386758c54 assets/technomancy/blockstates/soul_combustor.json
+826cc88ea8f6d2edba2da1d565b30908e35dcc10 assets/technomancy/blockstates/spark_gap.json
 8e44ca678d00dec33de503e749fd5bfa8769163b assets/technomancy/blockstates/zircon_ore.json
-d6a696210d775dd4d30daef1ce22b2ecb1f9b459 assets/technomancy/lang/en_ud.json
-a1157f124e88299e7d99c2a7843a1c46b81faeb8 assets/technomancy/lang/en_us.json
+fcb7ef9e12d21b1532ed19ca09bf4d2879226501 assets/technomancy/lang/en_ud.json
+c6a5d9df043f96e44da4b15a22103a02eaed5e3c assets/technomancy/lang/en_us.json
 ae5fa2dd48e60c1ffcf6f5993c0b38a272eac8ec assets/technomancy/models/block/cable/ld_x.json
 52a33981c061e50d88fc6b9b3d58037716c12439 assets/technomancy/models/block/cable/ld_y.json
 004eef82bbd0b498fb1b52763c6c1eef01eb2934 assets/technomancy/models/block/cable/ld_z.json
@@ -53,6 +54,8 @@ dd3ad97bf2b9a359c483d8192480cb8929b4bb4f assets/technomancy/models/block/creativ
 e974b56858e99076dbdc3604bfc938f6c704cffb assets/technomancy/models/block/creative_top_se.json
 dc2f639007db82dea4dd3e806c9aa7806b252330 assets/technomancy/models/block/creative_top_sw.json
 8fc122d93a941b52b8420c24866af287593c52db assets/technomancy/models/block/liquid_souls.json
+a90e2bdb90a09033e3cc5fffc283eb4095fb2f76 assets/technomancy/models/block/soul_combustor.json
+d1247d943289afdf52fab0b617f5602e4db38629 assets/technomancy/models/block/spark_gap.json
 49e7084fec1e0a88af57d7bcf60920f1a46df3e1 assets/technomancy/models/block/zircon_ore.json
 f77ecac05e50f127015336c201208b80e0b72897 assets/technomancy/models/item/battery.json
 2955012b3fc9d7a41ae8952b08a9a16a929cb0a4 assets/technomancy/models/item/cable.json
@@ -69,6 +72,7 @@ b31421ab541a289647ac0cc548ea1340f9de044d assets/technomancy/models/item/incomple
 a50749daa4c5b7653d9cffbbda0a442fc524efe9 assets/technomancy/models/item/soul_accumulator.json
 561541d71acb864c0b9804da33e651416f20677c assets/technomancy/models/item/soul_combustor.json
 ab1e0da96d32322d3b8f0fe40c00ee358b153766 assets/technomancy/models/item/soul_roll.json
+0c991abda245da36f3cc23a58b43ee461b3976e8 assets/technomancy/models/item/spark_gap.json
 a9a7d2f1f5943326e3688761061a36337c68d916 assets/technomancy/models/item/zircon_dust.json
 f289ab1116ddcfb6e151ff995167529cf99eb2e9 assets/technomancy/models/item/zircon_ore.json
 2608173dad3aae1762b7c80b16bea701f2b43990 assets/technomancy/models/item/zircon_shard.json
@@ -78,15 +82,15 @@ d316599668a12f7d2792ce07047caf58c8ebd5a9 assets/technomancy/models/item/zirconiu
 605b17bf5679f3f802667fce6d1167e86492f9a3 data/create/tags/blocks/casing.json
 605b17bf5679f3f802667fce6d1167e86492f9a3 data/create/tags/items/casing.json
 b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/blocks/ores.json
-b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/blocks/ores/zircon.json
+b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/blocks/ores/zirconium.json
 b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/blocks/ores_in_ground/netherrack.json
 49a056b812dafde8a6e7bfa79aa8968c83d74683 data/forge/tags/fluids/liquid_souls.json
 6020aa6f4ef4cc67c13e3b8e4cb90e348dc24557 data/forge/tags/items/buckets/liquid_souls.json
 b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/items/ores.json
-b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/items/ores/zircon.json
+b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/items/ores/zirconium.json
 b20a149a578797ffeb343059acce92c93420e6de data/forge/tags/items/ores_in_ground/netherrack.json
 605b17bf5679f3f802667fce6d1167e86492f9a3 data/minecraft/tags/blocks/mineable/axe.json
-ab2b20a346d4e4544956078531e7bf9595abe424 data/minecraft/tags/blocks/mineable/pickaxe.json
+0073904e70d12943a364f0d620786d901be592fc data/minecraft/tags/blocks/mineable/pickaxe.json
 b20a149a578797ffeb343059acce92c93420e6de data/minecraft/tags/blocks/needs_diamond_tool.json
 49a056b812dafde8a6e7bfa79aa8968c83d74683 data/minecraft/tags/fluids/water.json
 047167c04cd56a4cafb50f30b97d3717fdabd75a data/technomancy/loot_tables/blocks/battery.json
@@ -97,4 +101,5 @@ b20a149a578797ffeb343059acce92c93420e6de data/minecraft/tags/blocks/needs_diamon
 3c26735ae47188a211e06ac0f262d5ddcaf2feeb data/technomancy/loot_tables/blocks/laser.json
 e85936e3b47049b61d8697740f5aa5df1a2a8c14 data/technomancy/loot_tables/blocks/soul_accumulator.json
 e6485479b001c246433fac4bcd96c61b48ffcf98 data/technomancy/loot_tables/blocks/soul_combustor.json
+a6c9f5b945cb80a983bbc198994c3ef0af911e55 data/technomancy/loot_tables/blocks/spark_gap.json
 6ccc59dae7cd84a3151d771323894a4a69cba4a7 data/technomancy/loot_tables/blocks/zircon_ore.json

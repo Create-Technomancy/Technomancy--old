@@ -19,8 +19,6 @@ public class TMItems {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
             .creativeModeTab(() -> Technomancy.BASE_CREATIVE_TAB);
 
-//    public static final ItemEntry<Item> ZIRCON_SHARD =
-//    taggedIngredient("zircon_shard", forgeItemTag("gem/zircon_shard"), forgeItemTag("gem"));
     
     static { REGISTRATE.startSection(MATERIALS); }
 
@@ -39,6 +37,7 @@ public class TMItems {
 			.saturationMod(0.8F)
 			.build()))
             .register();
+
 
     static { REGISTRATE.startSection(CURIOSITIES); }
 
@@ -59,4 +58,5 @@ public class TMItems {
     }
 
     public static void register() {}
+
 }

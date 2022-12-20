@@ -15,9 +15,13 @@ public class TMBlockPartials {
 
     public static final PartialModel
             CABLE_CASING = block("cable/casing"),
-    
             LASER_BEAM_INNER = block("laser/beam_inner"),
-            LASER_BEAM_OUTER = block("laser/beam_outer");
+            LASER_BEAM_OUTER = block("laser/beam_outer"),
+
+    SPARK_GAP_COG = block("spark_gap/spark_gap_cog");
+
+
+
 
     public static final Map<CableTileEntity.AttachmentTypes, Map<Direction, PartialModel>> CABLE_ATTACHMENTS =
             new EnumMap<>(CableTileEntity.AttachmentTypes.class);

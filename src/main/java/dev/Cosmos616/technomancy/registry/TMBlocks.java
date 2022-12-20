@@ -2,6 +2,7 @@ package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.content.contraptions.base.CasingBlock;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedCTBehaviour;
+import com.simibubi.create.foundation.block.BlockStressDefaults;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -15,8 +16,8 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachme
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlock;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -111,7 +112,7 @@ public class TMBlocks {
             .properties(p -> p.sound(SoundType.COPPER))
             .register();
 
-    public static final BlockEntry<OreBlock> ZIRCON_ORE = REGISTRATE
+    public static final BlockEntry<OreBlock> ZIRCONIUM_ORE = REGISTRATE
             .block("zircon_ore", OreBlock::new)
             .initialProperties(() -> Blocks.NETHER_GOLD_ORE)
             .properties(p -> p.color(MaterialColor.METAL))
@@ -124,9 +125,9 @@ public class TMBlocks {
                                     .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
             .tag(BlockTags.NEEDS_DIAMOND_TOOL)
             .tag(Tags.Blocks.ORES)
-            .transform(tagBlockAndItem("ores/zircon", "ores_in_ground/netherrack"))
+            .transform(tagBlockAndItem("ores/zirconium", "ores_in_ground/netherrack"))
             .tag(Tags.Items.ORES)
-//            .lang("Zircon Ore")
+//            .lang("Zirconium")
             .build()
             .register();
 
@@ -147,14 +148,22 @@ public class TMBlocks {
             .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .simpleItem()
             .register();
-    
+
+    public static final BlockEntry<SparkGapBlock> SPARK_GAP = REGISTRATE
+            .block("spark_gap",SparkGapBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/spark_gap"))))
+            .simpleItem()
+            .register();
     public static final BlockEntry<SoulCombustorBlock>  SOUL_COMBUSTOR = REGISTRATE
             .block("soul_combustor", SoulCombustorBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .simpleItem()
             .register();
+
+
 
     public static void register() {}
 }
