@@ -1,0 +1,29 @@
+{
+  "type": "create:mechanical_crafting",
+  "pattern": [
+    " AAA ",
+    "ABPBA",
+    "APSPA",
+    "ABPBA",
+    " AAA "
+  ],
+  "key": {
+    "P": {
+      "item": "create:golden_sheet"
+    },
+    "S": {
+      "item": "technomancy:tesla_stalk"
+    },
+    "A": {
+      "item": "technomancy:zirconium_sheet"
+    },
+    "B": {
+      "item": "create:metal_girder"
+    }
+  },
+  "result": {
+    "item": "technomancy:coil_topload",
+    "count": 1
+  },
+  "acceptMirrored": false
+}

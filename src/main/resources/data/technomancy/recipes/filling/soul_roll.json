@@ -1,0 +1,17 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "fluid": "technomancy:liquid_souls",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:soul_roll"
+    }
+  ]
+}

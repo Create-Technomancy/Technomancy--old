@@ -1,13 +1,7 @@
 package dev.Cosmos616.technomancy.registry;
 
-import com.simibubi.create.Create;
-import com.simibubi.create.content.contraptions.base.CutoutRotatingInstance;
-import com.simibubi.create.content.contraptions.base.KineticTileEntityRenderer;
-import com.simibubi.create.content.contraptions.components.millstone.MillStoneCogInstance;
-import com.simibubi.create.content.contraptions.components.millstone.MillstoneRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
-import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserTileEntity;
@@ -16,12 +10,9 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTile
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.CreativeBatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.IonizedBulbTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslastalk.TeslaStalkTileEntity;
 
@@ -91,10 +82,10 @@ public class TMTileEntities {
             .validBlocks(TMBlocks.COIL_TOPLOAD)
             .register();
 
-    public static final BlockEntityEntry<IonizedBulbTileEntity> IONIZED_BULB = REGISTRATE
-            .tileEntity("ionized_bulb", IonizedBulbTileEntity::new)
-            .validBlocks(TMBlocks.IONIZED_BULB)
-            .register();
+  //  public static final BlockEntityEntry<IonizedBulbTileEntity> IONIZED_BULB = REGISTRATE
+  //          .tileEntity("ionized_bulb", IonizedBulbTileEntity::new)
+  //          .validBlocks(TMBlocks.IONIZED_BULB)
+  //          .register();
 
     public static void register() {}
 }

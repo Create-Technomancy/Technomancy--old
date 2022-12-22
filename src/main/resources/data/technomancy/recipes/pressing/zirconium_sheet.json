@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/zirconium"
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:zirconium_sheet"
+    }
+  ]
+}

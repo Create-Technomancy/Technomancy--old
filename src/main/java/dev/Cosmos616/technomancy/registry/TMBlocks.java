@@ -15,7 +15,6 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachme
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.IonizedBulbBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryBlock;
@@ -190,12 +189,12 @@ public class TMBlocks {
             .simpleItem()
             .register();
 
-    public static final BlockEntry<IonizedBulbBlock> IONIZED_BULB = REGISTRATE
-            .block("ionized_bulb", IonizedBulbBlock::new)
-            .initialProperties(SharedProperties::softMetal)
-            .properties(BlockBehaviour.Properties::noOcclusion)
-            .simpleItem()
-            .register();
+   // public static final BlockEntry<IonizedBulbBlock> IONIZED_BULB = REGISTRATE
+   //         .block("ionized_bulb", IonizedBulbBlock::new)
+   //         .initialProperties(SharedProperties::softMetal)
+   //         .properties(BlockBehaviour.Properties::noOcclusion)
+   //         .simpleItem()
+   //         .register();
 
     public static void register() {}
 }

@@ -1,0 +1,51 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "technomancy:hallowed_bullet_casing"
+  },
+  "transitionalItem": {
+    "item": "technomancy:incompleted_hallowed_bullet"
+  },
+  "sequence": [
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "technomancy:incompleted_hallowed_bullet"
+        },
+        {
+          "fluid": "technomancy:liquid_souls",
+          "nbt": {},
+          "amount": 500
+        }
+      ],
+      "results": [
+        {
+          "item": "technomancy:incompleted_hallowed_bullet"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "technomancy:incompleted_hallowed_bullet"
+        },
+        {
+          "item": "create:iron_sheet"
+        }
+      ],
+      "results": [
+        {
+          "item": "technomancy:incompleted_hallowed_bullet"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:hallowed_bullet"
+    }
+  ],
+  "loops": 1
+}
