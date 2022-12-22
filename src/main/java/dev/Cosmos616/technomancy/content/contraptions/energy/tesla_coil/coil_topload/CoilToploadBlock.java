@@ -1,5 +1,6 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload;
 
+import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -8,7 +9,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CoilToploadBlock extends Block {
+public class CoilToploadBlock extends Block implements IWrenchable {
     public CoilToploadBlock(Properties p_49795_) {super(p_49795_);}
     static final VoxelShape COIL_TOPLOAD = Shapes.or(
             Block.box(5,0,5,11,16,11)

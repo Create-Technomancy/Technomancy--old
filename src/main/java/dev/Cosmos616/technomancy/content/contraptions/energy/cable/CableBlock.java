@@ -1,6 +1,7 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
 import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileEntityBehaviour;
+import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.content.contraptions.wrench.IWrenchableWithBracket;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
@@ -42,7 +43,7 @@ import java.util.Optional;
 import java.util.Random;
 
 public class CableBlock extends PipeBlock
-    implements SimpleWaterloggedBlock, /*IWrenchableWithBracket, */ITE<CableTileEntity> {
+    implements SimpleWaterloggedBlock, /*IWrenchableWithBracket, */ITE<CableTileEntity>, IWrenchable {
 
     public CableBlock(Properties properties) {
         super(3 / 16f, properties);

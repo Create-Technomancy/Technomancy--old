@@ -1,6 +1,7 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
+import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.ComparatorUtil;
 import com.simibubi.create.foundation.utility.Lang;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class BatteryBlock extends Block implements ITE<BatteryTileEntity> {
+public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryTileEntity> {
 
     public static final BooleanProperty TOP = BooleanProperty.create("top");
     public static final BooleanProperty BOTTOM = BooleanProperty.create("bottom");
