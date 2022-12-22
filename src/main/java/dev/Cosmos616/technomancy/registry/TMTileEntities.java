@@ -16,8 +16,14 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTile
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.CreativeBatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.IonizedBulbTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslastalk.TeslaStalkTileEntity;
 
 public class TMTileEntities {
 
@@ -70,6 +76,25 @@ public class TMTileEntities {
             .validBlocks(TMBlocks.SOUL_COMBUSTOR)
             .register();
 
+    public static final BlockEntityEntry<TeslaPrimaryTileEntity> TESLA_PRIMARY = REGISTRATE
+            .tileEntity("tesla_primary", TeslaPrimaryTileEntity::new)
+            .validBlocks(TMBlocks.TESLA_PRIMARY)
+            .register();
+
+    public static final BlockEntityEntry<TeslaStalkTileEntity> TESLA_STALK = REGISTRATE
+            .tileEntity("tesla_stalk", TeslaStalkTileEntity::new)
+            .validBlocks(TMBlocks.TESLA_STALK)
+            .register();
+
+    public static final BlockEntityEntry<CoilToploadTileEntity> COIL_TOPLOAD = REGISTRATE
+            .tileEntity("coil_topload", CoilToploadTileEntity::new)
+            .validBlocks(TMBlocks.COIL_TOPLOAD)
+            .register();
+
+    public static final BlockEntityEntry<IonizedBulbTileEntity> IONIZED_BULB = REGISTRATE
+            .tileEntity("ionized_bulb", IonizedBulbTileEntity::new)
+            .validBlocks(TMBlocks.IONIZED_BULB)
+            .register();
 
     public static void register() {}
 }

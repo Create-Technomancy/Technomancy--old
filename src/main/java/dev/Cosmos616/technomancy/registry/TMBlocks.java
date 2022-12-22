@@ -2,7 +2,6 @@ package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.content.contraptions.base.CasingBlock;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedCTBehaviour;
-import com.simibubi.create.foundation.block.BlockStressDefaults;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -16,7 +15,11 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachme
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.IonizedBulbBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslastalk.TeslaStalkBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Rarity;
@@ -163,7 +166,36 @@ public class TMBlocks {
             .simpleItem()
             .register();
 
+    public static final BlockEntry<TeslaPrimaryBlock> TESLA_PRIMARY = REGISTRATE
+            .block("tesla_primary", TeslaPrimaryBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
+            .simpleItem()
+            .register();
 
+    public static final BlockEntry<TeslaStalkBlock> TESLA_STALK = REGISTRATE
+            .block("tesla_stalk", TeslaStalkBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<CoilToploadBlock> COIL_TOPLOAD = REGISTRATE
+            .block("coil_topload", CoilToploadBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("coil_topload"))))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<IonizedBulbBlock> IONIZED_BULB = REGISTRATE
+            .block("ionized_bulb", IonizedBulbBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .simpleItem()
+            .register();
 
     public static void register() {}
 }

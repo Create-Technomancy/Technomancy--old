@@ -37,6 +37,7 @@ public class SparkGapBlock extends KineticBlock implements ITE<SparkGapTileEntit
 
     static final VoxelShape SPARK_GAP_SHAPE = Shapes.or(
             Block.box(0,0,0,16,6,16),
+            Block.box(2, 6, 2, 14, 10, 14),
             Block.box(0,10,0,16,16,16)
     );
 
