@@ -32,6 +32,10 @@ public class TMItems {
     public static final  ItemEntry<Item> CERAMIC_DUST = REGISTRATE.item("ceramic_dust",Item::new).register();
     public static final  ItemEntry<Item> CERAMIC_PLATE = REGISTRATE.item("ceramic_plate",Item::new).register();
 
+    public static final ItemEntry<Item> ENERGIZED_GOLD_INGOT = REGISTRATE.item("energized_gold_ingot",Item::new).register();
+    public static final ItemEntry<Item> ENERGIZED_GOLDEN_SHEET = REGISTRATE.item("energized_golden_sheet",Item::new).register();
+
+
     public static final  ItemEntry<Item> SOUL_ROLL = REGISTRATE.item("soul_roll",Item::new)
     .properties(p -> p.food(new FoodProperties.Builder().nutrition(6)
 			.saturationMod(0.8F)

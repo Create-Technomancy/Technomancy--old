@@ -33,7 +33,7 @@ public class TeslaStalkPlacementHelper implements IPlacementHelper {
 
 	@Override
 	public Predicate<BlockState> getStatePredicate() {
-		return Predicates.or(TMBlocks.TESLA_STALK::has);
+		return Predicates.or(TMBlocks.TESLA_STALK::has, TMBlocks.TESLA_PRIMARY::has);
 	}
 
 	private boolean canExtendToward(BlockState state, Direction side) {

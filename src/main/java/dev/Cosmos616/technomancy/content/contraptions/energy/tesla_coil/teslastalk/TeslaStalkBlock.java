@@ -4,6 +4,7 @@ import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.content.curiosities.girder.GirderPlacementHelper;
 import com.simibubi.create.foundation.utility.placement.IPlacementHelper;
 import com.simibubi.create.foundation.utility.placement.PlacementHelpers;
+import dev.Cosmos616.technomancy.registry.TMBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -13,7 +14,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -86,5 +89,17 @@ public class TeslaStalkBlock extends Block implements IWrenchable, SimpleWaterlo
         return false;
     }
 
+    //Only allows placement on the "Tesla Primary" Block
+
+    //protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    //    return pState.is(TMBlocks.TESLA_PRIMARY.get());
+    //}
+    //
+    //public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+    //    BlockPos blockpos = pPos.below();
+    //    if (pState.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
+    //    return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
+    //    return false;
+    //}
 
 }

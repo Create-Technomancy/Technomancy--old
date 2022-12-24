@@ -1,0 +1,19 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "technomancy:zircon_shard"
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:zircon_dust",
+      "count": 2
+    },
+    {
+      "item": "technomancy:zircon_dust",
+      "chance": 0.5
+    }
+  ],
+  "processingTime": 150
+}

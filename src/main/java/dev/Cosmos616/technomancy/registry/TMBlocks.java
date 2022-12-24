@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -196,6 +197,12 @@ public class TMBlocks {
            .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .addLayer(() -> RenderType::translucent)
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<Block> ENERGIZED_GOLD_BLOCK = REGISTRATE
+            .block("energized_gold_block", Block::new)
+            .properties(p -> p.sound(SoundType.METAL))
             .simpleItem()
             .register();
 

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "technomancy:zircon_dust"
+  },
+  "result": "technomancy:ceramic_dust",
+  "experience": 0.0,
+  "cookingtime": 200
+}

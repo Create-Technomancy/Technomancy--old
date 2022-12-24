@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/energized_gold"
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:energized_golden_sheet"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "block.technomancy.cable.tooltip": "CABLE",
+  "block.technomancy.cable.tooltip.summary": "Used for basic transportation of _Fosic Energy_",
+  "item.technomancy.energized_gold_ingot.tooltip": "ENERGIZED GOLD INGOT",
+  "item.technomancy.energized_gold_ingot.tooltip.summary": "A _Gold Ingot_ infused with _Fosic Energy_"
+}

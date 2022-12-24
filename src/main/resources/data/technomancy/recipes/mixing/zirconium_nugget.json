@@ -1,0 +1,18 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "forge:dusts/obsidian"
+    },
+    {
+      "tag": "forge:dusts/zircon"
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:zirconium_nugget",
+      "count": 3
+    }
+  ],
+  "heatRequirement": "heated"
+}

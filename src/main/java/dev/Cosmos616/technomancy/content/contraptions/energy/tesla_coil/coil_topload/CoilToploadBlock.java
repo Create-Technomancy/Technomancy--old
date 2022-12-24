@@ -10,6 +10,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CoilToploadBlock extends Block implements IWrenchable {
+
+
     public CoilToploadBlock(Properties p_49795_) {super(p_49795_);}
     static final VoxelShape COIL_TOPLOAD = Shapes.or(
             Block.box(5,0,5,11,16,11)

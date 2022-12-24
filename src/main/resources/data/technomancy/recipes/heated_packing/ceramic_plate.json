@@ -1,0 +1,20 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "tag": "forge:dusts/ceramic"
+    },
+    {
+      "tag": "forge:dusts/ceramic"
+    },
+    {
+      "tag": "forge:dusts/ceramic"
+    }
+  ],
+  "results": [
+    {
+      "item": "technomancy:ceramic_plate"
+    }
+  ],
+  "heatRequirement": "superheated"
+}
