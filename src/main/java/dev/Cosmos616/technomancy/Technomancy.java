@@ -47,7 +47,6 @@ public class Technomancy {
         TMBlockPartials.init();
         TMEntities.register();
         TMTags.register();
-        TMOreFeatures.register();
         TMPackets.registerPackets();
         
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));

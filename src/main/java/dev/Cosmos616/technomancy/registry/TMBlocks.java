@@ -183,7 +183,8 @@ public class TMBlocks {
 
     //public static final BlockEntry<Block> ENERGIZED_GOLD_BLOCK = REGISTRATE
          //   .block("energized_gold_block", Block::new)
-    //   .properties(p -> p.sound(SoundType.METAL))          //  .simpleItem()
+    //   .properties(p -> p.sound(SoundType.METAL))
+    //  .simpleItem()
           //  .register();
 
 
