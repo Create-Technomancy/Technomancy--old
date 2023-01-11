@@ -1,4 +1,4 @@
-package dev.Cosmos616.technomancy.content.contraptions.energy.combustor;
+package dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.combustor;
 
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.fluid.FluidHelper;

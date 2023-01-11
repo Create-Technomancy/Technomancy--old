@@ -17,8 +17,7 @@ public class TMBlockPartials {
             CABLE_CASING = block("cable/casing"),
             LASER_BEAM_INNER = block("laser/beam_inner"),
             LASER_BEAM_OUTER = block("laser/beam_outer"),
-
-    SPARK_GAP_COG = block("spark_gap/spark_gap_cog");
+            SPARK_GAP_COG = block("spark_gap/spark_gap_cog");
 
 
 

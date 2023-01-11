@@ -9,7 +9,7 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAcc
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.CreativeBatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.combustor.SoulCombustorTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapTileEntity;

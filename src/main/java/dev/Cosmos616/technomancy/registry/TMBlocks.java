@@ -14,7 +14,7 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryItem
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulCombustorBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.combustor.SoulCombustorBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.IonizedBulbBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlock;
@@ -24,7 +24,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -116,24 +115,6 @@ public class TMBlocks {
             .properties(p -> p.sound(SoundType.COPPER))
             .register();
 
-    public static final BlockEntry<OreBlock> ZIRCONIUM_ORE = REGISTRATE
-            .block("zircon_ore", OreBlock::new)
-            .initialProperties(() -> Blocks.NETHER_GOLD_ORE)
-            .properties(p -> p.color(MaterialColor.METAL))
-            .properties(p -> p.requiresCorrectToolForDrops()
-                    .sound(SoundType.NETHER_ORE))
-            .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.add(b,
-                    RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
-                            RegistrateBlockLootTables.applyExplosionDecay(b, LootItem.lootTableItem(TMItems.ZIRCON_SHARD.get())
-                                    .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))))
-            .tag(BlockTags.NEEDS_DIAMOND_TOOL)
-            .tag(Tags.Blocks.ORES)
-            .transform(tagBlockAndItem("ores/zirconium", "ores_in_ground/netherrack"))
-            .tag(Tags.Items.ORES)
-//            .lang("Zirconium")
-            .build()
-            .register();
 
     public static final BlockEntry<LaserBlock> LASER = REGISTRATE
             .block("laser", LaserBlock::new)
@@ -200,11 +181,11 @@ public class TMBlocks {
             .simpleItem()
             .register();
 
-    public static final BlockEntry<Block> ENERGIZED_GOLD_BLOCK = REGISTRATE
-            .block("energized_gold_block", Block::new)
-            .properties(p -> p.sound(SoundType.METAL))
-            .simpleItem()
-            .register();
+    //public static final BlockEntry<Block> ENERGIZED_GOLD_BLOCK = REGISTRATE
+         //   .block("energized_gold_block", Block::new)
+    //   .properties(p -> p.sound(SoundType.METAL))          //  .simpleItem()
+          //  .register();
+
 
     public static void register() {}
 }
