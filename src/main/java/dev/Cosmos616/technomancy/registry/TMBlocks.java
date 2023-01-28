@@ -3,7 +3,6 @@ package dev.Cosmos616.technomancy.registry;
 import com.simibubi.create.content.contraptions.base.CasingBlock;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedCTBehaviour;
 import com.simibubi.create.foundation.data.*;
-import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlock;
@@ -14,27 +13,21 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryItem
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.combustor.SoulCombustorBlock;
+import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulBurnerBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.IonizedBulbBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslastalk.TeslaStalkBlock;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.OreBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraftforge.common.Tags;
+import net.minecraft.world.level.material.Material;
 
 import static com.simibubi.create.AllTags.pickaxeOnly;
-import static com.simibubi.create.AllTags.tagBlockAndItem;
+import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TMBlocks {
@@ -141,10 +134,11 @@ public class TMBlocks {
             .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/spark_gap"))))
             .simpleItem()
             .register();
-    public static final BlockEntry<SoulCombustorBlock>  SOUL_COMBUSTOR = REGISTRATE
-            .block("soul_combustor", SoulCombustorBlock::new)
+    public static final BlockEntry<SoulBurnerBlock>  SOUL_BURNER = REGISTRATE
+            .block("soul_burner", SoulBurnerBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
+           // .blockstate((ctx, prov) -> BlockStateGen.
             .simpleItem()
             .register();
 
@@ -178,6 +172,13 @@ public class TMBlocks {
            .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .addLayer(() -> RenderType::translucent)
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<Block> ZIRCON_BLOCK = REGISTRATE
+            .block("zircon_block", Block::new)
+            .initialProperties(Material.AMETHYST)
+            .blockstate(simpleCubeAll("zircon_block"))
             .simpleItem()
             .register();
 

@@ -1,6 +1,0 @@
-{
-  "parent": "technomancy:block/battery/block_single_se",
-  "textures": {
-    "0": "technomancy:block/battery/creative_battery"
-  }
-}

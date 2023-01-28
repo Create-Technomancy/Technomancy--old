@@ -2,6 +2,7 @@ package dev.Cosmos616.technomancy.registry;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserTileEntity;
@@ -9,12 +10,13 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAcc
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.CreativeBatteryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.combustor.SoulCombustorTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulBurnerTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslastalk.TeslaStalkTileEntity;
+import net.minecraft.world.level.block.Block;
 
 public class TMTileEntities {
 
@@ -62,9 +64,9 @@ public class TMTileEntities {
             .renderer(() -> SparkGapRenderer::new)
             .register();
 
-    public static final BlockEntityEntry<SoulCombustorTileEntity> SOUL_COMBUSTOR = REGISTRATE
-            .tileEntity("soul_combustor", SoulCombustorTileEntity::new)
-            .validBlocks(TMBlocks.SOUL_COMBUSTOR)
+    public static final BlockEntityEntry<SoulBurnerTileEntity> SOUL_BURNER = REGISTRATE
+            .tileEntity("soul_burner", SoulBurnerTileEntity::new)
+            .validBlocks(TMBlocks.SOUL_BURNER)
             .register();
 
     public static final BlockEntityEntry<TeslaPrimaryTileEntity> TESLA_PRIMARY = REGISTRATE
@@ -81,6 +83,7 @@ public class TMTileEntities {
             .tileEntity("coil_topload", CoilToploadTileEntity::new)
             .validBlocks(TMBlocks.COIL_TOPLOAD)
             .register();
+
 
   //  public static final BlockEntityEntry<IonizedBulbTileEntity> IONIZED_BULB = REGISTRATE
   //          .tileEntity("ionized_bulb", IonizedBulbTileEntity::new)

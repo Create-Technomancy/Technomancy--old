@@ -5,8 +5,10 @@ import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherItem;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.BulletItem;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.repeater.EnergyRepeaterItem;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.revolver.EnergyRevolverItem;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -49,11 +51,23 @@ public class TMItems {
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_HALLOWED_BULLET = REGISTRATE.item("incompleted_hallowed_bullet", SequencedAssemblyItem::new).register();
     public static final ItemEntry<Item> HALLOWED_BULLET_CASING = REGISTRATE.item("hallowed_bullet_casing", Item::new).register();
 
-    public static final ItemEntry<EnergyRepeaterItem> ENERGY_REPEATER = REGISTRATE.item("energy_repeater", EnergyRepeaterItem::new)
+    public static final ItemEntry<EnergyRepeaterItem> ENERGY_REPEATER = REGISTRATE
+            .item("energy_repeater", EnergyRepeaterItem::new)
             .properties(p -> p.rarity(Rarity.UNCOMMON))
             .model(AssetLookup.itemModelWithPartials())
             .register();
 
+    public static final ItemEntry<EnergyRevolverItem> ENERGY_REVOLVER = REGISTRATE
+            .item("energy_revolver", EnergyRevolverItem::new)
+            .properties(p -> p.rarity(Rarity.UNCOMMON))
+            .model(AssetLookup.itemModelWithPartials())
+            .register();
+
+  public static final ItemEntry<EnergyArcherItem> ENERGY_ARCHER = REGISTRATE
+          .item("energy_archer", EnergyArcherItem::new)
+          .properties(p -> p.rarity(Rarity.UNCOMMON))
+          .model(AssetLookup.itemModelWithPartials())
+          .register();
     @SafeVarargs
     private static ItemEntry<Item> taggedIngredient(String name, TagKey<Item>... tags) {
         return REGISTRATE.item(name, Item::new)
