@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "technomancy:battery",
+    "technomancy:creative_battery",
+    "technomancy:cable_casing",
+    "technomancy:spark_gap"
+  ]
+}

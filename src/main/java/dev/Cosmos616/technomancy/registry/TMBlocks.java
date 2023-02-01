@@ -138,7 +138,7 @@ public class TMBlocks {
             .block("soul_burner", SoulBurnerBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
-           // .blockstate((ctx, prov) -> BlockStateGen.
+            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .simpleItem()
             .register();
 
@@ -182,11 +182,11 @@ public class TMBlocks {
             .simpleItem()
             .register();
 
-    //public static final BlockEntry<Block> ENERGIZED_GOLD_BLOCK = REGISTRATE
-         //   .block("energized_gold_block", Block::new)
-    //   .properties(p -> p.sound(SoundType.METAL))
-    //  .simpleItem()
-          //  .register();
+    public static final BlockEntry<Block> ENERGIZED_GOLD_BLOCK = REGISTRATE
+            .block("energized_gold_block", Block::new)
+       .properties(p -> p.sound(SoundType.METAL))
+      .simpleItem()
+            .register();
 
 
     public static void register() {}

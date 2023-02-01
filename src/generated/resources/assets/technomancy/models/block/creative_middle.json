@@ -1,0 +1,6 @@
+{
+  "parent": "technomancy:block/battery/block_middle",
+  "textures": {
+    "0": "technomancy:block/battery/creative_battery"
+  }
+}

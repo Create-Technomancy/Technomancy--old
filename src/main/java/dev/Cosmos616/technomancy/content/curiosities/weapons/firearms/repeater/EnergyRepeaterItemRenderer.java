@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 
 public class EnergyRepeaterItemRenderer extends AbstractFirearmItemRenderer<EnergyRepeaterModel> {
 	@Override
@@ -39,7 +38,7 @@ public class EnergyRepeaterItemRenderer extends AbstractFirearmItemRenderer<Ener
 		ms.pushPose();
 
 		ms.translate(xo / 16., yo / 16., zo / 16.);
-		ms.mulPose(Vector3f.ZN.rotationDegrees(-time * 70));
+		ms.mulPose(Vector3f.ZN.rotationDegrees(-time * 10));
 		ms.translate(-xo / 16., -yo / 16., -zo / 16.);
 
 		renderer.render(model.getPartial("rails"), light);
