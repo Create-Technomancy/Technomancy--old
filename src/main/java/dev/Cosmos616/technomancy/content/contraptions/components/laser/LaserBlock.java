@@ -2,22 +2,26 @@ package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 
 import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
-import dev.Cosmos616.technomancy.registry.TMTileEntities;
+import dev.Cosmos616.technomancy.registry.TMShapes;
+import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class LaserBlock extends DirectionalBlock implements ITE<LaserTileEntity>, IWrenchable {
+public class LaserBlock extends DirectionalBlock implements ITE<LaserBlockEntity>, IWrenchable {
 	public LaserBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(defaultBlockState()
@@ -52,14 +56,19 @@ public class LaserBlock extends DirectionalBlock implements ITE<LaserTileEntity>
 			tile.updateSignal(level.getBestNeighborSignal(pos));
 		});
 	}
-	
+
 	@Override
-	public Class<LaserTileEntity> getTileEntityClass() {
-		return LaserTileEntity.class;
+	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+		return TMShapes.LASER.get(pState.getValue(FACING));
+	}
+
+	@Override
+	public Class<LaserBlockEntity> getTileEntityClass() {
+		return LaserBlockEntity.class;
 	}
 	
 	@Override
-	public BlockEntityType<? extends LaserTileEntity> getTileEntityType() {
-		return TMTileEntities.LASER.get();
+	public BlockEntityType<? extends LaserBlockEntity> getTileEntityType() {
+		return TMBlockEntities.LASER.get();
 	}
 }

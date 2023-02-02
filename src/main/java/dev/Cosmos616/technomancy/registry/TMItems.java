@@ -19,7 +19,8 @@ import static com.simibubi.create.content.AllSections.*;
 
 public class TMItems {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
-            .creativeModeTab(() -> Technomancy.BASE_CREATIVE_TAB);
+            .creativeModeTab(() -> TMItemGroups.MAIN_GROUP);
+
 
     
     static { REGISTRATE.startSection(MATERIALS); }

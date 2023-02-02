@@ -21,12 +21,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class CableTileEntity extends SmartTileEntity implements ITransformableTE {
+public class CableBlockEntity extends SmartTileEntity implements ITransformableTE {
 
     protected CompositeEnergyStorage compositeEnergyStorage;
     protected LazyOptional<IEnergyStorage> energyCapability;
 
-    public CableTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public CableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         energyCapability = LazyOptional.empty();
     }
@@ -104,7 +104,7 @@ public class CableTileEntity extends SmartTileEntity implements ITransformableTE
 
         if (!CableBlock.isCable(world.getBlockState(offsetPos))) {
             BlockEntity te = world.getBlockEntity(offsetPos);
-            if (te instanceof CableTileEntity cable && cable.canFluxToward(world.getBlockState(offsetPos), direction.getOpposite()))
+            if (te instanceof CableBlockEntity cable && cable.canFluxToward(world.getBlockState(offsetPos), direction.getOpposite()))
                 return CableBlock.shouldDrawCasing(world, pos, state) ? AttachmentTypes.GOLD : AttachmentTypes.NORMAL;
         }
 

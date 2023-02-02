@@ -2,7 +2,7 @@ package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
-import dev.Cosmos616.technomancy.registry.TMTileEntities;
+import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -45,7 +45,7 @@ public class BatteryItem extends BlockItem {
             if (nbt.contains("Content")) {
                 int charge = nbt.getInt("Content");
                 if (charge > 0) {
-                    charge = (Math.min(BatteryTileEntity.getCapacityMultiplier(), charge));
+                    charge = (Math.min(BatteryBlockEntity.getCapacityMultiplier(), charge));
                     nbt.putInt("Content", charge);
                 }
             }
@@ -72,12 +72,12 @@ public class BatteryItem extends BlockItem {
         if (!BatteryBlock.isBattery(placedOnState))
             return;
         boolean creative = getBlock().equals(TMBlocks.CREATIVE_BATTERY_BLOCK.get());
-        BatteryTileEntity batteryAt = ConnectivityHandler.partAt(
-                creative ? TMTileEntities.CREATIVE_BATTERY.get() : TMTileEntities.BATTERY.get(), world, placedOnPos
+        BatteryBlockEntity batteryAt = ConnectivityHandler.partAt(
+                creative ? TMBlockEntities.CREATIVE_BATTERY.get() : TMBlockEntities.BATTERY.get(), world, placedOnPos
         );
         if (batteryAt == null)
             return;
-        BatteryTileEntity controllerTE = batteryAt.getControllerTE();
+        BatteryBlockEntity controllerTE = batteryAt.getControllerTE();
         if (controllerTE == null)
             return;
 

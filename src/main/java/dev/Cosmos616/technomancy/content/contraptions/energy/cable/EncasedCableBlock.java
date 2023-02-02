@@ -6,7 +6,7 @@ import com.simibubi.create.content.schematics.ItemRequirement;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
-import dev.Cosmos616.technomancy.registry.TMTileEntities;
+import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -33,7 +33,7 @@ import java.util.Random;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.DOWN;
 
-public class EncasedCableBlock extends Block implements IWrenchable, ISpecialBlockItemRequirement, ITE<CableTileEntity> {
+public class EncasedCableBlock extends Block implements IWrenchable, ISpecialBlockItemRequirement, ITE<CableBlockEntity> {
 
     public static final Map<Direction, BooleanProperty> FACING_TO_PROPERTY_MAP = PipeBlock.PROPERTY_BY_DIRECTION;
 
@@ -127,12 +127,12 @@ public class EncasedCableBlock extends Block implements IWrenchable, ISpecialBlo
     }
 
     @Override
-    public Class<CableTileEntity> getTileEntityClass() {
-        return CableTileEntity.class;
+    public Class<CableBlockEntity> getTileEntityClass() {
+        return CableBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends CableTileEntity> getTileEntityType() {
-        return TMTileEntities.ENCASED_CABLE.get();
+    public BlockEntityType<? extends CableBlockEntity> getTileEntityType() {
+        return TMBlockEntities.ENCASED_CABLE.get();
     }
 }

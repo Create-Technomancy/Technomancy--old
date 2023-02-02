@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "technomancy:block/soul_burner"
+      "model": "technomancy:block/soul_burner/soul_burner"
     }
   }
 }

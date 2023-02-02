@@ -32,7 +32,7 @@ import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TMBlocks {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
-            .creativeModeTab(() -> Technomancy.BASE_CREATIVE_TAB);
+            .creativeModeTab(() -> TMItemGroups.MAIN_GROUP);
 
 //    public static final BlockEntry<SpectreCoilBlock> SPECTRE_COIL_BLOCK = REGISTRATE
 //            .block("spectre_coil", SpectreCoilBlock::new)
@@ -138,8 +138,8 @@ public class TMBlocks {
             .block("soul_burner", SoulBurnerBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
-            .simpleItem()
+            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/soul_burner"))))
+            .item().transform(customItemModel("soul_burner", "item"))
             .register();
 
     public static final BlockEntry<TeslaPrimaryBlock> TESLA_PRIMARY = REGISTRATE

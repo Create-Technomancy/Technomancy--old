@@ -128,6 +128,8 @@ dependencies {
 
     implementation fg.deobf("curse.maven:craftadditions-439890:3989191") // CC&A
 
+    implementation fg.deobf("curse.maven:spark-361579:3824951")
+
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
 
@@ -175,3 +177,4 @@ artifacts {
 //        }
 //    }
 //}
+tasks.withType(Copy).all { duplicatesStrategy 'exclude' }

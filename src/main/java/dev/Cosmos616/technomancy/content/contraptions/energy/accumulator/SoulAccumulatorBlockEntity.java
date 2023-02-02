@@ -22,8 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SoulAccumulatorTileEntity extends SmartTileEntity implements IHaveGoggleInformation {
-	public SoulAccumulatorTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+public class SoulAccumulatorBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
+	public SoulAccumulatorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		setLazyTickRate(20);
 	}

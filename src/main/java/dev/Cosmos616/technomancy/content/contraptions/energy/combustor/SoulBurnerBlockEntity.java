@@ -15,6 +15,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -24,8 +26,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SoulBurnerTileEntity extends SmartTileEntity implements IHaveGoggleInformation {
-	public SoulBurnerTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+public class SoulBurnerBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
+	public SoulBurnerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		setLazyTickRate(20);
 	}
@@ -42,7 +44,12 @@ public class SoulBurnerTileEntity extends SmartTileEntity implements IHaveGoggle
 		energy = new SoulEnergyTileBehavior(this, 1024);
 		behaviours.add(energy.forbidInsertion());
 	}
-	
+
+	@Override
+	public AABB getRenderBoundingBox() {
+		return super.getRenderBoundingBox().expandTowards(new Vec3(0, 3, 0));
+	}
+
 	@NotNull
 	@Override
 	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {

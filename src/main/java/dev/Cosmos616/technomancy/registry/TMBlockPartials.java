@@ -4,7 +4,7 @@ import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Lang;
 import dev.Cosmos616.technomancy.Technomancy;
-import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlockEntity;
 import net.minecraft.core.Direction;
 
 import java.util.EnumMap;
@@ -17,16 +17,16 @@ public class TMBlockPartials {
             CABLE_CASING = block("cable/casing"),
             LASER_BEAM_INNER = block("laser/beam_inner"),
             LASER_BEAM_OUTER = block("laser/beam_outer"),
-            SPARK_GAP_COG = block("spark_gap/spark_gap_cog");
+            SPARK_GAP_COG = block("spark_gap/spark_gap_cog"),
+            SOUL_BURNER_PARTIAL = block ("soul_burner/soul_burner_partial");
 
 
 
-
-    public static final Map<CableTileEntity.AttachmentTypes, Map<Direction, PartialModel>> CABLE_ATTACHMENTS =
-            new EnumMap<>(CableTileEntity.AttachmentTypes.class);
+    public static final Map<CableBlockEntity.AttachmentTypes, Map<Direction, PartialModel>> CABLE_ATTACHMENTS =
+            new EnumMap<>(CableBlockEntity.AttachmentTypes.class);
 
     static {
-        for (CableTileEntity.AttachmentTypes type : CableTileEntity.AttachmentTypes.values()) {
+        for (CableBlockEntity.AttachmentTypes type : CableBlockEntity.AttachmentTypes.values()) {
             if (!type.hasModel())
                 continue;
             Map<Direction, PartialModel> map = new HashMap<>();

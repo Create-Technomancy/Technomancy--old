@@ -2,12 +2,11 @@ package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
 import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileEntityBehaviour;
 import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.content.contraptions.wrench.IWrenchableWithBracket;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
-import dev.Cosmos616.technomancy.registry.TMTileEntities;
+import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -15,18 +14,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -39,11 +34,10 @@ import net.minecraft.world.ticks.TickPriority;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Random;
 
 public class CableBlock extends PipeBlock
-    implements SimpleWaterloggedBlock, /*IWrenchableWithBracket, */ITE<CableTileEntity>, IWrenchable {
+    implements SimpleWaterloggedBlock, /*IWrenchableWithBracket, */ITE<CableBlockEntity>, IWrenchable {
 
     public CableBlock(Properties properties) {
         super(3 / 16f, properties);
@@ -115,7 +109,7 @@ public class CableBlock extends PipeBlock
         if (CablePropagator.hasEnergyCapability(world, neighbourPos, direction.getOpposite()))
             return true;
 
-        CableTileEntity cable = CablePropagator.getCable(world, neighbourPos);
+        CableBlockEntity cable = CablePropagator.getCable(world, neighbourPos);
         BracketedTileEntityBehaviour bracket =
                 TileEntityBehaviour.get(world, neighbourPos, BracketedTileEntityBehaviour.TYPE);
         if (isCable(neighbour))
@@ -244,13 +238,13 @@ public class CableBlock extends PipeBlock
     }
 
     @Override
-    public Class<CableTileEntity> getTileEntityClass() {
-        return CableTileEntity.class;
+    public Class<CableBlockEntity> getTileEntityClass() {
+        return CableBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends CableTileEntity> getTileEntityType() {
-        return TMTileEntities.CABLE.get();
+    public BlockEntityType<? extends CableBlockEntity> getTileEntityType() {
+        return TMBlockEntities.CABLE.get();
     }
 
 }

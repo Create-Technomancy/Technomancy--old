@@ -18,10 +18,19 @@ public class TMShapes {
 
             FULL_BLOCK = shape(0, 0, 0, 16, 16, 16).add(4, 0, 4, 12, 31, 12).forDirectional(),
 
-            EIGHT_VOXEL_POLE = shape(4, 0, 4, 12, 16, 12).forAxis();
+            EIGHT_VOXEL_POLE = shape(4, 0, 4, 12, 16, 12).forAxis(),
 
+            //SOUL_BURNER = shape(0, 0, 0, 0, 48, 0).forAxis(),
 
-
+            LASER = shape(7, 7, 2, 9, 9, 14)
+                    .add(0, 4, 4, 2, 12, 12)
+                    .add(2, 7, 7, 14, 9, 9)
+                    .add(4, 4, 14, 12, 12, 16)
+                    .add(4, 4, 0, 12, 12, 2)
+                    .add(14, 4, 4, 16, 12, 12)
+                    .add(4, 4, 4, 12, 16, 12)
+                    .add(0, 0, 0, 16, 4, 16)
+                    .forDirectional();
     private static AllShapes.Builder shape(VoxelShape shape) {
         return new AllShapes.Builder(shape);
     }

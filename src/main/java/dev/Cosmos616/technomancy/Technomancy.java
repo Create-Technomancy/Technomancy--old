@@ -27,23 +27,18 @@ public class Technomancy {
     public static final Logger LOGGER = LogManager.getLogger();
 
     private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(MOD_ID);
-    public static final CreativeModeTab BASE_CREATIVE_TAB = new CreativeModeTab("technomancy") {
-        @Override
-        public ItemStack makeIcon(){
-            return new ItemStack(TMBlocks.BATTERY_BLOCK.get());
-        }
-    };
+
 
     public Technomancy() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
-        
+
         forgeEventBus.register(this);
 
         TMBlocks.register();
         TMItems.register();
         TMFluids.register();
-        TMTileEntities.register();
+        TMBlockEntities.register();
         TMBlockPartials.init();
         TMEntities.register();
         TMTags.register();

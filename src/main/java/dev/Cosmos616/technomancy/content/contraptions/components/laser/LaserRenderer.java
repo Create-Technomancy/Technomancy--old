@@ -15,7 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class LaserRenderer extends SafeTileEntityRenderer<LaserTileEntity> {
+public class LaserRenderer extends SafeTileEntityRenderer<LaserBlockEntity> {
 	public LaserRenderer(BlockEntityRendererProvider.Context context) { }
 	
 	// Animation Values
@@ -25,7 +25,7 @@ public class LaserRenderer extends SafeTileEntityRenderer<LaserTileEntity> {
 	private int currentLength = 0;
 	
 	@Override
-	protected void renderSafe(LaserTileEntity tile, float partialTicks, PoseStack stack, MultiBufferSource buffer, int light, int overlay) {
+	protected void renderSafe(LaserBlockEntity tile, float partialTicks, PoseStack stack, MultiBufferSource buffer, int light, int overlay) {
 		if (!tile.running)
 			return;
 		
@@ -52,7 +52,7 @@ public class LaserRenderer extends SafeTileEntityRenderer<LaserTileEntity> {
 	}
 	
 	@Override
-	public boolean shouldRenderOffScreen(LaserTileEntity tile) {
+	public boolean shouldRenderOffScreen(LaserBlockEntity tile) {
 		return true;
 	}
 }

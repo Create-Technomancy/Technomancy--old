@@ -32,5 +32,6 @@
   "item.technomancy.zircon_shard": "Zircon Shard",
   "item.technomancy.zirconium_ingot": "Zirconium Ingot",
   "item.technomancy.zirconium_nugget": "Zirconium Nugget",
-  "item.technomancy.zirconium_sheet": "Zirconium Sheet"
+  "item.technomancy.zirconium_sheet": "Zirconium Sheet",
+  "itemGroup.main_group": "Technomancy"
 }

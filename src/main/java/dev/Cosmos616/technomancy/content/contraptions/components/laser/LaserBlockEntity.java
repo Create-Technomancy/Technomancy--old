@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
@@ -22,17 +23,17 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class LaserTileEntity extends SmartTileEntity implements IHaveGoggleInformation {
+public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
 	protected LazyOptional<IEnergyStorage> lazyEnergy;
 	protected SoulEnergyStorage internalCapacity;
 	
-	public LaserTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	public LaserBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		this.internalCapacity = new SoulEnergyStorage(getCapacity());
 		this.lazyEnergy = LazyOptional.of(() -> internalCapacity);
 		this.setLazyTickRate(12);
 	}
-	
+
 	@Override
 	public void addBehaviours(List<TileEntityBehaviour> behaviours) { }
 	
@@ -93,7 +94,7 @@ public class LaserTileEntity extends SmartTileEntity implements IHaveGoggleInfor
 			sendData();
 		}
 	}
-	
+
 	@Override
 	protected void read(CompoundTag tag, boolean clientPacket) {
 		super.read(tag, clientPacket);

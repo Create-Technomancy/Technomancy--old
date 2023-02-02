@@ -5,7 +5,7 @@ import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.ComparatorUtil;
 import com.simibubi.create.foundation.utility.Lang;
-import dev.Cosmos616.technomancy.registry.TMTileEntities;
+import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryTileEntity> {
+public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlockEntity> {
 
     public static final BooleanProperty TOP = BooleanProperty.create("top");
     public static final BooleanProperty BOTTOM = BooleanProperty.create("bottom");
@@ -55,7 +55,7 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryTileE
             return;
         if (moved)
             return;
-        withTileEntityDo(world, pos, BatteryTileEntity::updateConnectivity);
+        withTileEntityDo(world, pos, BatteryBlockEntity::updateConnectivity);
     }
 
     @Override
@@ -67,22 +67,22 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryTileE
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.hasBlockEntity() && (state.getBlock() != newState.getBlock() || !newState.hasBlockEntity())) {
             BlockEntity te = world.getBlockEntity(pos);
-            if (!(te instanceof BatteryTileEntity))
+            if (!(te instanceof BatteryBlockEntity))
                 return;
-            BatteryTileEntity batteryTE = (BatteryTileEntity) te;
+            BatteryBlockEntity batteryTE = (BatteryBlockEntity) te;
             world.removeBlockEntity(pos);
             ConnectivityHandler.splitMulti(batteryTE);
         }
     }
 
     @Override
-    public Class<BatteryTileEntity> getTileEntityClass() {
-        return BatteryTileEntity.class;
+    public Class<BatteryBlockEntity> getTileEntityClass() {
+        return BatteryBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends BatteryTileEntity> getTileEntityType() {
-        return creative ? TMTileEntities.CREATIVE_BATTERY.get() : TMTileEntities.BATTERY.get();
+    public BlockEntityType<? extends BatteryBlockEntity> getTileEntityType() {
+        return creative ? TMBlockEntities.CREATIVE_BATTERY.get() : TMBlockEntities.BATTERY.get();
     }
 
     public enum Shape implements StringRepresentable {
@@ -101,7 +101,7 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryTileE
 
     @Override
     public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-        return getTileEntityOptional(worldIn, pos).map(BatteryTileEntity::getControllerTE)
+        return getTileEntityOptional(worldIn, pos).map(BatteryBlockEntity::getControllerTE)
                 .map(te -> ComparatorUtil.fractionToRedstoneLevel(te.getChargeState()))
                 .orElse(0);
     }

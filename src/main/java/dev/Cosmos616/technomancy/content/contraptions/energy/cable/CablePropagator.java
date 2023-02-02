@@ -29,7 +29,7 @@ public class CablePropagator {
         List<BlockPos> frontier = new ArrayList<>();
         Set<BlockPos> visited = new HashSet<>();
         Set<Pair<BlockEntity, Direction>> holders = new HashSet<>();
-        Set<Pair<CableTileEntity, BlockEntity>> terminals = new HashSet<>();
+        Set<Pair<CableBlockEntity, BlockEntity>> terminals = new HashSet<>();
 
         frontier.add(cablePos);
 
@@ -41,7 +41,7 @@ public class CablePropagator {
             visited.add(currentPos);
 
             BlockState currentState = currentPos.equals(cablePos) ? cableState : world.getBlockState(currentPos);
-            CableTileEntity cable = getCable(world, currentPos);
+            CableBlockEntity cable = getCable(world, currentPos);
             if (cable == null)
                 continue;
 
@@ -52,14 +52,14 @@ public class CablePropagator {
 
                 BlockEntity tileEntity = world.getBlockEntity(target);
                 BlockState targetState = world.getBlockState(target);
-                if (tileEntity != null && !(tileEntity instanceof CableTileEntity) && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) { // if cap is present
+                if (tileEntity != null && !(tileEntity instanceof CableBlockEntity) && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) { // if cap is present
                     holders.add(Pair.of(tileEntity, direction.getOpposite()));
                     terminals.add(Pair.of(cable, tileEntity));
                     continue;
                 }
                 if (visited.contains(target))
                     continue;
-                CableTileEntity targetCable = getCable(world, target);
+                CableBlockEntity targetCable = getCable(world, target);
                 if (targetCable == null)
                     continue;
                 if (targetCable.canFluxToward(targetState, direction.getOpposite()))
@@ -68,7 +68,7 @@ public class CablePropagator {
         }
 
         terminals.forEach(pair -> {
-            CableTileEntity cable = pair.getFirst();
+            CableBlockEntity cable = pair.getFirst();
             BlockEntity holder = pair.getSecond();
             List<IEnergyStorage> energyStorages = new ArrayList<>();
             holders.forEach(holderPair -> {
@@ -94,7 +94,7 @@ public class CablePropagator {
             if (visited.contains(pos))
                 continue;
             visited.add(pos);
-            CableTileEntity cable = getCable(world, pos);
+            CableBlockEntity cable = getCable(world, pos);
             if (cable == null)
                 continue;
             cable.resetNetwork();
@@ -125,15 +125,15 @@ public class CablePropagator {
         return null;
     }
 
-    public static CableTileEntity getCable(BlockGetter reader, BlockPos pos) {
+    public static CableBlockEntity getCable(BlockGetter reader, BlockPos pos) {
         BlockEntity te = reader.getBlockEntity(pos);
-        return te instanceof CableTileEntity ? (CableTileEntity) te : null;
+        return te instanceof CableBlockEntity ? (CableBlockEntity) te : null;
     }
 
     public static boolean isOpenEnd(BlockGetter reader, BlockPos pos, Direction side) {
         BlockPos connectedPos = pos.relative(side);
         BlockState connectedState = reader.getBlockState(connectedPos);
-        CableTileEntity cable = CablePropagator.getCable(reader, connectedPos);
+        CableBlockEntity cable = CablePropagator.getCable(reader, connectedPos);
         if (cable != null && cable.canFluxToward(connectedState, side.getOpposite()))
             return false;
         if (hasEnergyCapability(reader, connectedPos, side.getOpposite()))
@@ -141,7 +141,7 @@ public class CablePropagator {
         return true;
     }
 
-    public static List<Direction> getCableConnections(BlockState state, CableTileEntity cable) {
+    public static List<Direction> getCableConnections(BlockState state, CableBlockEntity cable) {
         List<Direction> list = new ArrayList<>();
         for (Direction d : Iterate.directions)
             if (cable.canFluxToward(state, d))

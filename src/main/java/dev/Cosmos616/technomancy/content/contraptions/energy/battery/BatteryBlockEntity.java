@@ -1,7 +1,6 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankBlock;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
@@ -23,11 +22,8 @@ import net.minecraftforge.energy.IEnergyStorage;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
-import static java.lang.Math.abs;
-
-public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
+public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
 
     private static final int MAX_SIZE = 3;
 
@@ -43,7 +39,7 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
     protected int syncCooldown;
     protected boolean queuedSync;
 
-    public BatteryTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public BatteryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         batteryInventory = createInventory();
         energyCapability = LazyOptional.of(() -> batteryInventory);
@@ -135,7 +131,7 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        BatteryTileEntity controllerTE = getControllerTE();
+        BatteryBlockEntity controllerTE = getControllerTE();
         if (controllerTE == null)
             return false;
         return true;
@@ -229,12 +225,12 @@ public class BatteryTileEntity extends SmartTileEntity implements IHaveGoggleInf
 
     @SuppressWarnings("unchecked")
     @Override
-    public BatteryTileEntity getControllerTE() {
+    public BatteryBlockEntity getControllerTE() {
         if (isController())
             return this;
         BlockEntity tileEntity = level.getBlockEntity(controller);
-        if (tileEntity instanceof BatteryTileEntity)
-            return (BatteryTileEntity) tileEntity;
+        if (tileEntity instanceof BatteryBlockEntity)
+            return (BatteryBlockEntity) tileEntity;
         return null;
     }
 

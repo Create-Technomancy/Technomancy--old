@@ -39,7 +39,7 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
 
         if (te != null)
             for (Direction d : Iterate.directions)
-                data.putRim(d, ((CableTileEntity)te).getRenderedRimAttachment(world, pos, state, d));
+                data.putRim(d, ((CableBlockEntity)te).getRenderedRimAttachment(world, pos, state, d));
 
         if (bracket != null) // Sadly, this won't work without update form Create dev team :(
             data.putBracket(bracket.getBracket());
@@ -74,13 +74,13 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
     }
 
     private static class CableModelData {
-        CableTileEntity.AttachmentTypes[] rims;
+        CableBlockEntity.AttachmentTypes[] rims;
         boolean encased;
         BakedModel bracket;
 
         public CableModelData() {
-            rims = new CableTileEntity.AttachmentTypes[6];
-            Arrays.fill(rims, CableTileEntity.AttachmentTypes.NONE);
+            rims = new CableBlockEntity.AttachmentTypes[6];
+            Arrays.fill(rims, CableBlockEntity.AttachmentTypes.NONE);
         }
 
         public void putBracket(BlockState state) {
@@ -93,7 +93,7 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
             return bracket;
         }
 
-        public void putRim(Direction face, CableTileEntity.AttachmentTypes rim) {
+        public void putRim(Direction face, CableBlockEntity.AttachmentTypes rim) {
             rims[face.get3DDataValue()] = rim;
         }
 
@@ -102,10 +102,10 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
         }
 
         public boolean hasRim(Direction face) {
-            return rims[face.get3DDataValue()] != CableTileEntity.AttachmentTypes.NONE;
+            return rims[face.get3DDataValue()] != CableBlockEntity.AttachmentTypes.NONE;
         }
 
-        public CableTileEntity.AttachmentTypes getRim(Direction face) {
+        public CableBlockEntity.AttachmentTypes getRim(Direction face) {
             return rims[face.get3DDataValue()];
         }
 
