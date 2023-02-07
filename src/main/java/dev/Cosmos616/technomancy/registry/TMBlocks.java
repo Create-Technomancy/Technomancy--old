@@ -96,16 +96,22 @@ public class TMBlocks {
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate(TMBlockStateGen.encasedCable())
-            .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(TMSpriteShifts.CABLE_CASING)))
-            .onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, TMSpriteShifts.CABLE_CASING)))
+            .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(TMSpriteShifts.ZIRCONIUM_CASING)))
+            .onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, TMSpriteShifts.ZIRCONIUM_CASING)))
             .onRegister(CreateRegistrate.blockModel(() -> CableAttachmentModel::new))
             .loot((p, b) -> p.dropOther(b, CABLE_BLOCK.get()))
             .register();
 
-    public static final BlockEntry<CasingBlock> CABLE_CASING = REGISTRATE
-            .block("cable_casing", CasingBlock::new)
-            .transform(BuilderTransformers.casing(() -> TMSpriteShifts.CABLE_CASING))
+    public static final BlockEntry<CasingBlock> ZIRCONIUM_CASING = REGISTRATE
+            .block("zirconium_casing", CasingBlock::new)
+            .transform(BuilderTransformers.casing(() -> TMSpriteShifts.ZIRCONIUM_CASING))
             .properties(p -> p.sound(SoundType.COPPER))
+            .register();
+
+    public static final BlockEntry<CasingBlock> CERAMIC_CASING = REGISTRATE
+            .block("ceramic_casing", CasingBlock::new)
+            .transform(BuilderTransformers.casing(() -> TMSpriteShifts.CERAMIC_CASING))
+            .properties(p -> p.sound(SoundType.METAL))
             .register();
 
 
@@ -139,7 +145,8 @@ public class TMBlocks {
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/soul_burner"))))
-            .item().transform(customItemModel("soul_burner", "item"))
+//            .item().transform(customItemModel("soul_burner", "item"))
+            .simpleItem()
             .register();
 
     public static final BlockEntry<TeslaPrimaryBlock> TESLA_PRIMARY = REGISTRATE

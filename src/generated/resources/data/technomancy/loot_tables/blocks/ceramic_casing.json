@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "technomancy:cable_casing"
+          "name": "technomancy:ceramic_casing"
         }
       ],
       "conditions": [

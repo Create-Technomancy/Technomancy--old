@@ -52,7 +52,7 @@ public class CableBlock extends PipeBlock
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!TMBlocks.CABLE_CASING.isIn(player.getItemInHand(hand)))
+        if (!TMBlocks.ZIRCONIUM_CASING.isIn(player.getItemInHand(hand)))
             return InteractionResult.PASS;
         if (world.isClientSide)
             return InteractionResult.SUCCESS;

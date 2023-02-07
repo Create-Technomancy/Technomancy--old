@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "technomancy:block/cable_casing",
-		"particle": "technomancy:block/cable_casing"
+		"0": "technomancy:block/zirconium_casing",
+		"particle": "technomancy:block/zirconium_casing"
 	},
 	"elements": [
 		{

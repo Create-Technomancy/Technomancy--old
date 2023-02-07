@@ -10,7 +10,9 @@ import static com.simibubi.create.foundation.block.connected.AllCTTypes.OMNIDIRE
 public class TMSpriteShifts {
 
     public static final CTSpriteShiftEntry
-            CABLE_CASING = omni("cable_casing");
+            ZIRCONIUM_CASING = omni("zirconium_casing"),
+            CERAMIC_CASING = omni("ceramic_casing")
+    ;
 
     private static CTSpriteShiftEntry omni(String name) {
         return getCT(OMNIDIRECTIONAL, name);

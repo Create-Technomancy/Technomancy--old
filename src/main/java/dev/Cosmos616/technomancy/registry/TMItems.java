@@ -25,13 +25,23 @@ public class TMItems {
     
     static { REGISTRATE.startSection(MATERIALS); }
 
+    // Zircon crystal
     public static final ItemEntry<Item> ZIRCON_SHARD = REGISTRATE.item("zircon_shard",Item::new).register();
     public static final ItemEntry<Item> ZIRCON_DUST = REGISTRATE.item("zircon_dust",Item::new).register();
 
+    // Zirconium metal
+    public static final ItemEntry<Item> ZIRCONIUM_DUST = REGISTRATE.item("zirconium_dust",Item::new).register();
     public static final ItemEntry<Item> ZIRCONIUM_NUGGET = REGISTRATE.item("zirconium_nugget",Item::new).register();
     public static final ItemEntry<Item> ZIRCONIUM_INGOT = REGISTRATE.item("zirconium_ingot",Item::new).register();
     public static final ItemEntry<Item> ZIRCONIUM_SHEET = REGISTRATE.item("zirconium_sheet",Item::new).register();
 
+    // Zircaloy compound
+    public static final ItemEntry<Item> ZIRCALOY_DUST = REGISTRATE.item("zircaloy_dust",Item::new).register();
+    public static final ItemEntry<Item> ZIRCALOY_NUGGET = REGISTRATE.item("zircaloy_nugget",Item::new).register();
+    public static final ItemEntry<Item> ZIRCALOY_INGOT = REGISTRATE.item("zircaloy_ingot",Item::new).register();
+    public static final ItemEntry<Item> ZIRCALOY_SHEET = REGISTRATE.item("zircaloy_sheet",Item::new).register();
+
+    // Ceramics
     public static final  ItemEntry<Item> CERAMIC_DUST = REGISTRATE.item("ceramic_dust",Item::new).register();
     public static final  ItemEntry<Item> CERAMIC_PLATE = REGISTRATE.item("ceramic_plate",Item::new).register();
 
