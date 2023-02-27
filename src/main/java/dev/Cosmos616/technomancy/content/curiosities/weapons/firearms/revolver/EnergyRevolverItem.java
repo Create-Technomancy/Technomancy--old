@@ -25,7 +25,7 @@ public class EnergyRevolverItem extends AbstractFirearmItem {
 
 	@Override
 	protected int getFirerateTicks() {
-		return 5;
+		return 10;
 	}
 
 	@Override
