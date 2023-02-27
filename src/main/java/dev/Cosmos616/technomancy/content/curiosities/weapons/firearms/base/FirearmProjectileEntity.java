@@ -30,7 +30,7 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	}
 	
 	protected ProjectileType projectileType = ProjectileType.DEFAULT;
-	protected int leftoverPierce;
+	protected int leftoverPierce=100;
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
@@ -51,17 +51,8 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	@Override
 	public void tick() {
 		super.tick();
-		Vec3 vec3 = this.getDeltaMovement();
-		double d0 = this.getX() + vec3.x;
-		double d1 = this.getY() + vec3.y;
-		double d2 = this.getZ() + vec3.z;
-		float f = this.getInertia();
-		if (this.isInWater()) {
 
-			f = this.getInertia();
-		}
 
-		this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)f));
 		if(this.level.isClientSide) {
 
 			this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, this.getX(), this.getY(), this.getZ(), this.random.nextGaussian() * 0.05D, -this.getDeltaMovement().y * 0.5D, this.random.nextGaussian() * 0.05D);
@@ -73,15 +64,18 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 		tickUpdate = UPDATE_MAX_TICKS;
 	}
 	protected void explode() {
+
 		if (!this.level.isClientSide) {
-			this.level.broadcastEntityEvent(this, (byte) 3);
+		/*	this.level.broadcastEntityEvent(this, (byte) 3);
+
+		 */
 
 			for (int i = 0; i < 10; i++) {
 				float x = Create.RANDOM.nextFloat(360);
 				float y = Create.RANDOM.nextFloat(360);
 				float z = Create.RANDOM.nextFloat(360);
 				SoulSparkEntity spark = TMEntities.SOUL_SPARK.create(level);
-				spark.moveTo(this.getX(), this.getY() + 1, this.getZ());
+				spark.moveTo(this.getX(), this.getY(), this.getZ());
 				spark.shootFromRotation(this, x, y, z, 0.2f, 1);
 				this.level.addFreshEntity(spark);
 			}
@@ -91,6 +85,7 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	}
 	@Override
 	protected void onHitEntity(EntityHitResult hitResult) {
+
 		Entity target = hitResult.getEntity();
 		Entity owner = this.getOwner();
 		explode();
@@ -98,19 +93,19 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 			return;
 		if (owner instanceof LivingEntity livingOwner)
 			livingOwner.setLastHurtMob(target);
-		
+
 		boolean onServer = !level.isClientSide;
-		boolean passes = canPass(projectileType.entityHitPass.test(target));
+		//boolean passes = canPass(projectileType.entityHitPass.test(target));
 		if (onServer && !target.hurt(projectileType.damageSource
 						.apply(new DamageSource(Technomancy.MOD_ID + ".projectile." + projectileType.toString().toLowerCase()).setProjectile()),
 				Mth.lerp(projectileType.damageDrop.apply(this.flyDist), projectileType.closeDamage, projectileType.farDamage))) {
-			if (!passes)
-				kill();
+		//	if (!passes)
+		//		kill();
 			return;
 		}
 		if (!(target instanceof LivingEntity livingTarget)) {
-			if (!passes)
-				kill();
+		//	if (!passes)
+		//		kill();
 			return;
 		}
 		
@@ -120,23 +115,31 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 					.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
 		}
 		
-		if (!passes)
-			kill();
+	//	if (!passes)
+		//	kill();
+
+
 	}
 	
 	@Override
 	protected void onHitBlock(BlockHitResult hitResult) {
 		super.onHitBlock(hitResult);
-		if (!canPass(projectileType.blockHitPass.test(hitResult.getBlockPos())))
+		if (!canPass()) {
 			explode();
-			kill();
+			this.discard();
+		}
 	}
 	
-	protected boolean canPass(boolean testedPredicate) {
-		if (leftoverPierce <= 0 || !testedPredicate)
+	protected boolean canPass() {
+		if (leftoverPierce <= 0) {
+
 			return false;
+
+		}
 		leftoverPierce--;
 		return true;
+
+
 	}
 	
 	@Override
@@ -162,7 +165,7 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	
 	public FirearmProjectileEntity setProjectile(ProjectileType projectileType) {
 		this.projectileType = projectileType;
-		this.leftoverPierce = this.projectileType.pierce;
+		//this.leftoverPierce = this.projectileType.pierce;
 		this.refreshDimensions();
 		return this;
 	}
