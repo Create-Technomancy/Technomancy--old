@@ -4,6 +4,7 @@ import com.simibubi.create.Create;
 import com.simibubi.create.content.contraptions.particle.AirParticleData;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.registry.TMEntities;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -18,6 +19,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -30,7 +34,7 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	}
 	
 	protected ProjectileType projectileType = ProjectileType.DEFAULT;
-	protected int leftoverPierce=100;
+	protected int leftoverPierce=5;
 	
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
@@ -51,7 +55,9 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	@Override
 	public void tick() {
 		super.tick();
-
+		Vec3 vec3 = this.getDeltaMovement();
+		if(isInWater())
+			this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)1.21));
 
 		if(this.level.isClientSide) {
 
@@ -62,6 +68,8 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 			return;
 		this.refreshDimensions();
 		tickUpdate = UPDATE_MAX_TICKS;
+
+
 	}
 	protected void explode() {
 
@@ -124,22 +132,31 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	@Override
 	protected void onHitBlock(BlockHitResult hitResult) {
 		super.onHitBlock(hitResult);
-		if (!canPass()) {
+
+		BlockPos state = hitResult.getBlockPos();
+
+		if (!canPass(state)) {
 			explode();
 			this.discard();
 		}
 	}
 	
-	protected boolean canPass() {
-		if (leftoverPierce <= 0) {
-
+	protected boolean canPass(BlockPos landingPos) {
+		if (leftoverPierce <= 0)
 			return false;
+		if(
+				level.getBlockState(landingPos).is(Blocks.SLIME_BLOCK)||
+				level.getBlockState(landingPos).is(Blocks.HONEY_BLOCK)||
+				level.getBlockState(landingPos).is(Blocks.ICE)||
+				level.getBlockState(landingPos).is(Blocks.PACKED_ICE)
+		) {
 
+			if (level.getBlockState(landingPos).is(Blocks.ICE))
+				level.destroyBlock(landingPos, false);
+			leftoverPierce--;
+			return true;
 		}
-		leftoverPierce--;
-		return true;
-
-
+	return false;
 	}
 	
 	@Override
