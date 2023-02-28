@@ -39,5 +39,9 @@
   "item.technomancy.zirconium_ingot": "Zirconium Ingot",
   "item.technomancy.zirconium_nugget": "Zirconium Nugget",
   "item.technomancy.zirconium_sheet": "Zirconium Sheet",
+
+  "key.technomancy.reload":"Reload",
+  "key.category.createwarfare":"Create: Technomancy",
+
   "itemGroup.main_group": "Technomancy"
 }

@@ -5,6 +5,7 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import dev.Cosmos616.technomancy.foundation.LangMerger;
 import dev.Cosmos616.technomancy.foundation.TMLangPartials;
 import dev.Cosmos616.technomancy.foundation.energy.QuantaPropagator;
+import dev.Cosmos616.technomancy.foundation.keys.TMKeys;
 import dev.Cosmos616.technomancy.registry.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -44,6 +45,7 @@ public class Technomancy {
         TMBlockPartials.init();
         TMEntities.register();
         TMTags.register();
+        TMKeys.register();
         TMPackets.registerPackets();
         
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));

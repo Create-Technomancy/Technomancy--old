@@ -1,24 +1,15 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
-import com.simibubi.create.CreateClient;
-import com.simibubi.create.content.curiosities.zapper.ShootGadgetPacket;
-import com.simibubi.create.content.curiosities.zapper.ShootableGadgetItemMethods;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
-import com.simibubi.create.foundation.networking.AllPackets;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.TechnomancyClient;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherModel;
+import dev.Cosmos616.technomancy.foundation.keys.TMKeys;
 import dev.Cosmos616.technomancy.registry.TMEntities;
-import dev.Cosmos616.technomancy.registry.TMPackets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -32,16 +23,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 @Mod.EventBusSubscriber
 public abstract class AbstractFirearmItem extends Item {
 
-	public static final int USE_DURATION = 1200;
-	public static final float ZOOM_FOV_MODIFIER = 0.1F;
 	public AbstractFirearmItem(Properties properties) {
 		super(properties);
 	}
@@ -125,10 +112,15 @@ public abstract class AbstractFirearmItem extends Item {
 	
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isSelected) {
-		if (level.isClientSide)
-			return;
-		
+
+
+
+		if(TMKeys.reload.isDown()&& Minecraft.getInstance().screen == null&&stack.getOrCreateTag().getInt("Ammunition")!=8) {
+			stack.getOrCreateTag().putInt("Ammunition", 8);
+
+		}
 	}
+
 	
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
@@ -145,6 +137,10 @@ public abstract class AbstractFirearmItem extends Item {
 		return true;
 	}
 
+	@Override
+	public UseAnim getUseAnimation(ItemStack pStack) {
+		return UseAnim.NONE;
+	}
 
 
 	@OnlyIn(Dist.CLIENT)
