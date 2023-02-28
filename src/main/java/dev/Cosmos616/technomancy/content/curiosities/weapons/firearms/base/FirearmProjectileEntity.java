@@ -17,13 +17,17 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkHooks;
@@ -56,20 +60,42 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	public void tick() {
 		super.tick();
 		Vec3 vec3 = this.getDeltaMovement();
-		if(isInWater())
-			this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double)1.21));
+		if(isInWater()) {
+			this.setDeltaMovement(vec3.add(this.xPower, this.yPower, this.zPower).scale((double) 1.204));
 
+
+			double d2 = this.getX() + vec3.x;
+			double d0 = this.getY() + vec3.y;
+			double d1 = this.getZ() + vec3.z;
+			this.updateRotation();
+
+			if (!this.isNoGravity()) {
+				Vec3 vec31 = this.getDeltaMovement();
+				this.setDeltaMovement(vec31.x, vec31.y - (double)this.getGravity(), vec31.z);
+			}
+
+			this.setPos(d2, d0, d1);
+
+
+
+
+
+		}
 		if(this.level.isClientSide) {
 
 			this.level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, this.getX(), this.getY(), this.getZ(), this.random.nextGaussian() * 0.05D, -this.getDeltaMovement().y * 0.5D, this.random.nextGaussian() * 0.05D);
 		}
+
+
+
+
+
+
 		tickUpdate--;
 		if (tickUpdate > 0)
 			return;
 		this.refreshDimensions();
 		tickUpdate = UPDATE_MAX_TICKS;
-
-
 	}
 	protected void explode() {
 
@@ -106,7 +132,7 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 		//boolean passes = canPass(projectileType.entityHitPass.test(target));
 		if (onServer && !target.hurt(projectileType.damageSource
 						.apply(new DamageSource(Technomancy.MOD_ID + ".projectile." + projectileType.toString().toLowerCase()).setProjectile()),
-				Mth.lerp(projectileType.damageDrop.apply(this.flyDist), projectileType.closeDamage, projectileType.farDamage))) {
+				Mth.lerp(projectileType.damageDrop.apply(this.flyDist), projectileType.closeDamage, projectileType.farDamage)*3)) {
 		//	if (!passes)
 		//		kill();
 			return;
@@ -202,5 +228,8 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	@Override
 	public void readSpawnData(FriendlyByteBuf buffer) {
 		readAdditionalSaveData(buffer.readNbt());
+	}
+	protected float getGravity() {
+		return 0.01F;
 	}
 }
