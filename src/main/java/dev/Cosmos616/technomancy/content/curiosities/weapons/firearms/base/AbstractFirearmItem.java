@@ -39,6 +39,9 @@ import java.util.function.Function;
 
 @Mod.EventBusSubscriber
 public abstract class AbstractFirearmItem extends Item {
+
+	public static final int USE_DURATION = 1200;
+	public static final float ZOOM_FOV_MODIFIER = 0.1F;
 	public AbstractFirearmItem(Properties properties) {
 		super(properties);
 	}
@@ -88,7 +91,7 @@ public abstract class AbstractFirearmItem extends Item {
 		projectile.setOwner(player);
 		world.addFreshEntity(projectile);
 	}
-	
+
 	protected ProjectileType getProjectileType(ItemStack stack) {
 		return ProjectileType.DEFAULT;
 	}
@@ -141,12 +144,9 @@ public abstract class AbstractFirearmItem extends Item {
 	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
 		return true;
 	}
-	
-	@Override
-	public UseAnim getUseAnimation(ItemStack pStack) {
-		return UseAnim.NONE;
-	}
-	
+
+
+
 	@OnlyIn(Dist.CLIENT)
 	public abstract AbstractFirearmItemRenderer<?> getRenderer();
 	
@@ -155,4 +155,5 @@ public abstract class AbstractFirearmItem extends Item {
 	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 		consumer.accept(SimpleCustomRenderer.create(this, this.getRenderer()));
 	}
+
 }
