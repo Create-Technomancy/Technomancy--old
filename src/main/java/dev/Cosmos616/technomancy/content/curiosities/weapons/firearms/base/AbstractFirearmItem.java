@@ -146,16 +146,21 @@ public abstract class AbstractFirearmItem extends Item {
 			if (TMKeys.reload.isDown() && Minecraft.getInstance().screen == null && stack.getOrCreateTag().getInt("Ammunition") != 8) {
 				int toReload=8- stack.getOrCreateTag().getInt("Ammunition");
 				for(int i =0;i<toReload;i++) {
-					itemstack =getAmmunition(stack,(Player) entity);
-					stack.getOrCreateTag().putInt("Ammunition", stack.getOrCreateTag().getInt("Ammunition")+1);
-					itemstack.shrink(1);
 
-
+						itemstack = getAmmunition(stack, (Player) entity);
+						if(!itemstack.isEmpty()) {
+							stack.getOrCreateTag().putInt("Ammunition", stack.getOrCreateTag().getInt("Ammunition") + 1);
+							itemstack.shrink(1);
+						}
+					}
+				if(getAmmo(stack)!=0&&!(itemstack.getCount()==0))
+					((Player)entity).getCooldowns().addCooldown(TMItems.ENERGY_REVOLVER.get(), 25);
 				}
-				((Player)entity).getCooldowns().addCooldown(TMItems.ENERGY_REVOLVER.get(), 25);
+
 			}
+
 		}
-	}
+
 	private boolean hasCooldown(Player player,ItemStack firearm) {
 		return player.getCooldowns().isOnCooldown(firearm.getItem());
 	}
