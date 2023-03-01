@@ -64,19 +64,22 @@ public class TMItems {
 
     public static final ItemEntry<EnergyRepeaterItem> ENERGY_REPEATER = REGISTRATE
             .item("energy_repeater", EnergyRepeaterItem::new)
-            .properties(p -> p.rarity(Rarity.UNCOMMON))
+            .properties(p -> p.rarity(Rarity.RARE))
+            .properties(p -> p.stacksTo(1))
             .model(AssetLookup.itemModelWithPartials())
             .register();
 
     public static final ItemEntry<EnergyRevolverItem> ENERGY_REVOLVER = REGISTRATE
             .item("energy_revolver", EnergyRevolverItem::new)
-            .properties(p -> p.rarity(Rarity.UNCOMMON))
+            .properties(p -> p.rarity(Rarity.RARE))
+            .properties(p -> p.stacksTo(1))
             .model(AssetLookup.itemModelWithPartials())
             .register();
 
   public static final ItemEntry<EnergyArcherItem> ENERGY_ARCHER = REGISTRATE
           .item("energy_archer", EnergyArcherItem::new)
-          .properties(p -> p.rarity(Rarity.UNCOMMON))
+          .properties(p -> p.rarity(Rarity.RARE))
+          .properties(p -> p.stacksTo(1))
           .model(AssetLookup.itemModelWithPartials())
           .register();
     @SafeVarargs
