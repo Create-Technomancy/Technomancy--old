@@ -1,11 +1,8 @@
-package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
+package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.soul_sparks;
 
 
-import com.simibubi.create.AllParticleTypes;
 import com.simibubi.create.content.contraptions.particle.CubeParticleData;
 import com.simibubi.create.content.curiosities.weapons.PotatoProjectileEntity;
-import dev.Cosmos616.technomancy.registry.TMEntities;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -13,15 +10,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 
 public class SoulSparkEntity extends ThrowableProjectile {
     public SoulSparkEntity(EntityType<? extends SoulSparkEntity> p_37391_, Level p_37392_) {

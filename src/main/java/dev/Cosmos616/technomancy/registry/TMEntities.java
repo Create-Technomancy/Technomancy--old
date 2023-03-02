@@ -5,8 +5,8 @@ import com.tterrag.registrate.util.entry.EntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileEntity;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileRenderer;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.SoulSparkEntity;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.SoulSparkRenderer;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.soul_sparks.SoulSparkEntity;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.soul_sparks.SoulSparkRenderer;
 import net.minecraft.world.entity.MobCategory;
 
 public class TMEntities {

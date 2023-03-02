@@ -1,4 +1,4 @@
-package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
+package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.soul_sparks;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

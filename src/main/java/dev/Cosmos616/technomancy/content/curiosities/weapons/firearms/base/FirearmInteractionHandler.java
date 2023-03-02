@@ -5,7 +5,9 @@ import com.simibubi.create.content.curiosities.zapper.ShootableGadgetRenderHandl
 import dev.Cosmos616.technomancy.TechnomancyClient;
 import dev.Cosmos616.technomancy.registry.TMPackets;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
@@ -39,8 +41,7 @@ public class FirearmInteractionHandler {
 		event.setCanceled(true);
 		mc.options.keyAttack.setDown(false);
 		
-		if (event.isUseItem() && player.isShiftKeyDown())
-			this.setReload(true);
+
 		
 		if (!event.isAttack())
 			return;
@@ -57,10 +58,7 @@ public class FirearmInteractionHandler {
 		TMPackets.channel.sendToServer(new FirearmShootPacket(ShootableGadgetItemMethods.getGunBarrelVec(player, true, gunItem.getBarrelOffset())));
 		gunItem.shootWeapon(player, heldItem, true);
 	}
-	
-	public void setReload(boolean reloading) {
-	
-	}
+
 	
 //	@SubscribeEvent
 //	public void onClientTick(TickEvent.ClientTickEvent event) {

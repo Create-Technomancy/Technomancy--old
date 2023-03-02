@@ -24,7 +24,6 @@ import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber
 public abstract class AbstractFirearmItem extends Item {
@@ -154,7 +153,9 @@ public abstract class AbstractFirearmItem extends Item {
 						}
 					}
 				if(getAmmo(stack)!=0&&!(itemstack.getCount()==0))
+					TechnomancyClient.FIREARM_RENDER_HANDLER.reload(InteractionHand.MAIN_HAND, Vec3.ZERO);
 					((Player)entity).getCooldowns().addCooldown(TMItems.ENERGY_REVOLVER.get(), 25);
+
 				}
 
 			}
