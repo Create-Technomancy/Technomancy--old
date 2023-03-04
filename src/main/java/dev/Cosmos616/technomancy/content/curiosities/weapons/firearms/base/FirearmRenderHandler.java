@@ -79,8 +79,7 @@ public class FirearmRenderHandler extends ShootableGadgetRenderHandler {
 	
 	@Override
 	protected void transformHand(PoseStack ms, float flip, float equipProgress, float recoil, float pt) {
-
-
+		ms.translate(flip * (0.64F - .1f), -8F , -0.72F - 0.1f);
 
 
 	}

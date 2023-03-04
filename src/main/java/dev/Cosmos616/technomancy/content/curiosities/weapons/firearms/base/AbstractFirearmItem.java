@@ -82,16 +82,7 @@ public abstract class AbstractFirearmItem extends Item {
 		return ProjectileType.DEFAULT;
 	}
 	
-	protected abstract int getReloadTicks();
-	// true: load all available bullets at once
-	// false: load each available bullet individually
-	public boolean usesMagazineReload() {
-		return true;
-	}
-	public void reloadWeapon(Player player, ItemStack gun, BulletItem bullet) {
-		Technomancy.LOGGER.debug("Reloading");
-	}
-	
+
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
 		LocalPlayer player = Minecraft.getInstance().player;
@@ -130,6 +121,8 @@ public abstract class AbstractFirearmItem extends Item {
 			//return net.minecraftforge.common.ForgeHooks.getProjectile(this, pShootable, this.abilities.instabuild ? new ItemStack(Items.ARROW) : ItemStack.EMPTY);
 		//}
 	}
+
+	protected abstract int getReloadTicks();
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isSelected) {
 		if (getAmmo(stack)>getMaxAmmo())
@@ -142,6 +135,8 @@ public abstract class AbstractFirearmItem extends Item {
 				return;
 
 
+
+
 			if (TMKeys.reload.isDown() && Minecraft.getInstance().screen == null && stack.getOrCreateTag().getInt("Ammunition") != 8) {
 				int toReload=8- stack.getOrCreateTag().getInt("Ammunition");
 				for(int i =0;i<toReload;i++) {
@@ -152,10 +147,10 @@ public abstract class AbstractFirearmItem extends Item {
 							itemstack.shrink(1);
 						}
 					}
-				if(getAmmo(stack)!=0&&!(itemstack.getCount()==0))
+				if(getAmmo(stack)!=0&&itemstack.getCount()!=0) {
 					TechnomancyClient.FIREARM_RENDER_HANDLER.reload(InteractionHand.MAIN_HAND, Vec3.ZERO);
-					((Player)entity).getCooldowns().addCooldown(TMItems.ENERGY_REVOLVER.get(), 25);
-
+					((Player) entity).getCooldowns().addCooldown(TMItems.ENERGY_REVOLVER.get(), 25);
+				}
 				}
 
 			}
