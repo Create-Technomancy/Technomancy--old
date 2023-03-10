@@ -1,30 +1,20 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
-import com.simibubi.create.CreateClient;
-import com.simibubi.create.content.curiosities.zapper.ShootGadgetPacket;
-import com.simibubi.create.content.curiosities.zapper.ShootableGadgetItemMethods;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
-import com.simibubi.create.foundation.networking.AllPackets;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.TechnomancyClient;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherModel;
+import dev.Cosmos616.technomancy.foundation.keys.TMKeys;
 import dev.Cosmos616.technomancy.registry.TMEntities;
-import dev.Cosmos616.technomancy.registry.TMPackets;
+import dev.Cosmos616.technomancy.registry.TMItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -32,13 +22,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 @Mod.EventBusSubscriber
 public abstract class AbstractFirearmItem extends Item {
+
 	public AbstractFirearmItem(Properties properties) {
 		super(properties);
 	}
@@ -88,21 +77,12 @@ public abstract class AbstractFirearmItem extends Item {
 		projectile.setOwner(player);
 		world.addFreshEntity(projectile);
 	}
-	
+
 	protected ProjectileType getProjectileType(ItemStack stack) {
 		return ProjectileType.DEFAULT;
 	}
 	
-	protected abstract int getReloadTicks();
-	// true: load all available bullets at once
-	// false: load each available bullet individually
-	public boolean usesMagazineReload() {
-		return true;
-	}
-	public void reloadWeapon(Player player, ItemStack gun, BulletItem bullet) {
-		Technomancy.LOGGER.debug("Reloading");
-	}
-	
+
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
 		LocalPlayer player = Minecraft.getInstance().player;
@@ -119,12 +99,66 @@ public abstract class AbstractFirearmItem extends Item {
 	public int getBarWidth(ItemStack stack) {
 		return Math.round((float)stack.getOrCreateTag().getInt("Ammunition") * 13.0F / (float)this.getMaxAmmo());
 	}
-	
+	public ItemStack getAllSupportedProjectiles() {
+		return TMItems.HALLOWED_BULLET.get().getDefaultInstance();
+	}
+	public ItemStack getAmmunition(ItemStack firearm,Player player){
+		ItemStack itemStack = ((AbstractFirearmItem)firearm.getItem()).getAllSupportedProjectiles();
+		//ItemStack itemstack = ProjectileWeaponItem.getHeldProjectile(this, predicate);
+		//if (!itemstack.isEmpty()) {
+		//	return net.minecraftforge.common.ForgeHooks.getProjectile(this, pShootable, itemstack);
+		//} else {
+			//predicate = ((ProjectileWeaponItem)pShootable.getItem()).getAllSupportedProjectiles();
+
+			for(int i = 0; i < player.getInventory().getContainerSize(); ++i) {
+				ItemStack itemstack1 = player.getInventory().getItem(i);
+				if (itemstack1.is(itemStack.getItem())) {
+					return itemstack1;
+				}
+			}
+
+			return ItemStack.EMPTY;
+			//return net.minecraftforge.common.ForgeHooks.getProjectile(this, pShootable, this.abilities.instabuild ? new ItemStack(Items.ARROW) : ItemStack.EMPTY);
+		//}
+	}
+
+	protected abstract int getReloadTicks();
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isSelected) {
-		if (level.isClientSide)
-			return;
-		
+		if (getAmmo(stack)>getMaxAmmo())
+			stack.getOrCreateTag().putInt("Ammunition", 8);
+
+		if(entity instanceof Player  &&((Player)entity).getMainHandItem() == stack) {
+			ItemStack itemstack =getAmmunition(stack,(Player) entity);
+
+			if(hasCooldown((Player)entity,stack))
+				return;
+
+
+
+
+			if (TMKeys.reload.isDown() && Minecraft.getInstance().screen == null && stack.getOrCreateTag().getInt("Ammunition") != 8) {
+				int toReload=8- stack.getOrCreateTag().getInt("Ammunition");
+				for(int i =0;i<toReload;i++) {
+
+						itemstack = getAmmunition(stack, (Player) entity);
+						if(!itemstack.isEmpty()) {
+							stack.getOrCreateTag().putInt("Ammunition", stack.getOrCreateTag().getInt("Ammunition") + 1);
+							itemstack.shrink(1);
+						}
+					}
+				if(getAmmo(stack)!=0&&itemstack.getCount()!=0) {
+					TechnomancyClient.FIREARM_RENDER_HANDLER.reload(InteractionHand.MAIN_HAND, Vec3.ZERO);
+					((Player) entity).getCooldowns().addCooldown(TMItems.ENERGY_REVOLVER.get(), 25);
+				}
+				}
+
+			}
+
+		}
+
+	private boolean hasCooldown(Player player,ItemStack firearm) {
+		return player.getCooldowns().isOnCooldown(firearm.getItem());
 	}
 	
 	@Override
@@ -141,12 +175,13 @@ public abstract class AbstractFirearmItem extends Item {
 	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
 		return true;
 	}
-	
+
 	@Override
 	public UseAnim getUseAnimation(ItemStack pStack) {
 		return UseAnim.NONE;
 	}
-	
+
+
 	@OnlyIn(Dist.CLIENT)
 	public abstract AbstractFirearmItemRenderer<?> getRenderer();
 	
@@ -155,4 +190,5 @@ public abstract class AbstractFirearmItem extends Item {
 	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 		consumer.accept(SimpleCustomRenderer.create(this, this.getRenderer()));
 	}
+
 }

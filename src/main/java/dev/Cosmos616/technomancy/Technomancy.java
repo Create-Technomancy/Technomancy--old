@@ -4,9 +4,12 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import dev.Cosmos616.technomancy.foundation.LangMerger;
 import dev.Cosmos616.technomancy.foundation.TMLangPartials;
+import dev.Cosmos616.technomancy.foundation.keys.TMKeys;
 import dev.Cosmos616.technomancy.registry.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -39,6 +42,7 @@ public class Technomancy {
         TMBlockPartials.init();
         TMEntities.register();
         TMTags.register();
+        TMKeys.register();
         TMPackets.registerPackets();
         
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));
