@@ -4,7 +4,7 @@ import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Lang;
 import dev.Cosmos616.technomancy.Technomancy;
-import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlockEntity;
+import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
 import net.minecraft.core.Direction;
 
 import java.util.EnumMap;
@@ -22,13 +22,13 @@ public class TMBlockPartials {
 
 
 
-    public static final Map<CableBlockEntity.AttachmentTypes, Map<Direction, PartialModel>> CABLE_ATTACHMENTS =
-            new EnumMap<>(CableBlockEntity.AttachmentTypes.class);
+    public static final Map<AetherTransportBehaviour.AttachmentTypes.ComponentPartials, Map<Direction, PartialModel>> CABLE_ATTACHMENTS =
+            new EnumMap<>(AetherTransportBehaviour.AttachmentTypes.ComponentPartials.class);
 
     static {
-        for (CableBlockEntity.AttachmentTypes type : CableBlockEntity.AttachmentTypes.values()) {
-            if (!type.hasModel())
-                continue;
+        for (AetherTransportBehaviour.AttachmentTypes.ComponentPartials type : AetherTransportBehaviour.AttachmentTypes.ComponentPartials.values()) {
+//            if (!type.hasModel())
+//                continue;
             Map<Direction, PartialModel> map = new HashMap<>();
             for (Direction d : Iterate.directions) {
                 String asId = Lang.asId(type.name());

@@ -1,17 +1,10 @@
-package dev.Cosmos616.technomancy.content.contraptions.energy.combustor;
+package dev.Cosmos616.technomancy.content.contraptions.components.combustor;
 
 import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
-import dev.Cosmos616.technomancy.registry.TMShapes;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SoulBurnerBlock extends Block implements IWrenchable, ITE<SoulBurnerBlockEntity> {
 	public SoulBurnerBlock(Properties properties) {

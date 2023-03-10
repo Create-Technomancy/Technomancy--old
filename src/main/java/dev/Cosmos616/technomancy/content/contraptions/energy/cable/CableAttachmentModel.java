@@ -4,6 +4,7 @@ import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileE
 import com.simibubi.create.foundation.block.connected.BakedModelWrapperWithData;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
+import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
 import dev.Cosmos616.technomancy.registry.TMBlockPartials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -11,7 +12,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class CableAttachmentModel extends BakedModelWrapperWithData {
 
-    private static final ModelProperty<CableAttachmentModel.CableModelData> CABLE_PROPERTY = new ModelProperty<>();
+    private static final ModelProperty<CableModelData> CABLE_PROPERTY = new ModelProperty<>();
 
     public CableAttachmentModel(BakedModel template) {
         super(template);
@@ -34,12 +34,14 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
     @Override
     protected ModelDataMap.Builder gatherModelData(ModelDataMap.Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state) {
         CableModelData data = new CableModelData();
-        BlockEntity te = world.getBlockEntity(pos);
+//        BlockEntity te = world.getBlockEntity(pos);
+        AetherTransportBehaviour transport = TileEntityBehaviour.get(world, pos, AetherTransportBehaviour.TYPE);
         BracketedTileEntityBehaviour bracket = TileEntityBehaviour.get(world, pos, BracketedTileEntityBehaviour.TYPE);
 
-        if (te != null)
+        if (transport != null)
             for (Direction d : Iterate.directions)
-                data.putRim(d, ((CableBlockEntity)te).getRenderedRimAttachment(world, pos, state, d));
+//                data.putAttachment(d, ((CableBlockEntity)te).getRenderedRimAttachment(world, pos, state, d));
+                data.putAttachment(d, transport.getRenderedRimAttachment(world, pos, state, d));
 
         if (bracket != null) // Sadly, this won't work without update form Create dev team :(
             data.putBracket(bracket.getBracket());
@@ -52,61 +54,63 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
     public @NotNull List<BakedQuad> getQuads(BlockState state, Direction side, @NotNull Random rand, @NotNull IModelData data) {
         List<BakedQuad> quads = super.getQuads(state, side, rand, data);
         if (data.hasProperty(CABLE_PROPERTY)) {
+            CableAttachmentModel.CableModelData cableData = data.getData(CABLE_PROPERTY);
             quads = new ArrayList<>(quads);
-            addQuads(quads, state, side, rand, data, data.getData(CABLE_PROPERTY));
+            addQuads(quads, state, side, rand, data, cableData);
         }
         return quads;
     }
 
-    private void addQuads(List<BakedQuad> quads, BlockState state, Direction side, Random rand, IModelData data, CableAttachmentModel.CableModelData pipeData) {
-        for (Direction d : Iterate.directions)
-            if (pipeData.hasRim(d))
-                quads.addAll(TMBlockPartials.CABLE_ATTACHMENTS.get(pipeData.getRim(d))
+    private void addQuads(List<BakedQuad> quads, BlockState state, Direction side, Random rand, IModelData data, CableAttachmentModel.CableModelData cableData) {
+        BakedModel bracket = cableData.getBracket();
+        if (bracket != null)
+            quads.addAll(bracket.getQuads(state, side, rand, data));
+        for (Direction d : Iterate.directions) {
+            AetherTransportBehaviour.AttachmentTypes type = cableData.getAttachment(d);
+            for (AetherTransportBehaviour.AttachmentTypes.ComponentPartials partial : type.partials) {
+                quads.addAll(TMBlockPartials.CABLE_ATTACHMENTS.get(partial)
                         .get(d)
                         .get()
                         .getQuads(state, side, rand, data));
-        if (pipeData.isEncased())
+            }
+        }
+        if (cableData.isEncased())
             quads.addAll(TMBlockPartials.CABLE_CASING.get()
                     .getQuads(state, side, rand, data));
-        BakedModel bracket = pipeData.getBracket();
-        if (bracket != null)
-            quads.addAll(bracket.getQuads(state, side, rand, data));
     }
 
     private static class CableModelData {
-        CableBlockEntity.AttachmentTypes[] rims;
-        boolean encased;
-        BakedModel bracket;
+        private AetherTransportBehaviour.AttachmentTypes[] attachments;
+        private boolean encased;
+        private BakedModel bracket;
 
         public CableModelData() {
-            rims = new CableBlockEntity.AttachmentTypes[6];
-            Arrays.fill(rims, CableBlockEntity.AttachmentTypes.NONE);
+            attachments = new AetherTransportBehaviour.AttachmentTypes[6];
+            Arrays.fill(attachments, AetherTransportBehaviour.AttachmentTypes.NONE);
         }
 
         public void putBracket(BlockState state) {
-            this.bracket = Minecraft.getInstance()
-                    .getBlockRenderer()
-                    .getBlockModel(state);
+            if (state != null) {
+                this.bracket = Minecraft.getInstance()
+                        .getBlockRenderer()
+                        .getBlockModel(state);
+            }
         }
 
         public BakedModel getBracket() {
             return bracket;
         }
 
-        public void putRim(Direction face, CableBlockEntity.AttachmentTypes rim) {
-            rims[face.get3DDataValue()] = rim;
+        public void putAttachment(Direction face, AetherTransportBehaviour.AttachmentTypes rim) {
+            attachments[face.get3DDataValue()] = rim;
+        }
+
+        public AetherTransportBehaviour.AttachmentTypes getAttachment(Direction face) {
+            return attachments[face.get3DDataValue()];
         }
 
         public void setEncased(boolean encased) {
             this.encased = encased;
-        }
-
-        public boolean hasRim(Direction face) {
-            return rims[face.get3DDataValue()] != CableBlockEntity.AttachmentTypes.NONE;
-        }
-
-        public CableBlockEntity.AttachmentTypes getRim(Direction face) {
-            return rims[face.get3DDataValue()];
         }
 
         public boolean isEncased() {

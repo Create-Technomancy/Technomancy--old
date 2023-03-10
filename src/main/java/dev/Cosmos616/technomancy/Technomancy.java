@@ -4,12 +4,9 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import dev.Cosmos616.technomancy.foundation.LangMerger;
 import dev.Cosmos616.technomancy.foundation.TMLangPartials;
-import dev.Cosmos616.technomancy.foundation.energy.QuantaPropagator;
 import dev.Cosmos616.technomancy.registry.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -28,8 +25,6 @@ public class Technomancy {
     public static final Logger LOGGER = LogManager.getLogger();
 
     private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(MOD_ID);
-
-    public static final QuantaPropagator QUANTA_PROPAGATOR = new QuantaPropagator();
 
     public Technomancy() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
