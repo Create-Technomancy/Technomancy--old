@@ -1,5 +1,6 @@
 {
   "block.technomancy.battery": "Battery",
+  "block.technomancy.blackstone_casing": "Blackstone Casing",
   "block.technomancy.cable": "Cable",
   "block.technomancy.ceramic_casing": "Ceramic Casing",
   "block.technomancy.coil_topload": "Coil Topload",
@@ -9,13 +10,18 @@
   "block.technomancy.ionized_bulb": "Ionized Bulb",
   "block.technomancy.laser": "Laser",
   "block.technomancy.liquid_souls": "Liquid Souls",
+  "block.technomancy.silver_block": "Silver Block",
   "block.technomancy.soul_accumulator": "Soul Accumulator",
   "block.technomancy.soul_burner": "Soul Burner",
+  "block.technomancy.soul_burner_extension": "Soul Burner Extension",
   "block.technomancy.spark_gap": "Spark Gap",
   "block.technomancy.tesla_primary": "Tesla Primary",
   "block.technomancy.tesla_stalk": "Tesla Stalk",
+  "block.technomancy.zircaloy_block": "Zircaloy Block",
   "block.technomancy.zircon_block": "Zircon Block",
+  "block.technomancy.zirconium_block": "Zirconium Block",
   "block.technomancy.zirconium_casing": "Zirconium Casing",
+  "block.technomancy.zirconium_oxidized_block": "Zirconium Oxidized Block",
   "entity.technomancy.firearm_projectile": "Firearm Projectile",
   "item.technomancy.ceramic_dust": "Ceramic Dust",
   "item.technomancy.ceramic_plate": "Ceramic Plate",
@@ -39,9 +45,7 @@
   "item.technomancy.zirconium_ingot": "Zirconium Ingot",
   "item.technomancy.zirconium_nugget": "Zirconium Nugget",
   "item.technomancy.zirconium_sheet": "Zirconium Sheet",
-
-  "key.technomancy.reload":"Reload",
-  "key.category.createwarfare":"Create: Technomancy",
-
-  "itemGroup.main_group": "Technomancy"
+  "itemGroup.main_group": "Technomancy",
+  "technomancy.generic.unit.aether": "Souls",
+  "technomancy.gui.goggles.aether_container": "Aether Storage Info:"
 }

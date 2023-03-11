@@ -2,7 +2,7 @@ package dev.Cosmos616.technomancy.events;
 
 import com.simibubi.create.content.contraptions.components.structureMovement.train.capability.CapabilityMinecartController;
 import dev.Cosmos616.technomancy.Technomancy;
-import dev.Cosmos616.technomancy.foundation.energy.ISoulEnergyStorage;
+import dev.Cosmos616.technomancy.foundation.energy.IAetherStorage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
@@ -41,7 +41,7 @@ public class CommonEvents {
         @SubscribeEvent
         public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 //            event.register(QuantumHandler.class);
-            event.register(ISoulEnergyStorage.class); // Soul Energy
+            event.register(IAetherStorage.class); // Soul Energy
         }
 
     }

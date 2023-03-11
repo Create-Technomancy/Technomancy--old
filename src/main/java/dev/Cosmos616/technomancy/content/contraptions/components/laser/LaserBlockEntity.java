@@ -3,7 +3,8 @@ package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import dev.Cosmos616.technomancy.foundation.energy.SoulEnergyStorage;
+import dev.Cosmos616.technomancy.foundation.energy.AetherStorageBehavior;
+import dev.Cosmos616.technomancy.registry.TMCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -11,31 +12,30 @@ import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
-	protected LazyOptional<IEnergyStorage> lazyEnergy;
-	protected SoulEnergyStorage internalCapacity;
-	
+
+	protected AetherStorageBehavior aether;
+
 	public LaserBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		this.internalCapacity = new SoulEnergyStorage(getCapacity());
-		this.lazyEnergy = LazyOptional.of(() -> internalCapacity);
-		this.setLazyTickRate(12);
+		this.setLazyTickRate(10);
 	}
 
 	@Override
-	public void addBehaviours(List<TileEntityBehaviour> behaviours) { }
+	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
+		aether = AetherStorageBehavior.consuming(this, 1000);
+		behaviours.add(aether);
+	}
 	
 	protected int redstoneInput = 0;
 	public void updateSignal(int input) {
@@ -54,7 +54,7 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 		if (this.level.isClientSide())
 			return;
 		
-		if (!(this.running = this.internalCapacity.getEnergyStored() > getConsumptionRate() && this.redstoneInput > 0))
+		if (!(this.running = aether.getHandler().getAetherStored() > getConsumptionRate() && this.redstoneInput > 0))
 			return;
 		
 		if (this.beamTick++ < 4)
@@ -76,7 +76,7 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 		
 		// Consume energy
 		if (this.running)
-			this.internalCapacity.extractEnergy(getConsumptionRate(), false);
+			aether.getHandler().consumeAether(getConsumptionRate(), false);
 	}
 	
 	public void tickBeam() {
@@ -98,8 +98,6 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	@Override
 	protected void read(CompoundTag tag, boolean clientPacket) {
 		super.read(tag, clientPacket);
-		if (this.internalCapacity != null)
-			this.internalCapacity.setEnergy(tag.contains("StoredEnergy") ? tag.getInt("StoredEnergy") : 0);
 		this.beamDistance = tag.contains("BeamDistance") ? tag.getFloat("BeamDistance") : 0.0f;
 		this.redstoneInput = tag.contains("RedstoneLevel") ? tag.getInt("RedstoneLevel") : 0;
 		this.running = tag.contains("Running") && tag.getBoolean("Running");
@@ -108,12 +106,10 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	
 	@Override
 	protected void write(CompoundTag tag, boolean clientPacket) {
-		if (this.internalCapacity != null)
-			tag.putInt("StoredEnergy", this.internalCapacity.getEnergyStored());
+		super.write(tag, clientPacket);
 		tag.putFloat("BeamDistance", this.beamDistance);
 		tag.putInt("RedstoneLevel", redstoneInput);
 		tag.putBoolean("Running", running);
-		super.write(tag, clientPacket);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
@@ -131,8 +127,8 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	@NotNull
 	@Override
 	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-		if (cap == CapabilityEnergy.ENERGY && side.getAxis() != this.getBlockState().getValue(LaserBlock.FACING).getAxis())
-			return this.lazyEnergy.cast();
+		if (cap == TMCapabilities.AETHER && side.getAxis() != this.getBlockState().getValue(LaserBlock.FACING).getAxis())
+			return aether.getCapability().cast();
 		return super.getCapability(cap, side);
 	}
 	

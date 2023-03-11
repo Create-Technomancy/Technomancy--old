@@ -9,8 +9,7 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAcc
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.battery.CreativeBatteryBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulBurnerBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulBurnerRenderer;
+import dev.Cosmos616.technomancy.content.contraptions.components.combustor.SoulBurnerBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadTileEntity;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlockEntity;
@@ -66,7 +65,7 @@ public class TMBlockEntities {
     public static final BlockEntityEntry<SoulBurnerBlockEntity> SOUL_BURNER = REGISTRATE
             .tileEntity("soul_burner", SoulBurnerBlockEntity::new)
             .validBlocks(TMBlocks.SOUL_BURNER)
-            .renderer(() -> SoulBurnerRenderer:: new)
+//            .renderer(() -> SoulBurnerRenderer:: new)
             .register();
 
     public static final BlockEntityEntry<TeslaPrimaryBlockEntity> TESLA_PRIMARY = REGISTRATE

@@ -1,0 +1,95 @@
+package dev.Cosmos616.technomancy.foundation.energy;
+
+import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
+import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+import com.simibubi.create.foundation.tileEntity.behaviour.BehaviourType;
+import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.LangBuilder;
+import dev.Cosmos616.technomancy.foundation.TMLang;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraftforge.common.util.LazyOptional;
+
+import java.util.List;
+import java.util.Optional;
+
+public class AetherStorageBehavior extends TileEntityBehaviour {
+
+	public static final BehaviourType<AetherStorageBehavior> TYPE = new BehaviourType<>();
+
+	protected AetherStorage aether;
+	protected LazyOptional<IAetherStorage> capability;
+
+	public static AetherStorageBehavior generating(SmartTileEntity te, int capacity) {
+		return new AetherStorageBehavior(te, capacity, 0, capacity);
+	}
+
+	public static AetherStorageBehavior consuming(SmartTileEntity te, int capacity) {
+		return new AetherStorageBehavior(te, capacity, capacity, 0);
+	}
+
+	public AetherStorageBehavior(SmartTileEntity te, int capacity, int maxReceive, int maxExtract) {
+		super(te);
+		this.aether = new AetherStorage(capacity, maxReceive, maxExtract);
+		this.capability = LazyOptional.of(() -> aether);
+	}
+
+//	@Override
+//	public void tick() {
+//
+//	}
+
+	@Override
+	public void remove() {
+		super.remove();
+		capability.invalidate();
+	}
+
+	public AetherStorage getHandler() {
+		return aether;
+	}
+
+	public LazyOptional<IAetherStorage> getCapability() {
+		return capability;
+	}
+
+	@Override
+	public void write(CompoundTag nbt, boolean clientPacket) {
+		super.write(nbt, clientPacket);
+		nbt.put("AetherStorage", aether.writeToNBT(new CompoundTag()));
+	}
+
+	@Override
+	public void read(CompoundTag nbt, boolean clientPacket) {
+		super.read(nbt, clientPacket);
+		aether.readFromNBT(nbt.getCompound("AetherStorage"));
+	}
+
+	// TODO: Move somewhere else maybe?
+	public static boolean containedAetherTooltip(List<Component> tooltip, LazyOptional<IAetherStorage> handler) {
+		Optional<IAetherStorage> resolve = handler.resolve();
+		if (!resolve.isPresent())
+			return false;
+
+		IAetherStorage energy = resolve.get();
+
+		TMLang.translate("gui.goggles.aether_container").forGoggles(tooltip);
+		LangBuilder qu = TMLang.translate("generic.unit.aether");
+		Lang.builder()
+				.add(Lang.number(energy.getAetherStored())
+					.style(ChatFormatting.AQUA))
+				.text(ChatFormatting.GRAY, " / ")
+				.add(Lang.number(energy.getAetherCapacity())
+					.space()
+					.add(qu)
+					.style(ChatFormatting.DARK_GRAY))
+				.forGoggles(tooltip, 1);
+		return true;
+	}
+	
+	@Override
+	public BehaviourType<?> getType() {
+		return TYPE;
+	}
+}

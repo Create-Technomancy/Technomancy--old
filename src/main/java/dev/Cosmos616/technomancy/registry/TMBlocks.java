@@ -13,7 +13,7 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryItem
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
-import dev.Cosmos616.technomancy.content.contraptions.energy.combustor.SoulBurnerBlock;
+import dev.Cosmos616.technomancy.content.contraptions.components.combustor.SoulBurnerBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.ionized_bulb.IonizedBulbBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlock;
@@ -22,9 +22,11 @@ import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslasta
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 
 import static com.simibubi.create.AllTags.pickaxeOnly;
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
@@ -140,12 +142,22 @@ public class TMBlocks {
             .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/spark_gap"))))
             .simpleItem()
             .register();
-    public static final BlockEntry<SoulBurnerBlock>  SOUL_BURNER = REGISTRATE
+    public static final BlockEntry<SoulBurnerBlock> SOUL_BURNER = REGISTRATE
             .block("soul_burner", SoulBurnerBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
-            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/soul_burner"))))
+            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/soul_burner/burner_base"))))
 //            .item().transform(customItemModel("soul_burner", "item"))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<Block> SOUL_BURNER_EXTENSION = REGISTRATE //SoulBurnerExtension
+            .block("soul_burner_extension", Block::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/soul_burner/burner_extension"))))
+            .addLayer(() -> RenderType::cutoutMipped)
             .simpleItem()
             .register();
 
@@ -186,6 +198,38 @@ public class TMBlocks {
             .block("zircon_block", Block::new)
             .initialProperties(Material.AMETHYST)
             .blockstate(simpleCubeAll("zircon_block"))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<Block> ZIRCONIUM_BLOCK = REGISTRATE
+            .block("zirconium_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .blockstate(simpleCubeAll("zirconium_block"))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<Block> ZIRCONIUM_OXIDIZED_BLOCK = REGISTRATE
+            .block("zirconium_oxidized_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.color(MaterialColor.COLOR_BLACK))
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .blockstate(simpleCubeAll("zirconium_oxidized_block"))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<Block> ZIRCALOY_BLOCK = REGISTRATE
+            .block("zircaloy_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .properties(p -> p.color(MaterialColor.TERRACOTTA_CYAN))
+            .properties(p -> p.requiresCorrectToolForDrops())
+            .blockstate(simpleCubeAll("zircaloy_block"))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<Block> SILVER_BLOCK = REGISTRATE
+            .block("silver_block", Block::new)
+            .properties(p -> p.sound(SoundType.METAL))
             .simpleItem()
             .register();
 

@@ -1,10 +1,13 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
 import com.simibubi.create.content.contraptions.fluids.pipes.AxisPipeBlock;
+import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Pair;
-import dev.Cosmos616.technomancy.foundation.energy.CompositeEnergyStorage;
+import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
+import dev.Cosmos616.technomancy.foundation.energy.IAetherStorage;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
+import dev.Cosmos616.technomancy.registry.TMCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -13,9 +16,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class CablePropagator {
         List<BlockPos> frontier = new ArrayList<>();
         Set<BlockPos> visited = new HashSet<>();
         Set<Pair<BlockEntity, Direction>> holders = new HashSet<>();
-        Set<Pair<CableBlockEntity, BlockEntity>> terminals = new HashSet<>();
+        Set<Pair<AetherTransportBehaviour, BlockEntity>> terminals = new HashSet<>();
 
         frontier.add(cablePos);
 
@@ -41,25 +41,28 @@ public class CablePropagator {
             visited.add(currentPos);
 
             BlockState currentState = currentPos.equals(cablePos) ? cableState : world.getBlockState(currentPos);
-            CableBlockEntity cable = getCable(world, currentPos);
+            AetherTransportBehaviour cable = getCable(world, currentPos);
             if (cable == null)
                 continue;
 
             for (Direction direction : getCableConnections(currentState, cable)) {
                 BlockPos target = currentPos.relative(direction);
-                if (!world.isAreaLoaded(target, 0))
+                if (world instanceof Level l && !l.isLoaded(target))
                     continue;
 
                 BlockEntity tileEntity = world.getBlockEntity(target);
                 BlockState targetState = world.getBlockState(target);
-                if (tileEntity != null && !(tileEntity instanceof CableBlockEntity) && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) { // if cap is present
+                if (tileEntity != null
+                        && !(tileEntity instanceof CableBlockEntity)
+                        && tileEntity.getCapability(TMCapabilities.AETHER, direction.getOpposite())
+                        .isPresent()) { // if neighbour is a cap provider
                     holders.add(Pair.of(tileEntity, direction.getOpposite()));
                     terminals.add(Pair.of(cable, tileEntity));
                     continue;
                 }
                 if (visited.contains(target))
                     continue;
-                CableBlockEntity targetCable = getCable(world, target);
+                AetherTransportBehaviour targetCable = getCable(world, target);
                 if (targetCable == null)
                     continue;
                 if (targetCable.canFluxToward(targetState, direction.getOpposite()))
@@ -68,18 +71,15 @@ public class CablePropagator {
         }
 
         terminals.forEach(pair -> {
-            CableBlockEntity cable = pair.getFirst();
+            AetherTransportBehaviour cable = pair.getFirst();
             BlockEntity holder = pair.getSecond();
-            List<IEnergyStorage> energyStorages = new ArrayList<>();
+            List<IAetherStorage> cells = new ArrayList<>();
             holders.forEach(holderPair -> {
-                if (holderPair.getFirst() == holder)
-                    return;
-                IEnergyStorage ies = holderPair.getFirst().getCapability(CapabilityEnergy.ENERGY, holderPair.getSecond()).orElse(null);
-                if (ies != null) // if cap cast returns null, skip
-                    energyStorages.add(ies);
+                if (holderPair.getFirst() != holder)
+                    holderPair.getFirst().getCapability(TMCapabilities.AETHER, holderPair.getSecond())
+                        .ifPresent(cells::add);
             });
-            cable.compositeEnergyStorage = new CompositeEnergyStorage(energyStorages.toArray(new IEnergyStorage[0]));
-            cable.energyCapability = LazyOptional.of(() -> cable.compositeEnergyStorage);
+            cable.setStorage(cells.toArray(new IAetherStorage[0]));
         });
 
     }
@@ -94,12 +94,15 @@ public class CablePropagator {
             if (visited.contains(pos))
                 continue;
             visited.add(pos);
-            CableBlockEntity cable = getCable(world, pos);
+
+            AetherTransportBehaviour cable = getCable(world, pos);
             if (cable == null)
                 continue;
             cable.resetNetwork();
 
             for (Direction d : Iterate.directions) {
+//                if (pos.equals(start) && d != side)
+//                    continue;
                 BlockPos target = pos.relative(d);
                 if (visited.contains(target))
                     continue;
@@ -125,23 +128,23 @@ public class CablePropagator {
         return null;
     }
 
-    public static CableBlockEntity getCable(BlockGetter reader, BlockPos pos) {
-        BlockEntity te = reader.getBlockEntity(pos);
-        return te instanceof CableBlockEntity ? (CableBlockEntity) te : null;
+    public static AetherTransportBehaviour getCable(BlockGetter reader, BlockPos pos) {
+        return TileEntityBehaviour.get(reader, pos, AetherTransportBehaviour.TYPE);
+
     }
 
     public static boolean isOpenEnd(BlockGetter reader, BlockPos pos, Direction side) {
         BlockPos connectedPos = pos.relative(side);
         BlockState connectedState = reader.getBlockState(connectedPos);
-        CableBlockEntity cable = CablePropagator.getCable(reader, connectedPos);
+        AetherTransportBehaviour cable = CablePropagator.getCable(reader, connectedPos);
         if (cable != null && cable.canFluxToward(connectedState, side.getOpposite()))
             return false;
-        if (hasEnergyCapability(reader, connectedPos, side.getOpposite()))
+        if (hasAetherCapability(reader, connectedPos, side.getOpposite()))
             return false;
         return true;
     }
 
-    public static List<Direction> getCableConnections(BlockState state, CableBlockEntity cable) {
+    public static List<Direction> getCableConnections(BlockState state, AetherTransportBehaviour cable) {
         List<Direction> list = new ArrayList<>();
         for (Direction d : Iterate.directions)
             if (cable.canFluxToward(state, d))
@@ -149,9 +152,9 @@ public class CablePropagator {
         return list;
     }
 
-    public static boolean hasEnergyCapability(BlockGetter world, BlockPos pos, Direction side) {
+    public static boolean hasAetherCapability(BlockGetter world, BlockPos pos, Direction side) {
         BlockEntity tileEntity = world.getBlockEntity(pos);
-        return tileEntity != null && tileEntity.getCapability(CapabilityEnergy.ENERGY, side)
+        return tileEntity != null && tileEntity.getCapability(TMCapabilities.AETHER, side)
                 .isPresent();
     }
 

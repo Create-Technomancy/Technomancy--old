@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "technomancy:block/cables",
+		"particle": "technomancy:block/cables"
+	},
+	"elements": [
+		{
+			"name": "down",
+			"from": [5, 2, 5],
+			"to": [11, 5, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [3, 7.5, 6, 9], "texture": "#0"},
+				"east": {"uv": [3, 7.5, 6, 9], "texture": "#0"},
+				"south": {"uv": [3, 7.5, 6, 9], "texture": "#0"},
+				"west": {"uv": [3, 7.5, 6, 9], "texture": "#0"}
+			}
+		}
+	]
+}

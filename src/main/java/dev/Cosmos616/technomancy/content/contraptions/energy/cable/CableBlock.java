@@ -1,10 +1,13 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
+import com.simibubi.create.content.contraptions.fluids.FluidTransportBehaviour;
+import com.simibubi.create.content.contraptions.fluids.pipes.EncasedPipeBlock;
 import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileEntityBehaviour;
 import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
+import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -106,30 +109,32 @@ public class CableBlock extends PipeBlock
 
     // check if can branch to neighbor - i.e. pipe<->tank
     public static boolean canConnectTo(BlockAndTintGetter world, BlockPos neighbourPos, BlockState neighbour, Direction direction) {
-        if (CablePropagator.hasEnergyCapability(world, neighbourPos, direction.getOpposite()))
+        if (CablePropagator.hasAetherCapability(world, neighbourPos, direction.getOpposite()))
             return true;
-
-        CableBlockEntity cable = CablePropagator.getCable(world, neighbourPos);
+        AetherTransportBehaviour transport = TileEntityBehaviour.get(world, neighbourPos, AetherTransportBehaviour.TYPE);
         BracketedTileEntityBehaviour bracket =
                 TileEntityBehaviour.get(world, neighbourPos, BracketedTileEntityBehaviour.TYPE);
         if (isCable(neighbour))
             return bracket == null || !bracket.isBracketPresent()
                     || CablePropagator.getStraightCableAxis(neighbour) == direction.getAxis();
-        if (cable == null)
+        if (transport == null)
             return false;
-        return cable.canFluxToward(neighbour, direction.getOpposite());
+        return transport.canFluxToward(neighbour, direction.getOpposite());
     }
 
     public static boolean shouldDrawRim(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction direction) {
         BlockPos offsetPos = pos.relative(direction);
         BlockState facingState = world.getBlockState(offsetPos);
-
-        if (isOpenAt(state, direction) && !isCable(facingState))
+        if (facingState.getBlock() instanceof EncasedCableBlock)
+            return true;
+        if (!isCable(facingState))
+            return true;
+        if (!canConnectTo(world, offsetPos, facingState, direction))
             return true;
         return false;
     }
 
-    // if it has "joint" on that side
+    // if there's a branch to that side
     public static boolean isOpenAt(BlockState state, Direction direction) {
         return state.getValue(PROPERTY_BY_DIRECTION.get(direction));
     }

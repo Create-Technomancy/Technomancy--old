@@ -5,7 +5,10 @@ import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import dev.Cosmos616.technomancy.foundation.energy.SoulEnergyStorage;
+import dev.Cosmos616.technomancy.foundation.energy.AetherStorage;
+import dev.Cosmos616.technomancy.foundation.energy.AetherStorageBehavior;
+import dev.Cosmos616.technomancy.foundation.energy.IAetherStorage;
+import dev.Cosmos616.technomancy.registry.TMCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -16,19 +19,19 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleInformation, IMultiTileContainer {
 
     private static final int MAX_SIZE = 3;
 
-    protected LazyOptional<IEnergyStorage> energyCapability;
-    protected SoulEnergyStorage batteryInventory;
+    protected AetherStorage aether;
+    protected LazyOptional<IAetherStorage> capability;
+
     protected BlockPos controller;
     protected BlockPos lastKnownPos;
     protected boolean updateConnectivity;
@@ -41,16 +44,16 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
 
     public BatteryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        batteryInventory = createInventory();
-        energyCapability = LazyOptional.of(() -> batteryInventory);
+        aether = createInventory();
+        capability = LazyOptional.of(() -> aether);
         updateConnectivity = false;
         width = 1;
         height = 1;
         refreshCapability();
     }
 
-    protected SoulEnergyStorage createInventory() {
-        return new SoulEnergyStorage(getCapacityMultiplier());
+    protected AetherStorage createInventory() {
+        return new AetherStorage(getCapacityMultiplier());
     }
 
     protected void updateConnectivity() {
@@ -134,7 +137,8 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
         BatteryBlockEntity controllerTE = getControllerTE();
         if (controllerTE == null)
             return false;
-        return true;
+        return AetherStorageBehavior.containedAetherTooltip(tooltip,
+            controllerTE.getCapability(TMCapabilities.AETHER));
     }
 
     @Override
@@ -157,28 +161,27 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
         if (isController()) {
             width = compound.getInt("Size");
             height = compound.getInt("Height");
-            batteryInventory.setCapacity(getHeight() * getCapacityMultiplier());
-            batteryInventory.deserializeNBT(compound.get("Content"));
-            if (batteryInventory.getSpace() < 0)
-                batteryInventory.extractEnergy(-batteryInventory.getSpace(), false);
+            aether.readFromNBT(compound.getCompound("AetherStorage"));
+            aether.setAetherCapacity(getTotalBatterySize() * getCapacityMultiplier());
+            if (aether.getSpace() < 0)
+                aether.extractAether(-aether.getSpace(), false);
         }
 
         if (!clientPacket)
             return;
 
-        boolean changeOfController =
-                controllerBefore == null ? controller != null : !controllerBefore.equals(controller);
+        boolean changeOfController = !Objects.equals(controllerBefore, controller);
         if (changeOfController || prevSize != width || prevHeight != height) {
             if (hasLevel())
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 16);
             if (isController())
-                batteryInventory.setCapacity(getCapacityMultiplier() * getTotalBatterySize());
+                aether.setAetherCapacity(getCapacityMultiplier() * getTotalBatterySize());
             invalidateRenderBoundingBox();
         }
     }
 
     public float getChargeState() {
-        return (float) batteryInventory.getEnergyStored() / batteryInventory.getMaxEnergyStored();
+        return (float) aether.getAetherStored() / aether.getAetherCapacity();
     }
 
     @Override
@@ -190,7 +193,7 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
         if (!isController())
             compound.put("Controller", NbtUtils.writeBlockPos(controller));
         if (isController()) {
-            compound.put("Content", batteryInventory.serializeNBT());
+            compound.put("AetherStorage", aether.writeToNBT(new CompoundTag()));
             compound.putInt("Size", width);
             compound.putInt("Height", height);
         }
@@ -200,15 +203,15 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (!energyCapability.isPresent())
+        if (!capability.isPresent())
             refreshCapability();
-        if (cap == CapabilityEnergy.ENERGY)
-            return energyCapability.cast();
+        if (cap == TMCapabilities.AETHER && (side == null || side.getAxis().isVertical()))
+            return capability.cast();
         return super.getCapability(cap, side);
     }
 
-    public IEnergyStorage getBatteryInventory() {
-        return batteryInventory;
+    public IAetherStorage getBatteryInventory() {
+        return aether;
     }
 
     public int getTotalBatterySize() {
@@ -255,14 +258,14 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
     }
 
     private void refreshCapability() {
-        LazyOptional<IEnergyStorage> oldCap = energyCapability;
-        energyCapability = LazyOptional.of(() -> handlerForCapability());
+        LazyOptional<IAetherStorage> oldCap = capability;
+        capability = LazyOptional.of(this::handlerForCapability);
         oldCap.invalidate();
     }
 
-    private IEnergyStorage handlerForCapability() {
-        return isController() ? batteryInventory
-                : getControllerTE() != null ? getControllerTE().handlerForCapability() : new SoulEnergyStorage(0);
+    private IAetherStorage handlerForCapability() {
+        return isController() ? aether
+                : getControllerTE() != null ? getControllerTE().handlerForCapability() : new AetherStorage(0);
     }
 
     @Override
@@ -290,10 +293,10 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
     }
 
     public void applyBatterySize(int blocks) {
-        batteryInventory.setCapacity(blocks * getCapacityMultiplier());
-        int overflow = batteryInventory.getEnergyStored() - batteryInventory.getMaxEnergyStored();
+        aether.setAetherCapacity(blocks * getCapacityMultiplier());
+        int overflow = aether.getAetherStored() - aether.getAetherCapacity();
         if (overflow > 0)
-            batteryInventory.extractEnergy(overflow, false);
+            aether.extractAether(overflow, false);
     }
 
     public static int getCapacityMultiplier() {
@@ -319,9 +322,13 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
             state = state.setValue(BatteryBlock.TOP, getController().getY() + height - 1 == getBlockPos().getY());
             level.setBlock(getBlockPos(), state, 6);
         }
-        if (isController())
+        if (isController()) {
+            applyBatterySize(getTotalBatterySize());
             setShapes();
+        }
+        refreshCapability();
         setChanged();
+        sendData();
     }
 
     @Override
