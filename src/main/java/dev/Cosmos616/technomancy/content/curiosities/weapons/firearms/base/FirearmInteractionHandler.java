@@ -2,7 +2,10 @@ package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
 import com.simibubi.create.content.curiosities.zapper.ShootableGadgetItemMethods;
 import com.simibubi.create.content.curiosities.zapper.ShootableGadgetRenderHandler;
+import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import dev.Cosmos616.technomancy.TechnomancyClient;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherItem;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
 import dev.Cosmos616.technomancy.registry.TMPackets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -28,7 +31,8 @@ public class FirearmInteractionHandler {
 	public void onMouseClick(InputEvent.ClickInputEvent event) {
 		if (event.isCanceled())
 			return;
-		
+
+
 		Minecraft mc = Minecraft.getInstance();
 		Player player = mc.player;
 		if (player == null)
@@ -40,9 +44,13 @@ public class FirearmInteractionHandler {
 		event.setSwingHand(false);
 		event.setCanceled(true);
 		mc.options.keyAttack.setDown(false);
-		
 
-		
+		if(gunItem instanceof EnergyArcherItem) {
+			if (!EnergyArcherUI.charged)
+				return;
+		}
+
+
 		if (!event.isAttack())
 			return;
 		
@@ -53,7 +61,12 @@ public class FirearmInteractionHandler {
 		ItemCooldowns cooldownTracker = player.getCooldowns();
 		if (cooldownTracker.isOnCooldown(gunItem))
 			return;
-		
+		if(gunItem instanceof EnergyArcherItem) {
+			EnergyArcherUI.charged = false;
+			EnergyArcherUI.charge = 0;
+			EnergyArcherUI.displayedSpeed.setValue(0);
+			((EnergyArcherItem) gunItem).charging = false;
+		}
 		cooldownTracker.addCooldown(gunItem, gunItem.getFirerateTicks());
 		TMPackets.channel.sendToServer(new FirearmShootPacket(ShootableGadgetItemMethods.getGunBarrelVec(player, true, gunItem.getBarrelOffset())));
 		gunItem.shootWeapon(player, heldItem, true);

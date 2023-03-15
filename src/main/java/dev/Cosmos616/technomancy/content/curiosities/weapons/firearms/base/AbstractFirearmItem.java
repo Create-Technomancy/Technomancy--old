@@ -121,7 +121,9 @@ public abstract class AbstractFirearmItem extends Item {
 			//return net.minecraftforge.common.ForgeHooks.getProjectile(this, pShootable, this.abilities.instabuild ? new ItemStack(Items.ARROW) : ItemStack.EMPTY);
 		//}
 	}
-
+	public boolean usesMagazineReload() {
+		return true;
+	}
 	protected abstract int getReloadTicks();
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isSelected) {
@@ -136,11 +138,13 @@ public abstract class AbstractFirearmItem extends Item {
 
 
 
+			if(!usesMagazineReload())
+				return;
+
 
 			if (TMKeys.reload.isDown() && Minecraft.getInstance().screen == null && stack.getOrCreateTag().getInt("Ammunition") != 8) {
 				int toReload=8- stack.getOrCreateTag().getInt("Ammunition");
 				for(int i =0;i<toReload;i++) {
-
 						itemstack = getAmmunition(stack, (Player) entity);
 						if(!itemstack.isEmpty()) {
 							stack.getOrCreateTag().putInt("Ammunition", stack.getOrCreateTag().getInt("Ammunition") + 1);
