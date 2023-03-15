@@ -2,6 +2,9 @@ package dev.Cosmos616.technomancy.foundation.energy;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraftforge.fluids.FluidStack;
+
+import java.util.function.Consumer;
 
 public class AetherStorage implements IAetherStorage {
 
@@ -9,34 +12,38 @@ public class AetherStorage implements IAetherStorage {
     protected int capacity;
     protected int maxReceive;
     protected int maxExtract;
+    private Consumer<Integer> updateCallback;
 
-    public AetherStorage(int capacity)
+    public AetherStorage(int capacity, Consumer<Integer> updateCallback)
     {
-        this(capacity, capacity, capacity, 0);
+        this(capacity, capacity, capacity, 0, updateCallback);
     }
 
-    public AetherStorage(int capacity, int maxTransfer)
+    public AetherStorage(int capacity, int maxTransfer, Consumer<Integer> updateCallback)
     {
-        this(capacity, maxTransfer, maxTransfer, 0);
+        this(capacity, maxTransfer, maxTransfer, 0 ,updateCallback);
     }
 
-    public AetherStorage(int capacity, int maxReceive, int maxExtract)
+    public AetherStorage(int capacity, int maxReceive, int maxExtract, Consumer<Integer> updateCallback)
     {
-        this(capacity, maxReceive, maxExtract, 0);
+        this(capacity, maxReceive, maxExtract, 0, updateCallback);
     }
 
-    public AetherStorage(int capacity, int maxReceive, int maxExtract, int aether)
+    public AetherStorage(int capacity, int maxReceive, int maxExtract, int aether, Consumer<Integer> updateCallback)
     {
         this.capacity = capacity;
         this.maxReceive = maxReceive;
         this.maxExtract = maxExtract;
         this.aether = Mth.clamp(aether, 0, capacity);
+        this.updateCallback = updateCallback;
     }
 
     public int generateAether(int toGenerate, boolean simulate) {
         int generated = Math.min(getSpace(), toGenerate);
-        if (!simulate)
+        if (!simulate) {
             aether += generated;
+            onContentsChanged();
+        }
         return generated;
     }
 
@@ -47,8 +54,10 @@ public class AetherStorage implements IAetherStorage {
 
     public int consumeAether(int toConsume, boolean simulate) {
         int consumed = Math.min(aether, toConsume);
-        if (!simulate)
+        if (!simulate) {
             aether -= consumed;
+            onContentsChanged();
+        }
         return consumed;
     }
 
@@ -95,6 +104,10 @@ public class AetherStorage implements IAetherStorage {
 
     public void setExtraction(int maxExtract) {
         this.maxExtract = maxExtract;
+    }
+
+    protected void onContentsChanged() {
+        updateCallback.accept(getAetherStored());
     }
 
     public CompoundTag writeToNBT(CompoundTag nbt) {

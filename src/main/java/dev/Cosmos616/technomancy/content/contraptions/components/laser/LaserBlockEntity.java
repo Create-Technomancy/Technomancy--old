@@ -16,7 +16,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +32,7 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 
 	@Override
 	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
-		aether = AetherStorageBehavior.consuming(this, 1000);
+		aether = AetherStorageBehavior.consuming(this, 1000, this::onAetherChanged);
 		behaviours.add(aether);
 	}
 	
@@ -130,6 +129,15 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 		if (cap == TMCapabilities.AETHER && side.getAxis() != this.getBlockState().getValue(LaserBlock.FACING).getAxis())
 			return aether.getCapability().cast();
 		return super.getCapability(cap, side);
+	}
+	protected void onAetherChanged(int aether) {
+		if (!hasLevel())
+			return;
+
+		if (!level.isClientSide) {
+			setChanged();
+			sendData();
+		}
 	}
 	
 	// Config

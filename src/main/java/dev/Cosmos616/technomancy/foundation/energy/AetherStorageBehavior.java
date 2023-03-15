@@ -13,6 +13,7 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class AetherStorageBehavior extends TileEntityBehaviour {
 
@@ -21,17 +22,17 @@ public class AetherStorageBehavior extends TileEntityBehaviour {
 	protected AetherStorage aether;
 	protected LazyOptional<IAetherStorage> capability;
 
-	public static AetherStorageBehavior generating(SmartTileEntity te, int capacity) {
-		return new AetherStorageBehavior(te, capacity, 0, capacity);
+	public static AetherStorageBehavior generating(SmartTileEntity te, int capacity,  Consumer<Integer> updateCallback) {
+		return new AetherStorageBehavior(te, capacity, 0, capacity, updateCallback);
 	}
 
-	public static AetherStorageBehavior consuming(SmartTileEntity te, int capacity) {
-		return new AetherStorageBehavior(te, capacity, capacity, 0);
+	public static AetherStorageBehavior consuming(SmartTileEntity te, int capacity,  Consumer<Integer> updateCallback) {
+		return new AetherStorageBehavior(te, capacity, capacity, 0, updateCallback);
 	}
 
-	public AetherStorageBehavior(SmartTileEntity te, int capacity, int maxReceive, int maxExtract) {
+	public AetherStorageBehavior(SmartTileEntity te, int capacity, int maxReceive, int maxExtract,  Consumer<Integer> updateCallback) {
 		super(te);
-		this.aether = new AetherStorage(capacity, maxReceive, maxExtract);
+		this.aether = new AetherStorage(capacity, maxReceive, maxExtract, updateCallback);
 		this.capability = LazyOptional.of(() -> aether);
 	}
 
