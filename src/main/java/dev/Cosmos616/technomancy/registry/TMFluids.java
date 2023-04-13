@@ -10,6 +10,7 @@ import com.tterrag.registrate.util.nullness.NonNullBiFunction;
 import dev.Cosmos616.technomancy.Technomancy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -33,7 +34,7 @@ public class TMFluids {
                             .tickRate(25)
                             .slopeFindDistance(3)
                             .explosionResistance(100f))
-                    .tag(AllTags.forgeFluidTag("liquid_souls"))
+                    .tag(AllTags.forgeFluidTag("liquid_souls"), FluidTags.WATER)
                     .source(ForgeFlowingFluid.Source::new)
                     .bucket()
                     .tag(AllTags.forgeItemTag("buckets/liquid_souls"))
