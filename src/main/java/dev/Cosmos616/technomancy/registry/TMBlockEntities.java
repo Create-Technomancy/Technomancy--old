@@ -5,16 +5,16 @@ import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.accumulator.SoulAccumulatorBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.battery.BatteryBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.battery.CreativeBatteryBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlockEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.accumulator.SoulAccumulatorBlockEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.battery.BatteryBlockEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.battery.CreativeBatteryBlockEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.cable.CableBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.components.combustor.SoulBurnerBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.coil_topload.CoilToploadTileEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapRenderer;
-import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap.SparkGapBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary.TeslaPrimaryBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslastalk.TeslaStalkBlockEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.coil_topload.CoilToploadTileEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.sparkgap.SparkGapRenderer;
+import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.sparkgap.SparkGapBlockEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.tesla_primary.TeslaPrimaryBlockEntity;
+import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.teslastalk.TeslaStalkBlockEntity;
 
 public class TMBlockEntities {
 
