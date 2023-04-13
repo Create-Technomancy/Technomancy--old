@@ -35,9 +35,7 @@ public class EnergyArcherItem extends AbstractFirearmItem {
         super.inventoryTick(stack, level, entity, slot, isSelected);
         if(TMKeys.reload.consumeClick())
             charging=!charging;
-
-
-
+        
         EnergyArcherUI.toRender = ((Player) entity).getMainHandItem().getItem() == TMItems.ENERGY_ARCHER.get();
         if(charging){
             chargeLevel=1;
