@@ -47,8 +47,11 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	protected boolean running = false;
 	
 	protected int beamTick = 0;
+	protected int beamAnimationTick = 0;
 	@Override
 	public void tick() {
+		this.beamAnimationTick = (this.beamAnimationTick + 1) % 20;
+		
 		super.tick();
 		if (this.level.isClientSide())
 			return;
@@ -153,4 +156,5 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	public static float getMaxLaserDistance() { // In Blocks
 		return 32.0f;
 	}
+	
 }

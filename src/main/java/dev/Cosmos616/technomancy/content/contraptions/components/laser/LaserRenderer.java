@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
 import com.simibubi.create.foundation.tileEntity.renderer.SafeTileEntityRenderer;
 import com.simibubi.create.foundation.utility.AngleHelper;
+import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.registry.TMBlockPartials;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -33,22 +34,39 @@ public class LaserRenderer extends SafeTileEntityRenderer<LaserBlockEntity> {
 		VertexConsumer vb = buffer.getBuffer(RenderType.translucent());
 		BlockState state = tile.getBlockState();
 		Direction facing = state.getValue(DirectionalBlock.FACING);
-		for (int i = 0; i < (int)tile.getBeamDistance(); i++) {
+		
+		float rotation = ((tile.beamAnimationTick + partialTicks ) % 20) *18;
+		
+		float maxLaser = LaserBlockEntity.getMaxLaserDistance();
+		
+		for (int i = 0; i < (int) tile.getBeamDistance(); i++) {
+			float fade = Math.max(Math.min(1, ((maxLaser - (i+1)) / maxLaser) * 4), 0);
+			
+			float outerTick = (tile.beamAnimationTick + (20 - i) + partialTicks) % 20;
+			
+			float outerRotation = outerTick * 18;
+			float outerPulse = Math.min((20 - outerTick), outerTick) * 0.1f;
+			
+			int[] colour = new int[] {(int) (150 + (95 * outerPulse)), (int) (200 + (55 * outerPulse)), 255};
+			
 			transformed(TMBlockPartials.LASER_BEAM_INNER, state, facing)
-					.unCentre().translate(-0.5f, i + 1, -0.5f)
-					.centre().rotateX(90.0f)
+					.translate(0, i + 1, 0).centre().rotateY(rotation).rotateX(90).unCentre()
+					.color(colour[0], colour[1], colour[2], (int) (192 * fade))
 					.light(light).renderInto(stack, vb);
+			
 			transformed(TMBlockPartials.LASER_BEAM_OUTER, state, facing)
-					.unCentre().translate(-0.5f, i + 1,-0.5f)
-					.centre().rotateX(90.0f)
-					.color(255, 255, 255, 128)
+					.translate(0, i + 1, 0).centre().rotateY(-outerRotation)
+					.scale(1.7f + (outerPulse * fade), 1,
+							1.7f + (outerPulse * fade))
+					.rotateX(90).unCentre()
+					.color(colour[0], colour[1], colour[2], (int) (128 * fade))
 					.light(light).renderInto(stack, vb);
 		}
 	}
 	
 	private SuperByteBuffer transformed(PartialModel model, BlockState blockState, Direction facing) {
 		return CachedBufferer.partial(model, blockState).centre().rotateY(
-				AngleHelper.horizontalAngle(facing)).rotateX(AngleHelper.verticalAngle(facing) + 90.0F);
+				AngleHelper.horizontalAngle(facing)).rotateX(AngleHelper.verticalAngle(facing) + 90.0F).unCentre();
 	}
 	
 	@Override
