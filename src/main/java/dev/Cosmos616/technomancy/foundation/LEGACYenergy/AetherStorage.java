@@ -1,8 +1,7 @@
-package dev.Cosmos616.technomancy.foundation.energy;
+package dev.Cosmos616.technomancy.foundation.LEGACYenergy;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
-import net.minecraftforge.fluids.FluidStack;
 
 import java.util.function.Consumer;
 

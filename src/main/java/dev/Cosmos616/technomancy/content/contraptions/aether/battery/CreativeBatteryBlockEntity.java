@@ -2,7 +2,7 @@ package dev.Cosmos616.technomancy.content.contraptions.aether.battery;
 
 import com.simibubi.create.foundation.utility.Lang;
 import dev.Cosmos616.technomancy.foundation.TMLang;
-import dev.Cosmos616.technomancy.foundation.energy.AetherStorage;
+import dev.Cosmos616.technomancy.foundation.LEGACYenergy.AetherStorage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

@@ -40,22 +40,38 @@ public abstract class AetherNetworkElement extends SmartTileEntity implements IH
     return false;
   }
   
+  /**Will look around for available networks, and resolve issues such as merging networks*/
+  public void updateConnectedNetwork() {
+    for (Direction direction : Direction.values()) {
+  
+      BlockPos otherPos = getBlockPos().relative(direction);
+      BlockEntity otherEntity = level.getBlockEntity(otherPos);
+  
+      if (otherEntity instanceof AetherNetworkElement otherElement) {
+        if (aetherNetwork == null && otherElement.hasAetherNetwork()) {
+          aetherNetwork = otherElement.getAetherNetwork();
+        } else if (aetherNetwork != otherElement.getAetherNetwork()) {
+          aetherNetwork.addChild(otherElement);
+          otherElement.updateConnectedNetwork();
+        }
+      }
+      
+    }
+  }
+  
+  @Override
+  public void setRemoved() {
+    super.setRemoved();
+    if (aetherNetwork != null) {
+      aetherNetwork.removeChild(this);
+      aetherNetwork.validateIntegrity(level);
+    }
+  }
+  
+  /**Returns the current network, or will look for a valid one to connect to, or will create one*/
   public AetherNetwork getOrCreateAetherNetwork() {
     if (aetherNetwork == null)
-      for (Direction direction : Direction.values()) {
-        
-        BlockPos otherPos = getBlockPos().relative(direction);
-        BlockEntity otherEntity = level.getBlockEntity(otherPos);
-        
-        if (otherEntity instanceof AetherNetworkElement otherElement) {
-          if (otherElement.hasAetherNetwork()) {
-            otherElement.getAetherNetwork().addChild(this);
-            return aetherNetwork;
-          }
-        }
-        
-      }
-    
+      updateConnectedNetwork();
     if (aetherNetwork == null)
       new AetherNetwork().addChild(this);
     
@@ -73,4 +89,10 @@ public abstract class AetherNetworkElement extends SmartTileEntity implements IH
   public void setAetherNetwork(AetherNetwork aetherNetwork) {
     this.aetherNetwork = aetherNetwork;
   }
+  
+  /**Nullify the current network*/
+  public void clearNetwork() {
+    aetherNetwork = null;
+  }
+  
 }

@@ -3,7 +3,7 @@ package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import dev.Cosmos616.technomancy.foundation.energy.AetherStorageBehavior;
+import dev.Cosmos616.technomancy.foundation.LEGACYenergy.AetherStorageBehavior;
 import dev.Cosmos616.technomancy.registry.TMCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

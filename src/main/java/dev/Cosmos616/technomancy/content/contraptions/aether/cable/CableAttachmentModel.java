@@ -5,7 +5,7 @@ import com.simibubi.create.foundation.block.connected.BakedModelWrapperWithData;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.foundation.aether.AetherNetworkBlock;
-import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
+import dev.Cosmos616.technomancy.foundation.LEGACYenergy.AetherTransportBehaviour;
 import dev.Cosmos616.technomancy.registry.TMBlockPartials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;

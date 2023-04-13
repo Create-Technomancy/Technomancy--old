@@ -2,7 +2,7 @@ package dev.Cosmos616.technomancy.content.contraptions.aether.battery;
 
 import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
 import com.simibubi.create.foundation.utility.Iterate;
-import dev.Cosmos616.technomancy.foundation.energy.IAetherStorage;
+import dev.Cosmos616.technomancy.foundation.LEGACYenergy.IAetherStorage;
 import dev.Cosmos616.technomancy.registry.TMCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

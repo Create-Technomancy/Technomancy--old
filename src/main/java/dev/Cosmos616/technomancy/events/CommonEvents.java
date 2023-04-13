@@ -1,15 +1,8 @@
 package dev.Cosmos616.technomancy.events;
 
-import com.simibubi.create.content.contraptions.components.structureMovement.train.capability.CapabilityMinecartController;
-import dev.Cosmos616.technomancy.Technomancy;
-import dev.Cosmos616.technomancy.foundation.energy.IAetherStorage;
-import net.minecraft.world.entity.Entity;
+import dev.Cosmos616.technomancy.foundation.LEGACYenergy.IAetherStorage;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

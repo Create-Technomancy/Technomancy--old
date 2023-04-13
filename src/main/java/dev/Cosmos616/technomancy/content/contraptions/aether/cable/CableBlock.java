@@ -6,7 +6,6 @@ import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.foundation.aether.AetherNetworkBlock;
-import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;

@@ -1,4 +1,4 @@
-package dev.Cosmos616.technomancy.foundation.energy;
+package dev.Cosmos616.technomancy.foundation.LEGACYenergy;
 
 public interface IAetherStorage {
 	int receiveAether(int toReceive, boolean simulate);

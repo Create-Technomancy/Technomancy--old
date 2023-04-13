@@ -4,7 +4,7 @@ import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Lang;
 import dev.Cosmos616.technomancy.Technomancy;
-import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
+import dev.Cosmos616.technomancy.foundation.LEGACYenergy.AetherTransportBehaviour;
 import net.minecraft.core.Direction;
 
 import java.util.EnumMap;
