@@ -1,6 +1,7 @@
 package dev.Cosmos616.technomancy.events;
 
 import dev.Cosmos616.technomancy.foundation.LEGACYenergy.IAetherStorage;
+import dev.Cosmos616.technomancy.foundation.aether.AetherNetwork;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -25,7 +26,12 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event){
-
+        if (event.phase == TickEvent.Phase.START) {
+            for (AetherNetwork network : AetherNetwork.ALL_NETWORKS) {
+                if (network != null) //Dont even ask
+                    network.tickNetwork();
+            }
+        }
     }
     
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

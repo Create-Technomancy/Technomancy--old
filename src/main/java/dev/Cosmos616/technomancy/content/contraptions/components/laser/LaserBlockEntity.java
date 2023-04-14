@@ -1,10 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import dev.Cosmos616.technomancy.foundation.LEGACYenergy.AetherStorageBehavior;
-import dev.Cosmos616.technomancy.registry.TMCapabilities;
+import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.foundation.aether.AetherNetworkElement;
+import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherConsumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -14,26 +13,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
-
-	protected AetherStorageBehavior aether;
+public class LaserBlockEntity extends AetherNetworkElement implements AetherConsumer {
 
 	public LaserBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		this.setLazyTickRate(10);
-	}
-
-	@Override
-	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
-		aether = AetherStorageBehavior.consuming(this, 1000, this::onAetherChanged);
-		behaviours.add(aether);
 	}
 	
 	protected int redstoneInput = 0;
@@ -50,19 +37,29 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	protected int beamAnimationTick = 0;
 	@Override
 	public void tick() {
-		this.beamAnimationTick = (this.beamAnimationTick + 1) % 20;
-		
 		super.tick();
-		if (this.level.isClientSide())
+		
+		boolean wasRunning = running;
+		running = (running ? !getAetherNetwork().isOverloaded() : getAetherNetwork().canProvide(20))
+				&& this.redstoneInput > 0;
+		
+		if (wasRunning != running)
+			getAetherNetwork().updateConsumption();
+		
+		if (!running)
 			return;
 		
-		if (!(this.running = aether.getHandler().getAetherStored() > getConsumptionRate() && this.redstoneInput > 0))
-			return;
+		this.beamAnimationTick = (this.beamAnimationTick + 1) % 20;
 		
 		if (this.beamTick++ < 4)
 			return;
 		this.beamTick = 0;
 		this.tickBeam();
+	}
+	
+	@Override
+	public int getRequestedAether() {
+		return this.running ? 20 : 0;
 	}
 	
 	protected float beamDistance = 0.0f;
@@ -75,16 +72,12 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 		if (this.level.isClientSide())
 			return;
 		sendData();
-		
-		// Consume energy
-		if (this.running)
-			aether.getHandler().consumeAether(getConsumptionRate(), false);
 	}
 	
 	public void tickBeam() {
 		Direction facing = this.getBlockState().getValue(DirectionalBlock.FACING);
 		int fDist = 0;
-		for (int dist = 1; dist <= getMaxLaserDistance(); dist++) {
+		for (int dist = 0; dist <= getMaxLaserDistance(); dist++) {
 			BlockPos testPos = this.worldPosition.relative(facing, dist);
 			BlockState hit = this.level.getBlockState(testPos);
 			if ((hit.isAir() || !hit.canOcclude()) && dist != getMaxLaserDistance()) continue;
@@ -96,7 +89,10 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 			sendData();
 		}
 	}
-
+	
+	@Override
+	public void addBehaviours(List<TileEntityBehaviour> behaviours) { }
+	
 	@Override
 	protected void read(CompoundTag tag, boolean clientPacket) {
 		super.read(tag, clientPacket);
@@ -121,26 +117,10 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	}
 	
 	protected AABB renderBoundingBox;
+	
 	@Override
 	public AABB getRenderBoundingBox() {
 		return renderBoundingBox == null ? updateRenderBoundingBox() : renderBoundingBox;
-	}
-	
-	@NotNull
-	@Override
-	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-		if (cap == TMCapabilities.AETHER && side.getAxis() != this.getBlockState().getValue(LaserBlock.FACING).getAxis())
-			return aether.getCapability().cast();
-		return super.getCapability(cap, side);
-	}
-	protected void onAetherChanged(int aether) {
-		if (!hasLevel())
-			return;
-
-		if (!level.isClientSide) {
-			setChanged();
-			sendData();
-		}
 	}
 	
 	// Config

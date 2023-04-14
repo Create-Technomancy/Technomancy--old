@@ -50,12 +50,12 @@ public class LaserRenderer extends SafeTileEntityRenderer<LaserBlockEntity> {
 			int[] colour = new int[] {(int) (150 + (95 * outerPulse)), (int) (200 + (55 * outerPulse)), 255};
 			
 			transformed(TMBlockPartials.LASER_BEAM_INNER, state, facing)
-					.translate(0, i + 1, 0).centre().rotateY(rotation).rotateX(90).unCentre()
+					.translate(0, i + 0.5, 0).centre().rotateY(rotation).rotateX(90).unCentre()
 					.color(colour[0], colour[1], colour[2], (int) (192 * fade))
 					.light(light).renderInto(stack, vb);
 			
 			transformed(TMBlockPartials.LASER_BEAM_OUTER, state, facing)
-					.translate(0, i + 1, 0).centre().rotateY(-outerRotation)
+					.translate(0, i + 0.5, 0).centre().rotateY(-outerRotation)
 					.scale(1.7f + (outerPulse * fade), 1,
 							1.7f + (outerPulse * fade))
 					.rotateX(90).unCentre()

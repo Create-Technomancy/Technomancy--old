@@ -1,9 +1,11 @@
 package dev.Cosmos616.technomancy.content.contraptions.aether.battery;
 
+import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.ComparatorUtil;
 import com.simibubi.create.foundation.utility.Lang;
+import dev.Cosmos616.technomancy.foundation.aether.AetherNetworkBlock;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
@@ -19,13 +21,13 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlockEntity> {
+public class BatteryBlock extends Block implements AetherNetworkBlock, ITE<BatteryBlockEntity> {
 
     public static final BooleanProperty TOP = BooleanProperty.create("top");
     public static final BooleanProperty BOTTOM = BooleanProperty.create("bottom");
     public static final EnumProperty<Shape> SHAPE = EnumProperty.create("shape", Shape.class);
 
-    private boolean creative;
+    private final boolean creative;
 
     public static BatteryBlock regular(Properties properties) {
         return new BatteryBlock(properties, false);
@@ -34,7 +36,11 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlock
     public static BatteryBlock creative(Properties properties) {
         return new BatteryBlock(properties, true);
     }
-
+    
+    public boolean isCreative() {
+        return creative;
+    }
+    
     public BatteryBlock(Properties properties, boolean creative) {
         super(properties);
         this.creative = creative;
@@ -58,19 +64,19 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlock
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_206840_1_) {
-        p_206840_1_.add(TOP, BOTTOM, SHAPE);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(TOP, BOTTOM, SHAPE);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.hasBlockEntity() && (state.getBlock() != newState.getBlock() || !newState.hasBlockEntity())) {
             BlockEntity te = world.getBlockEntity(pos);
-            if (!(te instanceof BatteryBlockEntity))
+            if (!(te instanceof BatteryBlockEntity batteryTE))
                 return;
-            BatteryBlockEntity batteryTE = (BatteryBlockEntity) te;
             world.removeBlockEntity(pos);
-            BatteryConnectivityHandler.splitMulti(batteryTE);
+            ConnectivityHandler.splitMulti(batteryTE);
         }
     }
 
@@ -92,16 +98,5 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlock
             return Lang.asId(name());
         }
     }
-
-    @Override
-    public boolean hasAnalogOutputSignal(BlockState state) {
-        return true;
-    }
-
-    @Override
-    public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-        return getTileEntityOptional(worldIn, pos).map(BatteryBlockEntity::getControllerTE)
-                .map(te -> ComparatorUtil.fractionToRedstoneLevel(te.getChargeState()))
-                .orElse(0);
-    }
+    
 }

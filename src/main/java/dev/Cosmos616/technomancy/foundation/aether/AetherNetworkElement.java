@@ -31,10 +31,21 @@ public abstract class AetherNetworkElement extends SmartTileEntity implements IH
     super.tick();
   }
   
+  /**Adds debug info about the network if enabled
+   * In game the alternative would be a display link in an accumulator or something*/
   @Override
   public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-    if (AetherNetwork.SHOW_NETWORK_ID && aetherNetwork != null) {
+    if (AetherNetwork.SHOW_NETWORK_DEBUG && aetherNetwork != null) {
       Lang.text("Network ID: " + aetherNetwork.networkId.toString()).forGoggles(tooltip);
+      Lang.text("Network Producers: " + aetherNetwork.networkProducers.size()).forGoggles(tooltip);
+      Lang.text("Network Consumers: " + aetherNetwork.networkConsumers.size()).forGoggles(tooltip);
+      Lang.text("Network Accumulators: " + aetherNetwork.networkAccumulators.size()).forGoggles(tooltip);
+      Lang.text("Network Total Elements: " + aetherNetwork.networkElements.size()).forGoggles(tooltip);
+      
+      Lang.text("Network maxStorage: " + aetherNetwork.maxStorage).forGoggles(tooltip);
+      Lang.text("Network storedAether: " + aetherNetwork.storedAether).forGoggles(tooltip);
+      Lang.text("Network production: " + aetherNetwork.production).forGoggles(tooltip);
+      Lang.text("Network consumption: " + aetherNetwork.consumption).forGoggles(tooltip);
       return true;
     }
     return false;
@@ -49,7 +60,7 @@ public abstract class AetherNetworkElement extends SmartTileEntity implements IH
   
       if (otherEntity instanceof AetherNetworkElement otherElement) {
         if (aetherNetwork == null && otherElement.hasAetherNetwork()) {
-          aetherNetwork = otherElement.getAetherNetwork();
+          otherElement.getAetherNetwork().addChild(this);
         } else if (aetherNetwork != otherElement.getAetherNetwork()) {
           aetherNetwork.addChild(otherElement);
           otherElement.updateConnectedNetwork();

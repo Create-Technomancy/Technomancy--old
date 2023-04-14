@@ -7,7 +7,6 @@ import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRend
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.aether.accumulator.SoulAccumulatorBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.aether.battery.BatteryBlockEntity;
-import dev.Cosmos616.technomancy.content.contraptions.aether.battery.CreativeBatteryBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.aether.cable.CableBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.components.combustor.SoulBurnerBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.coil_topload.CoilToploadTileEntity;
@@ -15,6 +14,7 @@ import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.sparkgap
 import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.sparkgap.SparkGapBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.tesla_primary.TeslaPrimaryBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.aether.tesla_coil.teslastalk.TeslaStalkBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TMBlockEntities {
 
@@ -30,8 +30,8 @@ public class TMBlockEntities {
             .validBlocks(TMBlocks.BATTERY_BLOCK)
             .register();
 
-    public static final BlockEntityEntry<CreativeBatteryBlockEntity> CREATIVE_BATTERY = REGISTRATE
-            .tileEntity("creative_soul_battery", CreativeBatteryBlockEntity::new)
+    public static final BlockEntityEntry<BatteryBlockEntity> CREATIVE_BATTERY = REGISTRATE
+            .tileEntity("creative_soul_battery", BatteryBlockEntity::new)
             .validBlocks(TMBlocks.CREATIVE_BATTERY_BLOCK)
             .register();
 

@@ -2,6 +2,7 @@ package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 
 import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
+import dev.Cosmos616.technomancy.foundation.aether.AetherNetworkBlock;
 import dev.Cosmos616.technomancy.registry.TMShapes;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class LaserBlock extends DirectionalBlock implements ITE<LaserBlockEntity>, IWrenchable {
+public class LaserBlock extends DirectionalBlock implements ITE<LaserBlockEntity>, AetherNetworkBlock, IWrenchable {
 	public LaserBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(defaultBlockState()

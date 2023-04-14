@@ -1,5 +1,8 @@
 package dev.Cosmos616.technomancy.foundation.aether;
 
+import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherAccumulator;
+import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherConsumer;
+import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherProducer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
@@ -11,25 +14,86 @@ import java.util.UUID;
 
 public class AetherNetwork {
 
-  public static boolean SHOW_NETWORK_ID = true;
+  public static boolean SHOW_NETWORK_DEBUG = true;
+  public static final List<AetherNetwork> ALL_NETWORKS = new ArrayList<>();
   
   //Simulated values, is not used for calculation,
   int production;
   int consumption;
-  float fulfillment;
-  int storage;
+  int storedAether;
   int maxStorage;
   
+  //Tracks how much energy is needed from and is available to the accumulators in the current tick
+  int accumulatorDelta;
   
+  //All elements regardless of type
   List<AetherNetworkElement> networkElements = new ArrayList<>();
+  
+  //Quick Access for Subtypes
+  List<AetherConsumer> networkConsumers = new ArrayList<>();
+  List<AetherProducer> networkProducers = new ArrayList<>();
+  List<AetherAccumulator> networkAccumulators = new ArrayList<>();
   
   //For debugging connectivity
   UUID networkId = UUID.randomUUID();
   
+  public AetherNetwork() {
+    ALL_NETWORKS.add(this);
+  }
   
+  //Processing
+  
+  public void tickNetwork() {
+    accumulatorDelta = consumption - production;
+  }
+  
+  public int getAccumulatorDelta() {
+    return accumulatorDelta;
+  }
+  
+  
+  public void pushRequiredAccumulatorAether(int requiredAccumulatorAether) {
+    this.accumulatorDelta += requiredAccumulatorAether;
+  }
+  
+  public void pullAccumulatorAether(int change) {
+    this.storedAether += change;
+    this.accumulatorDelta += change;
+  }
   
   public boolean isOverloaded() {
-    return consumption > production;
+    return consumption > (production + storedAether);
+  }
+  
+  public boolean canProvide(int amount) {
+    return (consumption + amount) <= (production + storedAether);
+  }
+  
+  //Content queries Need to optimise
+  @Deprecated
+  public void updateConsumption() {
+    consumption = 0;
+    for (AetherConsumer consumer : networkConsumers) {
+      consumption += consumer.getRequestedAether();
+    }
+  }
+  
+  @Deprecated
+  public void updateProduction() {
+    production = 0;
+    for (AetherProducer producer : networkProducers) {
+      production += producer.getProducedAether();
+    }
+  }
+  
+  @Deprecated
+  public void updateAccumulation() {
+    storedAether = 0;
+    maxStorage = 0;
+    for (AetherAccumulator accumulator : networkAccumulators) {
+      storedAether += accumulator.getStoredAether();
+      maxStorage += accumulator.getMaxStorage();
+    }
   }
   
   //Connectivity handling
@@ -51,8 +115,17 @@ public class AetherNetwork {
       if (!visited.contains(networkBlockEntity))
         networkBlockEntity.getOrCreateAetherNetwork();
     });
-  
-    networkElements = visited;
+    
+    //Initialise all
+    networkElements = new ArrayList<>();
+    networkProducers = new ArrayList<>();
+    networkConsumers = new ArrayList<>();
+    networkAccumulators = new ArrayList<>();
+    
+    visited.forEach(this::addChild);
+    updateConsumption();
+    updateProduction();
+    updateAccumulation();
   }
   
   private void seekIntegrity(BlockPos blockPos, LevelAccessor accessor, List<AetherNetworkElement> visited) {
@@ -74,10 +147,38 @@ public class AetherNetwork {
     
     element.setAetherNetwork(this);
     networkElements.add(element);
+    if (element instanceof AetherConsumer consumer) {
+      networkConsumers.add(consumer);
+      updateConsumption();
+    }
+    if (element instanceof AetherProducer producer) {
+      networkProducers.add(producer);
+      updateProduction();
+    }
+    if (element instanceof AetherAccumulator consumer) {
+      networkAccumulators.add(consumer);
+      updateAccumulation();
+    }
   }
   
   public void removeChild(AetherNetworkElement element) {
     networkElements.remove(element);
+    if (element instanceof AetherConsumer consumer) {
+      networkConsumers.remove(consumer);
+      updateConsumption();
+    }
+    if (element instanceof AetherProducer producer) {
+      networkProducers.remove(producer);
+      updateProduction();
+    }
+    if (element instanceof AetherAccumulator consumer) {
+      networkAccumulators.remove(consumer);
+      updateAccumulation();
+    }
+    
+    if (networkElements.size() == 0) {
+      ALL_NETWORKS.remove(this);
+    }
   }
   
 }

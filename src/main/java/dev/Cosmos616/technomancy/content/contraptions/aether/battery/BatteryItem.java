@@ -45,7 +45,6 @@ public class BatteryItem extends BlockItem {
             if (nbt.contains("Content")) {
                 int charge = nbt.getInt("Content");
                 if (charge > 0) {
-                    charge = (Math.min(BatteryBlockEntity.getCapacityMultiplier(), charge));
                     nbt.putInt("Content", charge);
                 }
             }
