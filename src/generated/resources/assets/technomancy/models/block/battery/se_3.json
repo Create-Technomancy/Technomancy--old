@@ -1,0 +1,6 @@
+{
+  "parent": "technomancy:block/battery/se",
+  "textures": {
+    "0": "technomancy:block/battery/3"
+  }
+}

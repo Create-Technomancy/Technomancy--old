@@ -1,6 +1,5 @@
 {
   "block.technomancy.battery": "Battery",
-  "block.technomancy.blackstone_casing": "Blackstone Casing",
   "block.technomancy.cable": "Cable",
   "block.technomancy.ceramic_casing": "Ceramic Casing",
   "block.technomancy.coil_topload": "Coil Topload",
@@ -23,6 +22,7 @@
   "block.technomancy.zirconium_casing": "Zirconium Casing",
   "block.technomancy.zirconium_oxidized_block": "Zirconium Oxidized Block",
   "entity.technomancy.firearm_projectile": "Firearm Projectile",
+  "entity.technomancy.soul_spark": "Soul Spark",
   "item.technomancy.ceramic_dust": "Ceramic Dust",
   "item.technomancy.ceramic_plate": "Ceramic Plate",
   "item.technomancy.energized_gold_ingot": "Energized Gold Ingot",
@@ -45,7 +45,5 @@
   "item.technomancy.zirconium_ingot": "Zirconium Ingot",
   "item.technomancy.zirconium_nugget": "Zirconium Nugget",
   "item.technomancy.zirconium_sheet": "Zirconium Sheet",
-  "itemGroup.main_group": "Technomancy",
-  "technomancy.generic.unit.aether": "Souls",
-  "technomancy.gui.goggles.aether_container": "Aether Storage Info:"
+  "itemGroup.main_group": "Technomancy"
 }

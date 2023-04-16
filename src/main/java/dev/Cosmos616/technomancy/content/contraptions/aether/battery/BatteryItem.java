@@ -70,9 +70,10 @@ public class BatteryItem extends BlockItem {
 
         if (!BatteryBlock.isBattery(placedOnState))
             return;
+        
         boolean creative = getBlock().equals(TMBlocks.CREATIVE_BATTERY_BLOCK.get());
         BatteryBlockEntity batteryAt = ConnectivityHandler.partAt(
-                creative ? TMBlockEntities.CREATIVE_BATTERY.get() : TMBlockEntities.BATTERY.get(), world, placedOnPos
+            creative ? TMBlockEntities.CREATIVE_BATTERY.get() : TMBlockEntities.BATTERY.get(), world, placedOnPos
         );
         if (batteryAt == null)
             return;

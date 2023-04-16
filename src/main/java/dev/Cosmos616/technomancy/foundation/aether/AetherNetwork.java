@@ -1,5 +1,6 @@
 package dev.Cosmos616.technomancy.foundation.aether;
 
+import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherAccumulator;
 import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherConsumer;
 import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherProducer;
@@ -24,7 +25,7 @@ public class AetherNetwork {
   int maxStorage;
   
   //Tracks how much energy is needed from and is available to the accumulators in the current tick
-  int accumulatorDelta;
+  int accumulatorDischarge;
   
   //All elements regardless of type
   List<AetherNetworkElement> networkElements = new ArrayList<>();
@@ -44,21 +45,22 @@ public class AetherNetwork {
   //Processing
   
   public void tickNetwork() {
-    accumulatorDelta = consumption - production;
+    accumulatorDischarge = consumption - production;
   }
   
-  public int getAccumulatorDelta() {
-    return accumulatorDelta;
+  public int getAccumulatorDischarge() {
+    return accumulatorDischarge;
   }
   
   
-  public void pushRequiredAccumulatorAether(int requiredAccumulatorAether) {
-    this.accumulatorDelta += requiredAccumulatorAether;
+  public void pushRequiredAccumulatorAether(int change) {
+    this.storedAether -= change;
+    this.accumulatorDischarge -= change;
   }
   
   public void pullAccumulatorAether(int change) {
     this.storedAether += change;
-    this.accumulatorDelta += change;
+    this.accumulatorDischarge -= change;
   }
   
   public boolean isOverloaded() {
@@ -175,10 +177,9 @@ public class AetherNetwork {
       networkAccumulators.remove(consumer);
       updateAccumulation();
     }
-    
-    if (networkElements.size() == 0) {
-      ALL_NETWORKS.remove(this);
-    }
   }
   
+  public List<AetherNetworkElement> getNetworkElements() {
+    return networkElements;
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "technomancy:block/battery/block_single",
+  "parent": "technomancy:block/battery/item",
   "textures": {
     "0": "technomancy:block/battery/creative_battery"
   }

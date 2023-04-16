@@ -3,6 +3,8 @@ package dev.Cosmos616.technomancy.registry;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.Cosmos616.technomancy.Technomancy;
+import dev.Cosmos616.technomancy.content.contraptions.aether.battery.BatteryRenderer;
+import dev.Cosmos616.technomancy.content.contraptions.aether.battery.CreativeBatteryBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserRenderer;
 import dev.Cosmos616.technomancy.content.contraptions.components.laser.LaserBlockEntity;
 import dev.Cosmos616.technomancy.content.contraptions.aether.accumulator.SoulAccumulatorBlockEntity;
@@ -28,12 +30,13 @@ public class TMBlockEntities {
     public static final BlockEntityEntry<BatteryBlockEntity> BATTERY = REGISTRATE
             .tileEntity("soul_battery", BatteryBlockEntity::new)
             .validBlocks(TMBlocks.BATTERY_BLOCK)
+        .renderer(() -> BatteryRenderer::new)
             .register();
-
-    public static final BlockEntityEntry<BatteryBlockEntity> CREATIVE_BATTERY = REGISTRATE
-            .tileEntity("creative_soul_battery", BatteryBlockEntity::new)
-            .validBlocks(TMBlocks.CREATIVE_BATTERY_BLOCK)
-            .register();
+    
+    public static final BlockEntityEntry<CreativeBatteryBlockEntity> CREATIVE_BATTERY = REGISTRATE
+        .tileEntity("creative_soul_battery", CreativeBatteryBlockEntity::new)
+        .validBlocks(TMBlocks.CREATIVE_BATTERY_BLOCK)
+        .register();
 
     public static final BlockEntityEntry<CableBlockEntity> CABLE = REGISTRATE
             .tileEntity("cable", CableBlockEntity::new)

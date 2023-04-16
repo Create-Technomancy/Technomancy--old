@@ -66,20 +66,20 @@ public class BatteryBlock extends Block implements AetherNetworkBlock, ITE<Batte
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(TOP, BOTTOM, SHAPE);
-        super.createBlockStateDefinition(builder);
     }
-
+    
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.hasBlockEntity() && (state.getBlock() != newState.getBlock() || !newState.hasBlockEntity())) {
             BlockEntity te = world.getBlockEntity(pos);
-            if (!(te instanceof BatteryBlockEntity batteryTE))
+            if (!(te instanceof BatteryBlockEntity))
                 return;
+            BatteryBlockEntity batteryTE = (BatteryBlockEntity) te;
             world.removeBlockEntity(pos);
             ConnectivityHandler.splitMulti(batteryTE);
         }
     }
-
+    
     @Override
     public Class<BatteryBlockEntity> getTileEntityClass() {
         return BatteryBlockEntity.class;

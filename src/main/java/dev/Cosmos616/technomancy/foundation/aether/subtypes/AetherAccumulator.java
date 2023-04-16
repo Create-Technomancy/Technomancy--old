@@ -23,18 +23,31 @@ public abstract class AetherAccumulator extends AetherNetworkElement {
   @Override
   public void tick() {
     super.tick();
-    Technomancy.LOGGER.info(getAetherNetwork().getAccumulatorDelta());
-    int contentDifference = Math.min(Math.max(getAetherNetwork().getAccumulatorDelta(), getStoredAether() - getMaxStorage()), getStoredAether());
     
-    if (contentDifference > 0) {// Push, positive contentDifference
-      storedAether -= contentDifference;
-      getAetherNetwork().pushRequiredAccumulatorAether(contentDifference);
-    } else if (contentDifference < 0) {// Pull, negative contentDifference
+    int accumulatorDischarge = getAetherNetwork().getAccumulatorDischarge();
+    
+    if (accumulatorDischarge > 0) {
+      
+      int discharge = Math.min(accumulatorDischarge, getStoredAether());
+  
+      storedAether -= discharge;
+      onContentChange(-discharge);
+      getAetherNetwork().pushRequiredAccumulatorAether(discharge);
+      
+    } else if (accumulatorDischarge < 0) {
+      
       int oldStored = getStoredAether();
-      storedAether -= contentDifference;
-      getAetherNetwork().pullAccumulatorAether(getStoredAether() - oldStored);
+      
+      int charge = Math.min(-accumulatorDischarge, getMaxStorage() - getStoredAether());
+      
+      storedAether += charge;
+      onContentChange(charge);
+      getAetherNetwork().pullAccumulatorAether(oldStored - getStoredAether());
+      
     }
     
   }
+  
+  protected void onContentChange(int change) { }
   
 }

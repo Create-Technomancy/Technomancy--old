@@ -4,6 +4,7 @@ import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.Ene
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmInteractionHandler;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmRenderHandler;
+import dev.Cosmos616.technomancy.foundation.keys.TMKeys;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;

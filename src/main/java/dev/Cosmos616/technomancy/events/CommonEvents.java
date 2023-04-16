@@ -9,6 +9,9 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod.EventBusSubscriber
 public class CommonEvents {
 
@@ -27,10 +30,14 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event){
         if (event.phase == TickEvent.Phase.START) {
+            List<AetherNetwork> invalidNetworks = new ArrayList<>();
             for (AetherNetwork network : AetherNetwork.ALL_NETWORKS) {
-                if (network != null) //Dont even ask
+                if (network.getNetworkElements().size() == 0)
+                    invalidNetworks.add(network);
+                else
                     network.tickNetwork();
             }
+            invalidNetworks.forEach(AetherNetwork.ALL_NETWORKS::remove);
         }
     }
     

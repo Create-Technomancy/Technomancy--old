@@ -27,6 +27,10 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.simibubi.create.AllTags.pickaxeOnly;
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
@@ -59,10 +63,12 @@ public class TMBlocks {
                     .sound(SoundType.NETHERITE_BLOCK)
                     .isRedstoneConductor((p1, p2, p3) -> true))
             .transform(pickaxeOnly())
-            .blockstate(new BatteryGenerator()::generate)
+            .blockstate((c, p) -> p.getVariantBuilder(c.get()).partialState().setModels(ConfiguredModel.builder().modelFile(
+                p.models().getExistingFile(Technomancy.asResource("block/battery/empty"))
+            ).build()))
             .addLayer(() -> RenderType::cutoutMipped)
             .item(BatteryItem::new)
-            .model(AssetLookup.customBlockItemModel("_", "block_single"))
+            .model(AssetLookup.customBlockItemModel("battery/item"))
             .build()
             .register();
 
@@ -78,7 +84,7 @@ public class TMBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .item(BatteryItem::new)
             .properties(p -> p.rarity(Rarity.EPIC))
-            .model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/battery/block_single"))
+            .model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/battery/item"))
                     .texture("0", p.modLoc("block/battery/creative_battery")))
 //                    .texture("particle", new ResourceLocation("create", "block/creative_casing"))) //is this even needed?
             .build()

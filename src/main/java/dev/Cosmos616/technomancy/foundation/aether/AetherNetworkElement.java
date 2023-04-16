@@ -3,6 +3,7 @@ package dev.Cosmos616.technomancy.foundation.aether;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
 import com.simibubi.create.foundation.utility.Lang;
+import dev.Cosmos616.technomancy.Technomancy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -24,11 +25,11 @@ public abstract class AetherNetworkElement extends SmartTileEntity implements IH
   
   @Override
   public void tick() {
+    super.tick();
+    
     if (aetherNetwork == null) {
       aetherNetwork = getOrCreateAetherNetwork();
     }
-    
-    super.tick();
   }
   
   /**Adds debug info about the network if enabled

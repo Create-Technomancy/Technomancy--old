@@ -1,19 +1,15 @@
 package dev.Cosmos616.technomancy.content.contraptions.aether.battery;
 
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankBlock;
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.content.logistics.block.vault.ItemVaultBlock;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+import com.simibubi.create.foundation.utility.Lang;
 import dev.Cosmos616.technomancy.Technomancy;
-import dev.Cosmos616.technomancy.foundation.LEGACYenergy.IAetherStorage;
 import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherAccumulator;
-import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherProducer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,9 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 import java.util.Objects;
 
-public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileContainerAether, AetherProducer {
-    
-    final boolean creative;
+public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileContainerAether {
     
     protected BlockPos controller;
     protected BlockPos lastKnownPos;
@@ -31,9 +25,15 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
     protected int width;
     protected int height;
     
+    private static final int SYNC_RATE = 8;
+    protected int syncCooldown;
+    protected boolean queuedSync;
+    
+    /**Stored Aether in the entire structure, for {@link BatteryBlockEntity#getDisplayedChargeLevel()}*/
+    private int totalStored = 0;
+    
     public BatteryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        creative = ((BatteryBlock) state.getBlock()).isCreative();
         updateConnectivity = false;
         width = 1;
         height = 1;
@@ -41,17 +41,26 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
     
     @Override
     public int getMaxStorage() {
-        return creative ? 10000000 : 50000;
+        return 50000;
     }
     
     @Override
     public int getStoredAether() {
-        return creative ? 1000000 : super.getStoredAether();
+        return super.getStoredAether();
     }
     
-    @Override
-    public int getProducedAether() {
-        return creative ? 1000000 : 0;
+    public void updateTotalStored() {
+        totalStored = 0;
+        for (int x = 0; x < width + 1; x++) {
+            for (int z = 0; z < width + 1; z++) {
+                for (int y = 0; y < height + 1; y++) {
+                    BlockEntity blockEntity = level.getBlockEntity(getBlockPos().offset(x, y, z));
+                    if (blockEntity instanceof BatteryBlockEntity batteryBlockEntity) {
+                        totalStored += batteryBlockEntity.getStoredAether();
+                    }
+                }
+            }
+        }
     }
     
     protected void updateConnectivity() {
@@ -61,6 +70,7 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
         if (!isController())
             return;
         ConnectivityHandler.formMulti(this);
+        updateTotalStored();
     }
 
     @Override
@@ -74,6 +84,12 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
     @Override
     public void tick() {
         super.tick();
+        
+        if (syncCooldown > 0) {
+            syncCooldown--;
+            if (syncCooldown == 0 && queuedSync)
+                sendData();
+        }
     
         if (lastKnownPos == null)
             lastKnownPos = getBlockPos();
@@ -90,7 +106,18 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
         removeController(true);
         lastKnownPos = worldPosition;
     }
-
+    
+    @Override
+    public void sendData() {
+        if (syncCooldown > 0) {
+            queuedSync = true;
+            return;
+        }
+        super.sendData();
+        queuedSync = false;
+        syncCooldown = SYNC_RATE;
+    }
+    
     public void setShapes() {
         for (int yOffset = 0; yOffset < height; yOffset++) {
             for (int xOffset = 0; xOffset < width; xOffset++) {
@@ -115,13 +142,48 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
             }
         }
     }
-
+    
+    /**Return a value from 0-8 inclusive for how much charge should be displayed*/
+    public int getDisplayedChargeLevel() {
+        BatteryBlockEntity blockEntity = getControllerTE();
+        return (blockEntity == null ? 0 : blockEntity.getDisplayedChargeLevel(getBlockPos()));
+    }
+    
+    /**Gets the displayed charge for a bound battery at an offset*/
+    public int getDisplayedChargeLevel(BlockPos other) {
+        int yOffset = other.getY() - getBlockPos().getY();
+    
+        float displayedStored = (float) totalStored / (getMaxStorage() * width * width);
+    
+        displayedStored -= yOffset;
+        
+        return (int) Math.max(Math.min(Math.ceil(displayedStored * 8), 8), 0);
+    }
+    
+    @Override
+    protected void onContentChange(int change) {
+        if (isController())
+            totalStored += change;
+        else
+            getControllerTE().totalStored += change;
+    }
+    
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        Lang.text("Battery charge: " + getStoredAether()).forGoggles(tooltip);
+        Lang.text("Total battery charge: " + totalStored).forGoggles(tooltip);
+        Lang.text("displayed: " + getDisplayedChargeLevel()).forGoggles(tooltip);
+        Lang.text("Total battery charge: " + getControllerTE().totalStored).forGoggles(tooltip);
+        return true;
+    }
+    
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) {
         super.read(compound, clientPacket);
     
         BlockPos controllerBefore = controller;
-        int prevWidth = width;
+        int prevSize = width;
         int prevHeight = height;
     
         updateConnectivity = compound.contains("Uninitialized");
@@ -138,19 +200,19 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
             height = compound.getInt("Height");
         }
     
-        boolean changeOfController =
-            !Objects.equals(controllerBefore, controller);
-        if (hasLevel() && (changeOfController || prevWidth != width || prevHeight != height))
-            level.setBlocksDirty(getBlockPos(), Blocks.AIR.defaultBlockState(), getBlockState());
+        if (!clientPacket)
+            return;
+    
+        boolean changeOfController = !Objects.equals(controllerBefore, controller);
+        if (changeOfController || prevSize != width || prevHeight != height) {
+            if (hasLevel())
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 16);
+            invalidateRenderBoundingBox();
+        }
     }
 
     @Override
     public void write(CompoundTag compound, boolean clientPacket) {
-        try {
-            throw new Exception();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     
         if (updateConnectivity)
             compound.putBoolean("Uninitialized", true);
@@ -204,6 +266,7 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
         if (controller.equals(this.controller))
             return;
         this.controller = controller;
+        getControllerTE().updateTotalStored();
         setChanged();
         sendData();
     }
@@ -213,24 +276,20 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
         if (level.isClientSide)
             return;
         updateConnectivity = true;
-        if (!keepContents)
-            applyBatterySize(1);
         controller = null;
         width = 1;
         height = 1;
     
-        setShapes();
+        BlockState state = getBlockState();
+        if (BatteryBlock.isBattery(state)) {
+            state = state.setValue(BatteryBlock.BOTTOM, true);
+            state = state.setValue(BatteryBlock.TOP, true);
+            state = state.setValue(BatteryBlock.SHAPE, BatteryBlock.Shape.SINGLE);
+            getLevel().setBlock(worldPosition, state, 22);
+        }
+        
         setChanged();
         sendData();
-    }
-
-    public void applyBatterySize(int blocks) {
-    
-    }
-
-    public static int getCapacityMultiplier() {
-//        return TMConfigs.SERVER.energy.batteryCapacity.get() * 1000;
-        return 1000;
     }
 
     @Override
@@ -247,16 +306,18 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
     public void notifyMultiUpdated() {
         BlockState state = this.getBlockState();
         if (BatteryBlock.isBattery(state)) { // safety
-            state = state.setValue(BatteryBlock.BOTTOM,
-                getController().getY() == getBlockPos().getY());
-            state = state.setValue(BatteryBlock.TOP,
-                getController().getY() + height - 1 == getBlockPos().getY());
+            state = state.setValue(BatteryBlock.BOTTOM, getController().getY() == getBlockPos().getY());
+            state = state.setValue(BatteryBlock.TOP, getController().getY() + height - 1 == getBlockPos().getY());
             level.setBlock(getBlockPos(), state, 6);
         }
         if (isController()) {
+//            applyBatterySize(getTotalBatterySize());
             setShapes();
+            updateTotalStored();
         }
+//        refreshCapability();
         setChanged();
+        sendData();
     }
 
     @Override

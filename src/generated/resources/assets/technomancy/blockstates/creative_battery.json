@@ -1,64 +1,64 @@
 {
   "variants": {
     "bottom=false,shape=single,top=false": {
-      "model": "technomancy:block/creative_middle"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=single,top=false": {
-      "model": "technomancy:block/creative_bottom"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=nw,top=false": {
-      "model": "technomancy:block/creative_middle_nw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=nw,top=false": {
-      "model": "technomancy:block/creative_bottom_nw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=sw,top=false": {
-      "model": "technomancy:block/creative_middle_sw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=sw,top=false": {
-      "model": "technomancy:block/creative_bottom_sw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=ne,top=false": {
-      "model": "technomancy:block/creative_middle_ne"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=ne,top=false": {
-      "model": "technomancy:block/creative_bottom_ne"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=se,top=false": {
-      "model": "technomancy:block/creative_middle_se"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=se,top=false": {
-      "model": "technomancy:block/creative_bottom_se"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=single,top=true": {
-      "model": "technomancy:block/creative_top"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=single,top=true": {
       "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=nw,top=true": {
-      "model": "technomancy:block/creative_top_nw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=nw,top=true": {
-      "model": "technomancy:block/creative_single_nw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=sw,top=true": {
-      "model": "technomancy:block/creative_top_sw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=sw,top=true": {
-      "model": "technomancy:block/creative_single_sw"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=ne,top=true": {
-      "model": "technomancy:block/creative_top_ne"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=ne,top=true": {
-      "model": "technomancy:block/creative_single_ne"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=false,shape=se,top=true": {
-      "model": "technomancy:block/creative_top_se"
+      "model": "technomancy:block/creative_single"
     },
     "bottom=true,shape=se,top=true": {
-      "model": "technomancy:block/creative_single_se"
+      "model": "technomancy:block/creative_single"
     }
   }
 }

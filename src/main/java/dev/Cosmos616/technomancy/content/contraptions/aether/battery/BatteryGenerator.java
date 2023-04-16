@@ -37,23 +37,26 @@ public class BatteryGenerator extends SpecialBlockStateGen {
         Boolean bottom = state.getValue(BatteryBlock.BOTTOM);
         BatteryBlock.Shape shape = state.getValue(BatteryBlock.SHAPE);
 
-        String shapeName = "middle";
+        /*String shapeName = "middle";
         if (top && bottom)
             shapeName = "single";
         else if (top)
             shapeName = "top";
         else if (bottom)
-            shapeName = "bottom";
+            shapeName = "bottom";*/
 
-        String modelName = shapeName + (shape == BatteryBlock.Shape.SINGLE ? "" : "_" + shape.getSerializedName());
-
+        String modelName = "single" /*(shape == BatteryBlock.Shape.SINGLE ? "" : "_" + shape.getSerializedName())*/;
+/*
         if (!prefix.isEmpty())
             return prov.models()
-                .withExistingParent(prefix + modelName, prov.modLoc("block/battery/block_" + modelName))
+                .withExistingParent(prefix + modelName, prov.modLoc("block/battery/" + modelName))
                 .texture("0", prov.modLoc("block/battery/" + prefix + "battery"));
 //                .texture("particle", new ResourceLocation("create", "block/creative_casing")); // WHY IT'S MOT WORKING??
-
-        return AssetLookup.partialBaseModel(ctx, prov, modelName);
+*/
+        return prov.models()
+            .withExistingParent(prefix + modelName, prov.modLoc("block/battery/item"))
+            .texture("0", prov.modLoc("block/battery/creative_battery"));
+//                .texture("particle", new ResourceLocation("create", "block/creative_casing"));
     }
 
 }
