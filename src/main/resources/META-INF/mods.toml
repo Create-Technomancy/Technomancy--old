@@ -1,24 +1,23 @@
-modLoader="javafml" #mandatory
-loaderVersion="[40,)" #mandatory
+modLoader="javafml"
+loaderVersion="[40,)"
 license="MIT"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
-[[mods]] #mandatory
-modId="technomancy" #mandatory
-version="${file.jarVersion}" #mandatory
-displayName="Create: Technomancy" #mandatory
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-#logoFile="technomancy.png" #optional
-credits="" #optional
-authors="Cosmos616, The_seVen_, Chazbomb" #optional
-# The description text for the mod (multi line!) (#mandatory)
+issueTrackerURL="https://github.com/Create-Technomancy/Technomancy/issues"
+[[mods]]
+modId="technomancy"
+version="${file.jarVersion}"
+displayName="Create: Technomancy"
+#updateJSONURL="https://raw.githubusercontent.com/Create-Technomancy/Technomancy/main/update.json" # if you ever decide to implement update checking uncomment this line
+displayURL="https://github.com/Create-Technomancy/Technomancy"
+logoFile="icon.png"
+credits="rdh"
+authors="Cosmos616, The_seVen_, Chazbomb"
 description='''
-???
+Using magical energy to advance science, Create-Style!
 '''
-[[dependencies.technomancy]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[40,)" #mandatory
+[[dependencies.technomancy]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.technomancy]]
