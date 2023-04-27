@@ -1,5 +1,7 @@
 package dev.Cosmos616.technomancy.foundation.config;
 
+import com.simibubi.create.foundation.config.ConfigBase;
+import dev.Cosmos616.technomancy.foundation.mixin.accessor.ConfigBaseAccessor;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -7,6 +9,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
+
+import com.simibubi.create.foundation.config.ConfigBase;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -26,7 +30,7 @@ public class TMConfigs {
     private static <T extends ConfigBase> T register(Supplier<T> factory, ModConfig.Type side) {
         Pair<T, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(builder -> {
             T config = factory.get();
-            config.registerAll(builder);
+            ((ConfigBaseAccessor)config).callRegisterAll(builder);
             return config;
         });
 

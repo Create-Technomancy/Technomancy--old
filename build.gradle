@@ -137,7 +137,7 @@ dependencies {
     implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:all")
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
 
-    implementation fg.deobf("curse.maven:craftadditions-439890:3989191") // CC&A
+    //implementation fg.deobf("curse.maven:craftadditions-439890:3989191") // CC&A WHYYYYY
     runtimeOnly fg.deobf("curse.maven:catalogue-459701:3721991")
 
     implementation fg.deobf("curse.maven:spark-361579:3824951")

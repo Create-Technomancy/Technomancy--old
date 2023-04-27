@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.Cosmos616.technomancy.foundation.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+  ],
+  "mixins": [
+    "accessor.ConfigBaseAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
