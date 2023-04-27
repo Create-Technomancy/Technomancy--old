@@ -12,7 +12,7 @@ logoFile="icon.png"
 credits="rdh"
 authors="Cosmos616, The_seVen_, Chazbomb"
 description='''
-Using magical energy to advance science, Create-Style!
+Using the soul energy and tech to control the magical world through a form of mad science.
 '''
 [[dependencies.technomancy]]
     modId="forge"
