@@ -1,28 +1,20 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer;
-import com.simibubi.create.content.contraptions.components.structureMovement.interaction.controls.TrainHUD;
 import dev.Cosmos616.technomancy.TechnomancyClient;
+import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.shockwave.ShockWaveEntity;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItem;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItemRenderer;
 
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileEntity;
 import dev.Cosmos616.technomancy.foundation.keys.TMKeys;
+import dev.Cosmos616.technomancy.registry.TMBlocks;
 import dev.Cosmos616.technomancy.registry.TMEntities;
 import dev.Cosmos616.technomancy.registry.TMItems;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.VibrationSignalParticle;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.VibrationParticleOption;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.gui.IIngameOverlay;
 
 import static dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI.*;
 
@@ -30,12 +22,21 @@ import static dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.arc
 public class EnergyArcherItem extends AbstractFirearmItem {
     public int chargeLevel=0;
     public boolean charging=false;
+
+    public float power=0;
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isSelected) {
         super.inventoryTick(stack, level, entity, slot, isSelected);
+
         if(TMKeys.reload.consumeClick())
             charging=!charging;
+        power = displayedThrottle.getValue()*100;
+        power/=10;
+        power+=4;
 
+
+        //if(isSelected)
+       //     level.setBlock(entity.blockPosition().west((int)power/3), TMBlocks.ZIRCON_BLOCK.getDefaultState(),1);
 
 
         EnergyArcherUI.toRender = ((Player) entity).getMainHandItem().getItem() == TMItems.ENERGY_ARCHER.get();
@@ -49,9 +50,27 @@ public class EnergyArcherItem extends AbstractFirearmItem {
     }
     @Override
     public void shootWeapon(Player player, ItemStack stack, boolean isClient, Vec3 barrelVec) {
-        super.shootWeapon(player,stack,isClient,barrelVec);
+        if (isClient) {
+            TechnomancyClient.FIREARM_RENDER_HANDLER.shoot(InteractionHand.MAIN_HAND, barrelVec);
+            return;
+        }
 
+        Level world = player.level;
+        ShockWaveEntity projectile = new ShockWaveEntity(player.level,power);
+       // projectile.powerLevel=13;
+
+      // projectile.setProjectile(getProjectileType(stack));
+        Vec3 lookVec = player.getLookAngle();
+        Vec3 motion = lookVec.add(barrelVec.subtract(player.position().add(0, player.getEyeHeight(), 0)))
+                .normalize().scale(0.8);
+        projectile.setPos(barrelVec.x, barrelVec.y-0.2f, barrelVec.z);
+        projectile.setDeltaMovement(motion);
+        projectile.setOwner(player);
+       // projectile.setPowerLevel(power);
+        world.addFreshEntity(projectile);
     }
+
+
     public EnergyArcherItem(Properties properties) {
         super(properties);
     }

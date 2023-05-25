@@ -1,5 +1,6 @@
 package dev.Cosmos616.technomancy;
 
+import com.simibubi.create.AllParticleTypes;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import dev.Cosmos616.technomancy.foundation.LangMerger;

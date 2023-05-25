@@ -1,6 +1,5 @@
 package dev.Cosmos616.technomancy;
 
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherItem;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmInteractionHandler;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmRenderHandler;
