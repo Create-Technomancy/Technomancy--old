@@ -20,7 +20,7 @@ public class CreativeBatteryBlockEntity extends BatteryBlockEntity {
     }
 
     protected AetherStorage createInventory() {
-        return new CreativeAetherStorage(getCapacityMultiplier());
+        return new CreativeAetherStorage();
     }
 
     @Override
@@ -35,8 +35,8 @@ public class CreativeBatteryBlockEntity extends BatteryBlockEntity {
 
     public static class CreativeAetherStorage extends AetherStorage {
 
-        public CreativeAetherStorage(int capacity) {
-            super(capacity);
+        public CreativeAetherStorage() {
+            super(1, i -> {});
         }
 
         public int receiveAether(int maxReceive, boolean simulate)

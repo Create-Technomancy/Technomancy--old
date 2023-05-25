@@ -1,6 +1,5 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
-import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.tileEntity.ComparatorUtil;
@@ -71,7 +70,7 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlock
                 return;
             BatteryBlockEntity batteryTE = (BatteryBlockEntity) te;
             world.removeBlockEntity(pos);
-            ConnectivityHandler.splitMulti(batteryTE);
+            BatteryConnectivityHandler.splitMulti(batteryTE);
         }
     }
 

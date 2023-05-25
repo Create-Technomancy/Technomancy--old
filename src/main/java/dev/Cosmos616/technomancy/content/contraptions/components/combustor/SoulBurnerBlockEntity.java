@@ -49,7 +49,7 @@ public class SoulBurnerBlockEntity extends SmartTileEntity implements IHaveGoggl
 		tank = SmartFluidTankBehaviour.single(this, 1000);
 		behaviours.add(tank);
 		// Energy
-		storage = AetherStorageBehavior.generating(this, 1000);
+		storage = AetherStorageBehavior.generating(this, 1000, this::onAetherChanged);
 		behaviours.add(storage);
 	}
 
@@ -126,6 +126,16 @@ public class SoulBurnerBlockEntity extends SmartTileEntity implements IHaveGoggl
 					notifyUpdate();
 				});
 			});
+		}
+	}
+
+	protected void onAetherChanged(int aether) {
+		if (!hasLevel())
+			return;
+
+		if (!level.isClientSide) {
+			setChanged();
+			sendData();
 		}
 	}
 	

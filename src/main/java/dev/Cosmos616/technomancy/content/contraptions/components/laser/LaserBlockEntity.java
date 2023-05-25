@@ -16,7 +16,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +32,7 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 
 	@Override
 	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
-		aether = AetherStorageBehavior.consuming(this, 1000);
+		aether = AetherStorageBehavior.consuming(this, 1000, this::onAetherChanged);
 		behaviours.add(aether);
 	}
 	
@@ -48,8 +47,11 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	protected boolean running = false;
 	
 	protected int beamTick = 0;
+	protected int beamAnimationTick = 0;
 	@Override
 	public void tick() {
+		this.beamAnimationTick = (this.beamAnimationTick + 1) % 20;
+		
 		super.tick();
 		if (this.level.isClientSide())
 			return;
@@ -131,6 +133,15 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 			return aether.getCapability().cast();
 		return super.getCapability(cap, side);
 	}
+	protected void onAetherChanged(int aether) {
+		if (!hasLevel())
+			return;
+
+		if (!level.isClientSide) {
+			setChanged();
+			sendData();
+		}
+	}
 	
 	// Config
 	// todo add all as part of config
@@ -145,4 +156,5 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	public static float getMaxLaserDistance() { // In Blocks
 		return 32.0f;
 	}
+	
 }
