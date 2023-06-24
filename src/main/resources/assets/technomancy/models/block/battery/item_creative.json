@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench by cak :)",
 	"textures": {
-		"0": "technomancy:block/battery/0",
-		"1": "technomancy:block/battery/end",
-		"particle": "technomancy:block/battery/0"
+		"0": "technomancy:block/battery/creative",
+		"1": "technomancy:block/battery/end_creative",
+		"particle": "technomancy:block/battery/creative"
 	},
 	"elements": [
 		{

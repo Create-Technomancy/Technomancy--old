@@ -32,12 +32,16 @@ public class LaserBlockEntity extends AetherNetworkElement implements AetherCons
 	}
 	
 	protected boolean running = false;
+	protected boolean updateConsumption = false;
 	
 	protected int beamTick = 0;
 	protected int beamAnimationTick = 0;
 	@Override
 	public void tick() {
 		super.tick();
+		
+		if (updateConsumption)
+			getAetherNetwork().updateConsumption();
 		
 		boolean wasRunning = running;
 		running = (running ? !getAetherNetwork().isOverloaded() : getAetherNetwork().canProvide(20))
@@ -100,6 +104,9 @@ public class LaserBlockEntity extends AetherNetworkElement implements AetherCons
 		this.redstoneInput = tag.contains("RedstoneLevel") ? tag.getInt("RedstoneLevel") : 0;
 		this.running = tag.contains("Running") && tag.getBoolean("Running");
 		updateRenderBoundingBox();
+		if (running) {
+			updateConsumption = true;
+		}
 	}
 	
 	@Override

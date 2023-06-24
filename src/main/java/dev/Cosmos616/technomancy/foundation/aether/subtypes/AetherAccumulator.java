@@ -3,6 +3,7 @@ package dev.Cosmos616.technomancy.foundation.aether.subtypes;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.foundation.aether.AetherNetworkElement;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -46,6 +47,22 @@ public abstract class AetherAccumulator extends AetherNetworkElement {
       
     }
     
+  }
+  
+  @Override
+  protected void write(CompoundTag tag, boolean clientPacket) {
+    
+    tag.putInt("StoredAether", getStoredAether());
+    
+    super.write(tag, clientPacket);
+  }
+  
+  @Override
+  protected void read(CompoundTag tag, boolean clientPacket) {
+    
+    storedAether = tag.getInt("StoredAether");
+    
+    super.read(tag, clientPacket);
   }
   
   protected void onContentChange(int change) { }

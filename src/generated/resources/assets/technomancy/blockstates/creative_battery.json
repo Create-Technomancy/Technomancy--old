@@ -1,64 +1,7 @@
 {
   "variants": {
-    "bottom=false,shape=single,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=single,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=nw,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=nw,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=sw,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=sw,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=ne,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=ne,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=se,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=se,top=false": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=single,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=single,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=nw,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=nw,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=sw,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=sw,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=ne,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=ne,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=false,shape=se,top=true": {
-      "model": "technomancy:block/creative_single"
-    },
-    "bottom=true,shape=se,top=true": {
-      "model": "technomancy:block/creative_single"
+    "": {
+      "model": "technomancy:block/battery/empty"
     }
   }
 }

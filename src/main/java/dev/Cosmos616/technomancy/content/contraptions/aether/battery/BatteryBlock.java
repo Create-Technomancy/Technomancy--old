@@ -1,9 +1,7 @@
 package dev.Cosmos616.technomancy.content.contraptions.aether.battery;
 
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ITE;
-import com.simibubi.create.foundation.tileEntity.ComparatorUtil;
 import com.simibubi.create.foundation.utility.Lang;
 import dev.Cosmos616.technomancy.foundation.aether.AetherNetworkBlock;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
@@ -71,10 +69,12 @@ public class BatteryBlock extends Block implements AetherNetworkBlock, ITE<Batte
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.hasBlockEntity() && (state.getBlock() != newState.getBlock() || !newState.hasBlockEntity())) {
+            onNetworkBlockRemove(state, world, pos);
+    
             BlockEntity te = world.getBlockEntity(pos);
-            if (!(te instanceof BatteryBlockEntity))
+            if (!(te instanceof BatteryBlockEntity batteryTE))
                 return;
-            BatteryBlockEntity batteryTE = (BatteryBlockEntity) te;
+            
             world.removeBlockEntity(pos);
             ConnectivityHandler.splitMulti(batteryTE);
         }

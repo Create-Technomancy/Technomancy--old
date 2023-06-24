@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class AetherNetworkElement extends SmartTileEntity implements IHaveGoggleInformation {
   
@@ -73,11 +74,11 @@ public abstract class AetherNetworkElement extends SmartTileEntity implements IH
   
   @Override
   public void setRemoved() {
-    super.setRemoved();
-    if (aetherNetwork != null) {
-      aetherNetwork.removeChild(this);
-      aetherNetwork.validateIntegrity(level);
+    if (hasAetherNetwork()) {
+      getAetherNetwork().removeChild(this);
     }
+  
+    super.setRemoved();
   }
   
   /**Returns the current network, or will look for a valid one to connect to, or will create one*/
@@ -85,12 +86,12 @@ public abstract class AetherNetworkElement extends SmartTileEntity implements IH
     if (aetherNetwork == null)
       updateConnectedNetwork();
     if (aetherNetwork == null)
-      new AetherNetwork().addChild(this);
+      new AetherNetwork(level).addChild(this);
     
     return aetherNetwork;
   }
   
-  public AetherNetwork getAetherNetwork() {
+  public @Nullable AetherNetwork getAetherNetwork() {
     return aetherNetwork;
   }
   

@@ -22,7 +22,11 @@ public class TMBlockPartials {
     public static Map<BatteryBlock.Shape, PartialModel> BATTERY_TOP = new HashMap<>();
     public static Map<BatteryBlock.Shape, PartialModel> BATTERY_BOTTOM = new HashMap<>();
     
+    public static Map<BatteryBlock.Shape, PartialModel> CREATIVE_BATTERY_TOP = new HashMap<>();
+    public static Map<BatteryBlock.Shape, PartialModel> CREATIVE_BATTERY_BOTTOM = new HashMap<>();
+    
     public static List<Map<BatteryBlock.Shape, PartialModel>> BATTERY_BLOCK_CHARGE_SHAPES = new ArrayList<>();
+    public static Map<BatteryBlock.Shape, PartialModel> CREATIVE_BATTERY_BLOCK_SHAPES = new HashMap<>();
 
     static {
         for (BatteryBlock.Shape shape : BatteryBlock.Shape.values()) {
@@ -30,7 +34,16 @@ public class TMBlockPartials {
                 shape.getSerializedName().toLowerCase()));
             BATTERY_BOTTOM.put(shape, block("battery/end/bottom_" +
                 shape.getSerializedName().toLowerCase()));
+            
+            CREATIVE_BATTERY_TOP.put(shape, block("battery/end/top_" +
+                shape.getSerializedName().toLowerCase() + "_creative"));
+            CREATIVE_BATTERY_BOTTOM.put(shape, block("battery/end/bottom_" +
+                shape.getSerializedName().toLowerCase() + "_creative"));
+    
+            CREATIVE_BATTERY_BLOCK_SHAPES.put(shape, block("battery/" +
+                shape.getSerializedName().toLowerCase() + "_creative"));
         }
+        
         for (int i = 0; i < 9; i++) {
             Map<BatteryBlock.Shape, PartialModel> entry = new HashMap<>();
     

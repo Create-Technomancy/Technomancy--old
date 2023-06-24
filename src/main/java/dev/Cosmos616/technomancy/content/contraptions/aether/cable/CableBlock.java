@@ -64,6 +64,7 @@ public class CableBlock extends PipeBlock
 
     @Override
     public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+        
         boolean blockTypeChanged = state.getBlock() != newState.getBlock();
 
         if (blockTypeChanged && !world.isClientSide)
@@ -72,8 +73,10 @@ public class CableBlock extends PipeBlock
 //        if (state != newState && !isMoving)
 //            removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
 
-        if (state.hasBlockEntity() && (blockTypeChanged || !newState.hasBlockEntity()))
+        if (state.hasBlockEntity() && (blockTypeChanged || !newState.hasBlockEntity())) {
+            onNetworkBlockRemove(state, world, pos);
             world.removeBlockEntity(pos);
+        }
     }
 
     @Override

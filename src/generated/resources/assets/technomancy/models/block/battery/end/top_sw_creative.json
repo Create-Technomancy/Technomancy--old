@@ -1,0 +1,6 @@
+{
+  "parent": "technomancy:block/battery/end/top_sw",
+  "textures": {
+    "1": "technomancy:block/battery/end_creative"
+  }
+}

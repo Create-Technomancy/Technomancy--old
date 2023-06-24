@@ -26,16 +26,17 @@ public class TMBlockEntities {
 //            .tileEntity("spectre_coil", SpectreCoilTileEntity::new)
 //            .validBlocks(TMBlocks.SPECTRE_COIL_BLOCK)
 //            .register();
-
+    
     public static final BlockEntityEntry<BatteryBlockEntity> BATTERY = REGISTRATE
-            .tileEntity("soul_battery", BatteryBlockEntity::new)
-            .validBlocks(TMBlocks.BATTERY_BLOCK)
+        .tileEntity("soul_battery", BatteryBlockEntity::new)
+        .validBlocks(TMBlocks.BATTERY_BLOCK)
         .renderer(() -> BatteryRenderer::new)
-            .register();
+        .register();
     
     public static final BlockEntityEntry<CreativeBatteryBlockEntity> CREATIVE_BATTERY = REGISTRATE
         .tileEntity("creative_soul_battery", CreativeBatteryBlockEntity::new)
         .validBlocks(TMBlocks.CREATIVE_BATTERY_BLOCK)
+        .renderer(() -> BatteryRenderer::new)
         .register();
 
     public static final BlockEntityEntry<CableBlockEntity> CABLE = REGISTRATE

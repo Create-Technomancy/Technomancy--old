@@ -80,13 +80,13 @@ public class TMBlocks {
                     .sound(SoundType.NETHERITE_BLOCK)
                     .isRedstoneConductor((p1, p2, p3) -> true))
             .transform(pickaxeOnly())
-            .blockstate(new BatteryGenerator("creative_")::generate)
+            .blockstate((c, p) -> p.getVariantBuilder(c.get()).partialState().setModels(ConfiguredModel.builder().modelFile(
+                p.models().getExistingFile(Technomancy.asResource("block/battery/empty"))
+            ).build()))
             .addLayer(() -> RenderType::cutoutMipped)
             .item(BatteryItem::new)
             .properties(p -> p.rarity(Rarity.EPIC))
-            .model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/battery/item"))
-                    .texture("0", p.modLoc("block/battery/creative_battery")))
-//                    .texture("particle", new ResourceLocation("create", "block/creative_casing"))) //is this even needed?
+            .model(AssetLookup.customBlockItemModel("battery/item_creative"))
             .build()
             .register();
 
@@ -156,6 +156,14 @@ public class TMBlocks {
 //            .item().transform(customItemModel("soul_burner", "item"))
             .simpleItem()
             .register();
+    
+    public static final BlockEntry<Block> CAPACITOR = REGISTRATE
+        .block("capacitor", Block::new)
+        .initialProperties(SharedProperties::softMetal)
+        .properties(BlockBehaviour.Properties::noOcclusion)
+        .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/capacitor"))))
+        .simpleItem()
+        .register();
 
     public static final BlockEntry<Block> SOUL_BURNER_EXTENSION = REGISTRATE //SoulBurnerExtension
             .block("soul_burner_extension", Block::new)

@@ -28,6 +28,8 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
     private static final int SYNC_RATE = 8;
     protected int syncCooldown;
     protected boolean queuedSync;
+    /**Called usually when loaded, do not call if {@link #isController()} is true.*/
+    protected boolean refreshTotalStored = false;
     
     /**Stored Aether in the entire structure, for {@link BatteryBlockEntity#getDisplayedChargeLevel()}*/
     private int totalStored = 0;
@@ -83,6 +85,10 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
 
     @Override
     public void tick() {
+        if (refreshTotalStored) {
+            updateTotalStored();
+        }
+        
         super.tick();
         
         if (syncCooldown > 0) {
@@ -164,7 +170,7 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
     protected void onContentChange(int change) {
         if (isController())
             totalStored += change;
-        else
+        else if (getControllerTE() != null)
             getControllerTE().totalStored += change;
     }
     
@@ -208,6 +214,10 @@ public class BatteryBlockEntity extends AetherAccumulator implements IMultiTileC
             if (hasLevel())
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 16);
             invalidateRenderBoundingBox();
+        }
+        
+        if (isController()) {
+            refreshTotalStored = true;
         }
     }
 

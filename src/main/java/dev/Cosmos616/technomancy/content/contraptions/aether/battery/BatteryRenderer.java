@@ -18,7 +18,7 @@ public class BatteryRenderer extends SafeTileEntityRenderer<BatteryBlockEntity> 
   @Override
   protected void renderSafe(BatteryBlockEntity te, float partialTicks,
                             PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-  
+    
     VertexConsumer vb = buffer.getBuffer(RenderType.solid());
     
     BlockState state = te.getBlockState();
@@ -26,6 +26,22 @@ public class BatteryRenderer extends SafeTileEntityRenderer<BatteryBlockEntity> 
     BatteryBlock.Shape shape = state.getValue(BatteryBlock.SHAPE);
     boolean top = state.getValue(BatteryBlock.TOP);
     boolean bottom = state.getValue(BatteryBlock.BOTTOM);
+  
+    if (state.getBlock() instanceof BatteryBlock batteryBlock && batteryBlock.isCreative()) {
+      if (top) {
+        CachedBufferer.partial(TMBlockPartials.CREATIVE_BATTERY_TOP.get(shape), state)
+            .renderInto(ms, vb);
+      }
+      if (bottom) {
+        CachedBufferer.partial(TMBlockPartials.CREATIVE_BATTERY_BOTTOM.get(shape), state)
+            .renderInto(ms, vb);
+      }
+  
+      CachedBufferer.partial(TMBlockPartials.CREATIVE_BATTERY_BLOCK_SHAPES.get(shape), state)
+          .renderInto(ms, vb);
+      
+      return;
+    }
     
     if (top) {
       CachedBufferer.partial(TMBlockPartials.BATTERY_TOP.get(shape), state)

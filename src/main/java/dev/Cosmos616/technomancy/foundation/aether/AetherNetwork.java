@@ -6,17 +6,23 @@ import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherConsumer;
 import dev.Cosmos616.technomancy.foundation.aether.subtypes.AetherProducer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class AetherNetwork {
 
   public static boolean SHOW_NETWORK_DEBUG = true;
   public static final List<AetherNetwork> ALL_NETWORKS = new ArrayList<>();
+  
+  //Stored for unloading
+  LevelAccessor level;
+  boolean isUnloaded;
   
   //Simulated values, is not used for calculation,
   int production;
@@ -38,8 +44,9 @@ public class AetherNetwork {
   //For debugging connectivity
   UUID networkId = UUID.randomUUID();
   
-  public AetherNetwork() {
+  public AetherNetwork(LevelAccessor level) {
     ALL_NETWORKS.add(this);
+    this.level = level;
   }
   
   //Processing
@@ -125,9 +132,6 @@ public class AetherNetwork {
     networkAccumulators = new ArrayList<>();
     
     visited.forEach(this::addChild);
-    updateConsumption();
-    updateProduction();
-    updateAccumulation();
   }
   
   private void seekIntegrity(BlockPos blockPos, LevelAccessor accessor, List<AetherNetworkElement> visited) {
@@ -173,8 +177,8 @@ public class AetherNetwork {
       networkProducers.remove(producer);
       updateProduction();
     }
-    if (element instanceof AetherAccumulator consumer) {
-      networkAccumulators.remove(consumer);
+    if (element instanceof AetherAccumulator accumulator) {
+      networkAccumulators.remove(accumulator);
       updateAccumulation();
     }
   }
@@ -182,4 +186,9 @@ public class AetherNetwork {
   public List<AetherNetworkElement> getNetworkElements() {
     return networkElements;
   }
+  
+  public LevelAccessor getLevel() {
+    return level;
+  }
+  
 }

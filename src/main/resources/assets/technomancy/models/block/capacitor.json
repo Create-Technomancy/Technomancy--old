@@ -1,0 +1,46 @@
+{
+	"credit": "Made with Blockbench by cak :)",
+	"textures": {
+		"0": "technomancy:block/cables",
+		"1": "technomancy:block/capacitor",
+		"particle": "technomancy:block/cables"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 0],
+			"to": [12, 12, 2],
+			"faces": {
+				"north": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"east": {"uv": [8, 0, 9.5, 4], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"west": {"uv": [8, 0, 9.5, 4], "texture": "#0"},
+				"up": {"uv": [8, 0, 9.5, 4], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [8, 0, 9.5, 4], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 4, 14],
+			"to": [12, 12, 16],
+			"faces": {
+				"north": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"east": {"uv": [8, 0, 9.5, 4], "texture": "#0"},
+				"south": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"west": {"uv": [8, 0, 9.5, 4], "texture": "#0"},
+				"up": {"uv": [8, 0, 9.5, 4], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [8, 0, 9.5, 4], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"from": [3, 3, 2],
+			"to": [13, 13, 14],
+			"faces": {
+				"north": {"uv": [6, 9.5, 11, 14.5], "texture": "#1"},
+				"east": {"uv": [0, 9.5, 6, 14.5], "texture": "#1"},
+				"south": {"uv": [6, 9.5, 11, 14.5], "texture": "#1"},
+				"west": {"uv": [6, 9.5, 0, 14.5], "texture": "#1"},
+				"up": {"uv": [6, 9.5, 0, 14.5], "rotation": 90, "texture": "#1"},
+				"down": {"uv": [0, 9.5, 6, 14.5], "rotation": 90, "texture": "#1"}
+			}
+		}
+	]
+}
