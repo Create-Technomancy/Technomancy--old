@@ -25,7 +25,18 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 
-version = "${mc_version}-${mod_version}"
+def getGitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+boolean ci = System.getenv('CI') != null ? System.getenv('CI').toBoolean() : false
+
+version = "${mc_version}-${mod_version}" + (ci ? "-nightly-${getGitHash()}" : "")
 group = "dev.${author}.${modid}"
 archivesBaseName = modid
 
