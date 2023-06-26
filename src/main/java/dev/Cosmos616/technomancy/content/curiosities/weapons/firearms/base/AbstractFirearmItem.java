@@ -49,7 +49,9 @@ public abstract class AbstractFirearmItem extends Item {
 	public int getAmmo(ItemStack stack) {
 		return stack.getOrCreateTag().getInt("Ammunition");
 	}
-	
+
+	//public abstract boolean isAutomatic();
+
 	protected abstract int getMaxAmmo();
 	
 	protected abstract int getFirerateTicks();

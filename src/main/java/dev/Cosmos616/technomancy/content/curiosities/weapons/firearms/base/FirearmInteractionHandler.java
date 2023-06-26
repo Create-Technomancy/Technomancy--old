@@ -26,7 +26,18 @@ public class FirearmInteractionHandler {
 //	public void onKeyPressed(InputEvent.KeyInputEvent event) {
 //
 //	}
-	
+
+	/*
+@SubscribeEvent(priority = EventPriority.LOWEST)
+public void onMouseHold(InputEvent.MouseInputEvent event) {
+	}
+
+
+	 */
+
+
+
+
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onMouseClick(InputEvent.ClickInputEvent event) {
 		if (event.isCanceled())
