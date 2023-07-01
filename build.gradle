@@ -173,7 +173,7 @@ jar {
 shadowJar {
     classifier = ''
     configurations = [project.configurations.shade]
-    relocate 'com.tterrag.registrate', 'dev.Cosmos616.technomancy.repack.registrate'
+    relocate 'com.tterrag.registrate', "${group}.repack.registrate"
 }
 
 reobf {
