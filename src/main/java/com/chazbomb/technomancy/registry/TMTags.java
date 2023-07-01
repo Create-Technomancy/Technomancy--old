@@ -172,6 +172,7 @@ public class TMTags {
 
 
     public static void register() {
+        Technomancy.LOGGER.info("Registering tags!");
         AllBlockTags.BASALT.includeAll(AllBlockTags.BASALT.tag);
     }
 

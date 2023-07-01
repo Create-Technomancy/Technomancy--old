@@ -17,7 +17,7 @@ import net.minecraft.world.item.Rarity;
 
 
 public class TMItems {
-    private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
+    private static final CreateRegistrate REGISTRATE = Technomancy.REGISTRATE
             .creativeModeTab(() -> TMItemGroups.MAIN_GROUP);
 
 
@@ -93,6 +93,8 @@ public class TMItems {
                 .register();
     }
 
-    public static void register() {}
+    public static void register() {
+        Technomancy.LOGGER.info("Registering items!");
+    }
 
 }

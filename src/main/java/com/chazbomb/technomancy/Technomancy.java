@@ -5,7 +5,6 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.chazbomb.technomancy.foundation.LangMerger;
 import com.chazbomb.technomancy.foundation.TMLangPartials;
 import com.chazbomb.technomancy.foundation.keys.TMKeys;
-import com.chazbomb.technomancy.registry.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,9 +38,9 @@ public class Technomancy {
         TMItems.register();
         TMFluids.register();
         TMBlockEntities.register();
-        TMBlockPartials.init();
+        TMBlockPartials.register();
         TMEntities.register();
-        TMItemGroups.init();
+        TMItemGroups.register();
         TMTags.register();
         TMKeys.register();
         TMPackets.registerPackets();
@@ -57,9 +56,5 @@ public class Technomancy {
         }
     }
 
-    public static ResourceLocation TMLoc(String path) { return new ResourceLocation(MOD_ID, path); }
-
-    public static CreateRegistrate getRegistrate() {
-        return REGISTRATE;
-    }
+    public static ResourceLocation asResource(String path) { return new ResourceLocation(MOD_ID, path); }
 }

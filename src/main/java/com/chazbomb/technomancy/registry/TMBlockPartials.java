@@ -39,11 +39,11 @@ public class TMBlockPartials {
     }
 
     private static PartialModel block(String path) {
-        return new PartialModel(Technomancy.TMLoc("block/" + path));
+        return new PartialModel(Technomancy.asResource("block/" + path));
     }
 
-    public static void init() {
-        // init static fields
+    public static void register() {
+        Technomancy.LOGGER.info("Registering block partials!");
     }
 
 }

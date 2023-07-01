@@ -19,7 +19,7 @@ public class TMSpriteShifts {
     }
 
     public static CTSpriteShiftEntry getCT(CTType type, String blockTextureName, String connectedTextureName) {
-        return CTSpriteShifter.getCT(type, Technomancy.TMLoc("block/" + blockTextureName), Technomancy.TMLoc("block/" + connectedTextureName + "_connected"));
+        return CTSpriteShifter.getCT(type, Technomancy.asResource("block/" + blockTextureName), Technomancy.asResource("block/" + connectedTextureName + "_connected"));
     }
 
     public static CTSpriteShiftEntry getCT(CTType type, String blockTextureName) {

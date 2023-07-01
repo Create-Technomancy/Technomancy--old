@@ -34,7 +34,7 @@ import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 
 public class TMBlocks {
-    private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
+    private static final CreateRegistrate REGISTRATE = Technomancy.REGISTRATE
             .creativeModeTab(() -> TMItemGroups.MAIN_GROUP);
 
 //    public static final BlockEntry<SpectreCoilBlock> SPECTRE_COIL_BLOCK = REGISTRATE
@@ -189,7 +189,7 @@ public class TMBlocks {
     public static final BlockEntry<IonizedBulbBlock> IONIZED_BULB = REGISTRATE
             .block("ionized_bulb", IonizedBulbBlock::new)
             .initialProperties(SharedProperties::softMetal)
-           .properties(BlockBehaviour.Properties::noOcclusion)
+            .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
             .addLayer(() -> RenderType::translucent)
             .simpleItem()
@@ -241,5 +241,7 @@ public class TMBlocks {
             .register();
 
 
-    public static void register() {}
+    public static void register() {
+        Technomancy.LOGGER.info("Registering blocks!");
+    }
 }

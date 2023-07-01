@@ -8,31 +8,43 @@ import com.tterrag.registrate.builders.FluidBuilder;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
-public class TMFluids {
+import static com.chazbomb.technomancy.Technomancy.REGISTRATE;
 
-    private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate();
-    
+public class TMFluids {
+    private static FluidBuilder<ForgeFlowingFluid.Flowing, CreateRegistrate> fluid(String name, NonNullBiFunction<FluidAttributes.Builder, Fluid, FluidAttributes> attributesFactory,
+                                                                                   int viscosity, int density, int levelDecreasePerBlock, int tickRate, int slopeFindDistance,
+                                                                                   float explosionResistance) {
+        String realName = name.replace('_', ' ').transform(s -> {
+            String result = "";
+            for(int i = 0; i < s.length(); i++) {
+                if(i == 0 || s.charAt(i - 1) == ' ')
+                    result += Character.toUpperCase(s.charAt(i));
+                else
+                    result += s.charAt(i);
+            }
+            return result;
+        });
+        return REGISTRATE.fluid(name, Technomancy.asResource("fluid/" + name + "_flow"),
+                        Technomancy.asResource("fluid/" + name + "_flow"), attributesFactory)
+                .lang(f -> "fluid.technomancy." + name, realName)
+                .attributes(b -> b.viscosity(viscosity).density(density))
+                .properties(p -> p.levelDecreasePerBlock(levelDecreasePerBlock)
+                        .tickRate(tickRate)
+                        .slopeFindDistance(slopeFindDistance)
+                        .explosionResistance(explosionResistance));
+    }
     private static FluidBuilder<ForgeFlowingFluid.Flowing, CreateRegistrate> fluid(String name, NonNullBiFunction<FluidAttributes.Builder, Fluid, FluidAttributes> attributesFactory) {
-        return REGISTRATE.fluid(name, new ResourceLocation(REGISTRATE.getModid(), "fluid/" + name + "_flow"), new ResourceLocation(REGISTRATE.getModid(), "fluid/" + name + "_flow"),
-                attributesFactory);
+        return fluid(name, attributesFactory, 2000, 1400, 2, 25, 3, 100f);
     }
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing> LIQUID_SOULS =
             fluid("liquid_souls", NoColorFluidAttributes::new)
-                    .lang(f -> "fluid.technomancy.liquid_souls", "Liquid Souls")
-                    .attributes(b -> b.viscosity(2000)
-                            .density(1400))
-                    .properties(p -> p.levelDecreasePerBlock(2)
-                            .tickRate(25)
-                            .slopeFindDistance(3)
-                            .explosionResistance(100f))
                     .tag(AllTags.forgeFluidTag("liquid_souls"), FluidTags.WATER)
                     .source(ForgeFlowingFluid.Source::new)
                     .bucket()
@@ -40,7 +52,10 @@ public class TMFluids {
                     .build()
                     .register();
 
-    public static void register() {}
+    public static void register() {
+        Technomancy.LOGGER.info("Registering fluids!");
+    }
+
 
     private static class NoColorFluidAttributes extends FluidAttributes {
 
@@ -54,4 +69,5 @@ public class TMFluids {
         }
 
     }
+
 }

@@ -1,5 +1,6 @@
 package com.chazbomb.technomancy.registry;
 
+import com.chazbomb.technomancy.Technomancy;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.archer.shockwave.ShockWaveEntity;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.archer.shockwave.ShockWaveRenderer;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileEntity;
@@ -53,5 +54,7 @@ public class TMEntities {
 				})
 				.renderer(renderer);
 	}
-	public static void register() {}
+	public static void register() {
+		Technomancy.LOGGER.info("Registering entities!");
+	}
 }

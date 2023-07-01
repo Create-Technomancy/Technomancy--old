@@ -23,7 +23,7 @@ public enum TMPackets {
 	// Server to Client
 	
 	;
-	public static final ResourceLocation CHANNEL_NAME = Technomancy.TMLoc("main");
+	public static final ResourceLocation CHANNEL_NAME = Technomancy.asResource("main");
 	public static final int NETWORK_VERSION = 1;
 	public static final String NETWORK_VERSION_STR = String.valueOf(NETWORK_VERSION);
 	public static SimpleChannel channel;
@@ -35,6 +35,7 @@ public enum TMPackets {
 	}
 	
 	public static void registerPackets() {
+		Technomancy.LOGGER.info("Registering packets!");
 		channel = NetworkRegistry.ChannelBuilder.named(CHANNEL_NAME)
 				.serverAcceptedVersions(NETWORK_VERSION_STR::equals)
 				.clientAcceptedVersions(NETWORK_VERSION_STR::equals)

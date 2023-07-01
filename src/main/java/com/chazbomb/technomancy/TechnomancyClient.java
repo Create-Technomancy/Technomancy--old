@@ -20,7 +20,6 @@ public class TechnomancyClient {
 		// Register overlays in reverse order
 
 		OverlayRegistry.registerOverlayAbove(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT, "Test Energy Archer UI", EnergyArcherUI.OVERLAY);
-
 	}
 
 }
