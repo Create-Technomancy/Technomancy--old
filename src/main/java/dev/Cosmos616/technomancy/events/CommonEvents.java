@@ -1,7 +1,6 @@
 package dev.Cosmos616.technomancy.events;
 
-import com.simibubi.create.content.contraptions.components.structureMovement.train.capability.CapabilityMinecartController;
-import dev.Cosmos616.technomancy.Technomancy;
+
 import dev.Cosmos616.technomancy.foundation.energy.IAetherStorage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.chunk.LevelChunk;

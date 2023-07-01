@@ -3,9 +3,9 @@ package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
-import com.simibubi.create.foundation.tileEntity.renderer.SafeTileEntityRenderer;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.registry.TMBlockPartials;
@@ -16,7 +16,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class LaserRenderer extends SafeTileEntityRenderer<LaserBlockEntity> {
+public class LaserRenderer extends SafeBlockEntityRenderer<LaserBlockEntity> {
 	public LaserRenderer(BlockEntityRendererProvider.Context context) { }
 	
 	// Animation Values

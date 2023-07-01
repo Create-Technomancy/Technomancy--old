@@ -1,11 +1,12 @@
 package dev.Cosmos616.technomancy.content.contraptions.components.combustor;
 
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
+
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SoulBurnerBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
+public class SoulBurnerBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
 	protected SmartFluidTankBehaviour tank;
 	protected AetherStorageBehavior storage;
@@ -44,7 +45,7 @@ public class SoulBurnerBlockEntity extends SmartTileEntity implements IHaveGoggl
 	}
 
 	@Override
-	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
+	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		// Tanks
 		tank = SmartFluidTankBehaviour.single(this, 1000);
 		behaviours.add(tank);

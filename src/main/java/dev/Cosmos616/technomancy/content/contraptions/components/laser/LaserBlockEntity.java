@@ -1,8 +1,8 @@
 package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import dev.Cosmos616.technomancy.foundation.energy.AetherStorageBehavior;
 import dev.Cosmos616.technomancy.registry.TMCapabilities;
 import net.minecraft.core.BlockPos;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
+public class LaserBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
 	protected AetherStorageBehavior aether;
 
@@ -31,7 +31,7 @@ public class LaserBlockEntity extends SmartTileEntity implements IHaveGoggleInfo
 	}
 
 	@Override
-	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
+	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		aether = AetherStorageBehavior.consuming(this, 1000, this::onAetherChanged);
 		behaviours.add(aether);
 	}

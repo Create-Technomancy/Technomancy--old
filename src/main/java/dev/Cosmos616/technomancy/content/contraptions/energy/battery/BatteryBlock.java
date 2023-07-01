@@ -1,8 +1,8 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.ITE;
-import com.simibubi.create.foundation.tileEntity.ComparatorUtil;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.blockEntity.ComparatorUtil;
 import com.simibubi.create.foundation.utility.Lang;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlockEntity> {
+public class BatteryBlock extends Block implements IWrenchable, IBE<BatteryBlockEntity> {
 
     public static final BooleanProperty TOP = BooleanProperty.create("top");
     public static final BooleanProperty BOTTOM = BooleanProperty.create("bottom");
@@ -54,7 +54,7 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlock
             return;
         if (moved)
             return;
-        withTileEntityDo(world, pos, BatteryBlockEntity::updateConnectivity);
+        withBlockEntityDo(world, pos, BatteryBlockEntity::updateConnectivity);
     }
 
     @Override
@@ -75,12 +75,12 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlock
     }
 
     @Override
-    public Class<BatteryBlockEntity> getTileEntityClass() {
+    public Class<BatteryBlockEntity> getBlockEntityClass() {
         return BatteryBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends BatteryBlockEntity> getTileEntityType() {
+    public BlockEntityType<? extends BatteryBlockEntity> getBlockEntityType() {
         return creative ? TMBlockEntities.CREATIVE_BATTERY.get() : TMBlockEntities.BATTERY.get();
     }
 
@@ -100,7 +100,7 @@ public class BatteryBlock extends Block implements IWrenchable, ITE<BatteryBlock
 
     @Override
     public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-        return getTileEntityOptional(worldIn, pos).map(BatteryBlockEntity::getControllerTE)
+        return getBlockEntityOptional(worldIn, pos).map(BatteryBlockEntity::getControllerBE)
                 .map(te -> ComparatorUtil.fractionToRedstoneLevel(te.getChargeState()))
                 .orElse(0);
     }

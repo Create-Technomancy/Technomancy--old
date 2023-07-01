@@ -2,7 +2,8 @@ package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.simibubi.create.content.curiosities.zapper.ShootableGadgetRenderHandler;
+
+import com.simibubi.create.content.equipment.zapper.ShootableGadgetRenderHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.Mth;

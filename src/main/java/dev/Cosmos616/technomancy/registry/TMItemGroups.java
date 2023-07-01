@@ -14,4 +14,6 @@ public class TMItemGroups {
 
     // Tell Registrate to create a lang entry for the item groups
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate().creativeModeTab(() -> MAIN_GROUP, "Technomancy");
+    public static void init() {
+    }
 }

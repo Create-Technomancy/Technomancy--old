@@ -1,7 +1,8 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
-import com.simibubi.create.content.contraptions.fluids.pipes.AxisPipeBlock;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+
+import com.simibubi.create.content.fluids.pipes.AxisPipeBlock;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.Pair;
 import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
@@ -129,7 +130,7 @@ public class CablePropagator {
     }
 
     public static AetherTransportBehaviour getCable(BlockGetter reader, BlockPos pos) {
-        return TileEntityBehaviour.get(reader, pos, AetherTransportBehaviour.TYPE);
+        return BlockEntityBehaviour.get(reader, pos, AetherTransportBehaviour.TYPE);
 
     }
 

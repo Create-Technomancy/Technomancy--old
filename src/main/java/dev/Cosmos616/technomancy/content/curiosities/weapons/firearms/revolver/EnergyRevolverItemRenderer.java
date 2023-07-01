@@ -1,7 +1,10 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.revolver;
+import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.PartialItemModelRenderer;
+import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItemRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -9,10 +12,10 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
 
-public class EnergyRevolverItemRenderer extends AbstractFirearmItemRenderer<EnergyRevolverModel> {
-
+public class EnergyRevolverItemRenderer extends AbstractFirearmItemRenderer {
+    protected static final PartialModel COG = new PartialModel(Technomancy.TMLoc("item/energy_revolver/cog"));
     @Override
-    protected void render(ItemStack stack, EnergyRevolverModel model, PartialItemModelRenderer renderer,
+    protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer,
                           ItemTransforms.TransformType transformType, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         Minecraft mc = Minecraft.getInstance();
         float time = mc.player.tickCount + mc.getFrameTime();
@@ -31,12 +34,14 @@ public class EnergyRevolverItemRenderer extends AbstractFirearmItemRenderer<Ener
         ms.translate(-xo / 16., -yo / 16., -zo / 16.);
 
 
-        renderer.render(model.getPartial("cog"), light);
+        renderer.render(COG.get(), light);
         ms.popPose();
     }
-
+/*
     @Override
     public EnergyRevolverModel createModel(BakedModel originalModel) {
         return new EnergyRevolverModel(originalModel);
     }
+
+ */
 }

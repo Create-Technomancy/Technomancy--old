@@ -56,7 +56,7 @@ public class EnergyArcherItem extends AbstractFirearmItem {
         }
 
         Level world = player.level;
-        ShockWaveEntity projectile = new ShockWaveEntity(player.level,power);
+        ShockWaveEntity projectile = new ShockWaveEntity(player.level,power,player);
        // projectile.powerLevel=13;
 
       // projectile.setProjectile(getProjectileType(stack));
@@ -68,6 +68,11 @@ public class EnergyArcherItem extends AbstractFirearmItem {
         projectile.setOwner(player);
        // projectile.setPowerLevel(power);
         world.addFreshEntity(projectile);
+    }
+
+    @Override
+    public boolean usesMagazineReload() {
+        return false;
     }
 
 
@@ -95,7 +100,7 @@ public class EnergyArcherItem extends AbstractFirearmItem {
     }
 
     @Override
-    public AbstractFirearmItemRenderer<?> getRenderer() {
+    public AbstractFirearmItemRenderer getRenderer() {
         return new EnergyArcherItemRenderer();
     }
 }

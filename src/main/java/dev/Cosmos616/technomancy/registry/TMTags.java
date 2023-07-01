@@ -1,5 +1,6 @@
 package dev.Cosmos616.technomancy.registry;
 
+import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.recipe.Mods;
@@ -28,8 +29,8 @@ import java.util.Objects;
 import static dev.Cosmos616.technomancy.registry.TMTags.NameSpace.MOD;
 
 public class TMTags {
-    private static final CreateRegistrate REGISTRATE = Create.registrate()
-            .creativeModeTab(() -> Create.BASE_CREATIVE_TAB);
+    private static final CreateRegistrate REGISTRATE = Create.REGISTRATE
+            .creativeModeTab(() -> AllCreativeModeTabs.BASE_CREATIVE_TAB);
 
     public static <T extends IForgeRegistryEntry<T>> TagKey<T> optionalTag(IForgeRegistry<T> registry,
                                                                            ResourceLocation id) {

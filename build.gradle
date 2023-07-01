@@ -134,10 +134,15 @@ dependencies {
 
 //    implementation fg.deobf("com.simibubi.create:Create:mc${mc_version}_v${create_version}")
 //    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheel_version}")
+    /*
     implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:all")
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
 
-    implementation fg.deobf("curse.maven:craftadditions-439890:3989191") // CC&A
+     */
+    implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:all") { transitive = false }
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
+
+    implementation fg.deobf("curse.maven:craftadditions-439890:4605624") // CC&A
 
     implementation fg.deobf("curse.maven:spark-361579:3824951")
 

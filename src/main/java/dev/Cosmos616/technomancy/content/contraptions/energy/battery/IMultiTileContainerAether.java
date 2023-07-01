@@ -1,9 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
-import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
+import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import dev.Cosmos616.technomancy.foundation.energy.IAetherStorage;
 
-public interface IMultiTileContainerAether extends IMultiTileContainer {
+public interface IMultiTileContainerAether extends IMultiBlockEntityContainer {
     default boolean hasAether() {
         return false;
     }

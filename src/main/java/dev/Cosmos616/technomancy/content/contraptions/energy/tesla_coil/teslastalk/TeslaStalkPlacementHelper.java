@@ -2,12 +2,11 @@ package dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslast
 
 import com.google.common.base.Predicates;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.curiosities.girder.GirderBlock;
-import com.simibubi.create.content.curiosities.girder.GirderEncasedShaftBlock;
-import com.simibubi.create.content.curiosities.tools.ExtendoGripItem;
-import com.simibubi.create.foundation.config.AllConfigs;
-import com.simibubi.create.foundation.utility.placement.IPlacementHelper;
-import com.simibubi.create.foundation.utility.placement.PlacementOffset;
+
+import com.simibubi.create.content.equipment.extendoGrip.ExtendoGripItem;
+import com.simibubi.create.foundation.placement.IPlacementHelper;
+import com.simibubi.create.foundation.placement.PlacementOffset;
+import com.simibubi.create.infrastructure.config.AllConfigs;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -76,7 +75,7 @@ public class TeslaStalkPlacementHelper implements IPlacementHelper {
 		List<Direction> directions =
 			IPlacementHelper.orderedByDistance(pos, ray.getLocation(), dir -> canExtendToward(state, dir));
 		for (Direction dir : directions) {
-			int range = AllConfigs.SERVER.curiosities.placementAssistRange.get();
+			int range = AllConfigs.server().equipment.placementAssistRange.get();
 			if (player != null) {
 				AttributeInstance reach = player.getAttribute(ForgeMod.REACH_DISTANCE.get());
 				if (reach != null && reach.hasModifier(ExtendoGripItem.singleRangeAttributeModifier))

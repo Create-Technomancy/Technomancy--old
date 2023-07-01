@@ -1,9 +1,9 @@
 package dev.Cosmos616.technomancy.events;
 
-import com.simibubi.create.content.contraptions.components.fan.AirCurrent;
-import com.simibubi.create.content.contraptions.components.structureMovement.interaction.controls.ControlsHandler;
-import com.simibubi.create.content.contraptions.components.structureMovement.interaction.controls.TrainHUD;
-import com.simibubi.create.content.logistics.item.LinkedControllerClientHandler;
+
+import com.simibubi.create.content.contraptions.actors.trainControls.ControlsHandler;
+import com.simibubi.create.content.kinetics.fan.AirCurrent;
+import com.simibubi.create.content.redstone.link.controller.LinkedControllerClientHandler;
 import dev.Cosmos616.technomancy.TechnomancyClient;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
 import dev.Cosmos616.technomancy.registry.TMItems;
@@ -37,9 +37,10 @@ public class ClientEvents {
 
 
 		Minecraft mc = Minecraft.getInstance();
-		if(!mc.player.getItemInHand(InteractionHand.MAIN_HAND).is(TMItems.ENERGY_ARCHER.get()))
-			EnergyArcherUI.toRender=false;
-		EnergyArcherUI.tick();
+		if(!mc.player.getItemInHand(InteractionHand.MAIN_HAND).is(TMItems.ENERGY_ARCHER.get())) {
+			EnergyArcherUI.toRender = false;
+
+		}else EnergyArcherUI.tick();
 	}
 	
 	protected static boolean isGameActive() {

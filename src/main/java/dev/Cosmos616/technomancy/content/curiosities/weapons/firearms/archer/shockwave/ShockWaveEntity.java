@@ -5,8 +5,7 @@ package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.sh
 import javax.annotation.Nullable;
 
 import com.simibubi.create.Create;
-import com.simibubi.create.content.curiosities.weapons.PotatoProjectileEntity;
-import dev.Cosmos616.technomancy.Technomancy;
+
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.ProjectileType;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.soul_sparks.SoulSparkEntity;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
@@ -48,6 +47,7 @@ public class ShockWaveEntity extends Projectile {
     boolean setSize = false;
     float hitboxSize=0;
     int counter=12;
+    public Entity ownerr;
 
     private SoundEvent soundEvent = this.getDefaultHitGroundSoundEvent();
     public float size =hitboxSize/5f;
@@ -55,9 +55,10 @@ public class ShockWaveEntity extends Projectile {
         super(p_37027_, p_37028_);
     }
 
-    public ShockWaveEntity(Level level, float power) {
+    public ShockWaveEntity(Level level, float power,Entity Owner) {
         this(TMEntities.SHOCKWAVE.get(), level);
         counter=(int)power;
+        ownerr=Owner;
 
         //this.powerLevel=25;
 
@@ -85,6 +86,8 @@ public class ShockWaveEntity extends Projectile {
     private void hurt(List<Entity> pEntities) {
         for(Entity entity : pEntities) {
             if (entity instanceof LivingEntity) {
+                if(ownerr!=null)
+                    if(!entity.getUUID().equals(ownerr.getUUID()))
                 entity.hurt(DamageSource.MAGIC, (int)(hitboxSize*1.3));
                 //this.doEnchantDamageEffects(this, entity);
             }
@@ -92,14 +95,20 @@ public class ShockWaveEntity extends Projectile {
 
     }
     private void knockBack(List<Entity> pEntities) {
+
         double d0 = (this.getBoundingBox().minX + this.getBoundingBox().maxX) / 2.0D;
         double d1 = (this.getBoundingBox().minZ + this.getBoundingBox().maxZ) / 2.0D;
 
         for(Entity entity : pEntities) {
+            if(ownerr!=null)
+              if(entity.getUUID().equals(ownerr.getUUID()))
+                 return;
             if (entity instanceof LivingEntity) {
                 double d2 = entity.getX() - d0;
                 double d3 = entity.getZ() - d1;
                 double d4 = Math.max(d2 * d2 + d3 * d3, 0.1D);
+                if(ownerr!=null)
+                    if(!entity.getUUID().equals(ownerr.getUUID()))
                 entity.push(d2 / d4 * 0.5, (double)0.2F, d3 / d4 * 0.5);
                 this.hurt(pEntities);
 
@@ -129,7 +138,8 @@ public class ShockWaveEntity extends Projectile {
         size=hitboxSize/5;
         refreshDimensions();
        // this.hurt(this.level.getEntities(this, this.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
-        this.knockBack(this.level.getEntities(this, this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D).move(0.0D, -2.0D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+
+             this.knockBack(this.level.getEntities(this, this.getBoundingBox().inflate(4.0D, 2.0D, 4.0D).move(0.0D, -2.0D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
 
         boolean flag = false;
@@ -179,10 +189,13 @@ public class ShockWaveEntity extends Projectile {
         ProjectileType projectileType = ProjectileType.DEFAULT;
         Entity target = hitResult.getEntity();
         Entity owner = this.getOwner();
-        explode();
+
+
+        if(target.getUUID().equals(ownerr.getUUID()))
+            return;
         if (!target.isAlive())
             return;
-
+        explode();
         target.hurt(DamageSource.GENERIC,20);
 
 

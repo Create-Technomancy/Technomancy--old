@@ -1,6 +1,7 @@
 package dev.Cosmos616.technomancy.registry;
 
-import com.simibubi.create.content.contraptions.itemAssembly.SequencedAssemblyItem;
+
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
@@ -15,16 +16,18 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 
 import static dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.BulletItem.*;
-import static com.simibubi.create.content.AllSections.*;
+
 
 public class TMItems {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()
             .creativeModeTab(() -> TMItemGroups.MAIN_GROUP);
 
 
-    
+    /*
     static { REGISTRATE.startSection(MATERIALS); }
 
+
+     */
     // Zircon crystal
     public static final ItemEntry<Item> ZIRCON_SHARD = REGISTRATE.item("zircon_shard",Item::new).register();
     public static final ItemEntry<Item> ZIRCON_DUST = REGISTRATE.item("zircon_dust",Item::new).register();
@@ -56,7 +59,10 @@ public class TMItems {
             .register();
 
 
+/*
     static { REGISTRATE.startSection(CURIOSITIES); }
+
+ */
 
     public static final ItemEntry<BulletItem> HALLOWED_BULLET = REGISTRATE.item("hallowed_bullet", p -> new BulletItem(p, AmmoType.DEFAULT)).register();
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_HALLOWED_BULLET = REGISTRATE.item("incompleted_hallowed_bullet", SequencedAssemblyItem::new).register();

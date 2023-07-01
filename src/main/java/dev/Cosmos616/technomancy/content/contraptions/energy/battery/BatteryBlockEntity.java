@@ -1,10 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.battery;
 
-import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.tileEntity.IMultiTileContainer;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CableBlock;
 import dev.Cosmos616.technomancy.content.contraptions.energy.cable.CablePropagator;
@@ -30,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleInformation, IMultiTileContainerAether {
+public class BatteryBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, IMultiTileContainerAether {
 
     private static final int MAX_SIZE = 3;
 
@@ -187,7 +186,7 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        BatteryBlockEntity controllerTE = getControllerTE();
+        BatteryBlockEntity controllerTE = getControllerBE();
         if (controllerTE == null)
             return false;
         return AetherStorageBehavior.containedAetherTooltip(tooltip,
@@ -272,7 +271,7 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
     }
     
     @Override
-    public void addBehaviours(List<TileEntityBehaviour> behaviours) {}
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     @Override
     public BlockPos getController() {
@@ -281,7 +280,7 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
 
     @SuppressWarnings("unchecked")
     @Override
-    public BatteryBlockEntity getControllerTE() {
+    public BatteryBlockEntity getControllerBE() {
         if (isController())
             return this;
         BlockEntity tileEntity = level.getBlockEntity(controller);
@@ -318,7 +317,7 @@ public class BatteryBlockEntity extends SmartTileEntity implements IHaveGoggleIn
 
     private IAetherStorage handlerForCapability() {
         return isController() ? aether
-                : getControllerTE() != null ? getControllerTE().handlerForCapability() : new AetherStorage(0, this::onAetherChanged);
+                : getControllerBE() != null ? getControllerBE().handlerForCapability() : new AetherStorage(0, this::onAetherChanged);
     }
 
     @Override

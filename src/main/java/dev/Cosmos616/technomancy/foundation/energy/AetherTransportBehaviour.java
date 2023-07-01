@@ -1,22 +1,23 @@
 package dev.Cosmos616.technomancy.foundation.energy;
 
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.BehaviourType;
+
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
 
-public abstract class AetherTransportBehaviour extends TileEntityBehaviour {
+public abstract class AetherTransportBehaviour extends BlockEntityBehaviour {
 
     public static final BehaviourType<AetherTransportBehaviour> TYPE = new BehaviourType<>();
 
     protected CompositeAetherStorage aether;
     protected LazyOptional<IAetherStorage> capability;
 
-    public AetherTransportBehaviour(SmartTileEntity te) {
+    public AetherTransportBehaviour(SmartBlockEntity te) {
         super(te);
         this.capability = LazyOptional.empty();
     }
@@ -32,11 +33,18 @@ public abstract class AetherTransportBehaviour extends TileEntityBehaviour {
 //        super.tick();
 //    }
 
+    /**
+     *  idk doesnt work pls fix
+     *  -DrMangoTea
+     */
+    /*
     @Override
     public void remove() {
         super.remove();
         capability.invalidate();
     }
+
+     */
 
     public void resetNetwork() {
         aether = null;

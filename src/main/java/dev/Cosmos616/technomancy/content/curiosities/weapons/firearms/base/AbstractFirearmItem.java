@@ -123,9 +123,7 @@ public abstract class AbstractFirearmItem extends Item {
 			//return net.minecraftforge.common.ForgeHooks.getProjectile(this, pShootable, this.abilities.instabuild ? new ItemStack(Items.ARROW) : ItemStack.EMPTY);
 		//}
 	}
-	public boolean usesMagazineReload() {
-		return true;
-	}
+	public abstract boolean usesMagazineReload();
 	protected abstract int getReloadTicks();
 	@Override
 	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isSelected) {
@@ -189,7 +187,7 @@ public abstract class AbstractFirearmItem extends Item {
 
 
 	@OnlyIn(Dist.CLIENT)
-	public abstract AbstractFirearmItemRenderer<?> getRenderer();
+	public abstract AbstractFirearmItemRenderer getRenderer();
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)

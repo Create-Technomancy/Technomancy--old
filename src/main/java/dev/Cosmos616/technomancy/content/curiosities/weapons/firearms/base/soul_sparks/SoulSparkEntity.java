@@ -1,8 +1,9 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.soul_sparks;
 
 
-import com.simibubi.create.content.contraptions.particle.CubeParticleData;
-import com.simibubi.create.content.curiosities.weapons.PotatoProjectileEntity;
+
+import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileEntity;
+import com.simibubi.create.content.trains.CubeParticleData;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;

@@ -1,5 +1,6 @@
 package dev.Cosmos616.technomancy.registry;
 
+import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateEntityBuilder;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.utility.Lang;
@@ -21,22 +22,16 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
 public class TMEntities {
-	private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate();
-	
-	public static final EntityEntry<FirearmProjectileEntity> FIREARM_PROJECTILE = REGISTRATE
-			.entity("firearm_projectile", FirearmProjectileEntity::new, MobCategory.MISC)
-			.renderer(() -> FirearmProjectileRenderer::new)
-			.properties(p -> p
-					.sized(0.25f, 0.25f)
-					.fireImmune())
-			.register();
-	public static final EntityEntry<SoulSparkEntity> SOUL_SPARK = REGISTRATE
-			.entity("soul_spark", SoulSparkEntity::new, MobCategory.MISC)
-			.renderer(() -> SoulSparkRenderer::new)
-			.properties(p -> p
-					.sized(0.25f, 0.25f)
-					.fireImmune())
-			.register();
+
+	public static final EntityEntry<FirearmProjectileEntity> FIREARM_PROJECTILE =
+			register("firearm_projectile", FirearmProjectileEntity::new, () -> FirearmProjectileRenderer::new,
+					MobCategory.MISC, 4, 20, true, true, FirearmProjectileEntity::build).register();
+
+
+	public static final EntityEntry<SoulSparkEntity> SOUL_SPARK =
+			register("soul_spark", SoulSparkEntity::new, () -> SoulSparkRenderer::new,
+					MobCategory.MISC, 4, 20, true, true, SoulSparkEntity::build).register();
+
 	public static final EntityEntry<ShockWaveEntity> SHOCKWAVE =
 			register("shockwave", ShockWaveEntity::new,
 					() -> ShockWaveRenderer::new,
@@ -48,7 +43,7 @@ public class TMEntities {
 																		 MobCategory group, int range, int updateFrequency, boolean sendVelocity, boolean immuneToFire,
 																		 NonNullConsumer<EntityType.Builder<T>> propertyBuilder) {
 		String id = Lang.asId(name);
-		return (CreateEntityBuilder<T, ?>) Technomancy.getRegistrate()
+		return (CreateEntityBuilder<T, ?>) Create.REGISTRATE
 				.entity(id, factory, group)
 				.properties(b -> b.setTrackingRange(range)
 						.setUpdateInterval(updateFrequency)

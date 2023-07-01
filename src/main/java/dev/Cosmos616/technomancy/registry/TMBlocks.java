@@ -1,7 +1,8 @@
 package dev.Cosmos616.technomancy.registry;
 
-import com.simibubi.create.content.contraptions.base.CasingBlock;
-import com.simibubi.create.content.contraptions.relays.encased.EncasedCTBehaviour;
+
+import com.simibubi.create.content.decoration.encasing.CasingBlock;
+import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.Cosmos616.technomancy.Technomancy;
@@ -28,9 +29,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
-import static com.simibubi.create.AllTags.pickaxeOnly;
+
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static dev.Cosmos616.technomancy.registry.TMTags.pickaxeOnly;
 
 public class TMBlocks {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate()

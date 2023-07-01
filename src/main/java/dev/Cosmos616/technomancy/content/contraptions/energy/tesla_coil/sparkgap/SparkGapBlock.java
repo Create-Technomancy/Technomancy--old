@@ -1,8 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.sparkgap;
 
-import com.simibubi.create.content.contraptions.base.KineticBlock;
-import com.simibubi.create.content.contraptions.relays.elementary.ICogWheel;
-import com.simibubi.create.foundation.block.ITE;
+
+import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
+import com.simibubi.create.foundation.block.IBE;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,7 +15,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SparkGapBlock extends KineticBlock implements ITE<SparkGapBlockEntity>, ICogWheel {
+public class SparkGapBlock extends KineticBlock implements IBE<SparkGapBlockEntity>, ICogWheel {
     public SparkGapBlock(Properties p_49795_) {
         super(p_49795_);
     }
@@ -25,12 +26,12 @@ public class SparkGapBlock extends KineticBlock implements ITE<SparkGapBlockEnti
     }
 
     @Override
-    public Class<SparkGapBlockEntity> getTileEntityClass() {
+    public Class<SparkGapBlockEntity> getBlockEntityClass() {
         return SparkGapBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends SparkGapBlockEntity> getTileEntityType() {
+    public BlockEntityType<? extends SparkGapBlockEntity> getBlockEntityType() {
         return TMBlockEntities.SPARK_GAP.get();
     }
 

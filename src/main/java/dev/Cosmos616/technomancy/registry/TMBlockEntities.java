@@ -21,71 +21,71 @@ public class TMBlockEntities {
     private static final CreateRegistrate REGISTRATE = Technomancy.getRegistrate();
 
 //    public static final BlockEntityEntry<SpectreCoilTileEntity> SPECTRE_COIL = REGISTRATE
-//            .tileEntity("spectre_coil", SpectreCoilTileEntity::new)
+//            .blockEntity("spectre_coil", SpectreCoilTileEntity::new)
 //            .validBlocks(TMBlocks.SPECTRE_COIL_BLOCK)
 //            .register();
 
     public static final BlockEntityEntry<BatteryBlockEntity> BATTERY = REGISTRATE
-            .tileEntity("soul_battery", BatteryBlockEntity::new)
+            .blockEntity("soul_battery", BatteryBlockEntity::new)
             .validBlocks(TMBlocks.BATTERY_BLOCK)
             .register();
 
     public static final BlockEntityEntry<CreativeBatteryBlockEntity> CREATIVE_BATTERY = REGISTRATE
-            .tileEntity("creative_soul_battery", CreativeBatteryBlockEntity::new)
+            .blockEntity("creative_soul_battery", CreativeBatteryBlockEntity::new)
             .validBlocks(TMBlocks.CREATIVE_BATTERY_BLOCK)
             .register();
 
     public static final BlockEntityEntry<CableBlockEntity> CABLE = REGISTRATE
-            .tileEntity("cable", CableBlockEntity::new)
+            .blockEntity("cable", CableBlockEntity::new)
             .validBlocks(TMBlocks.CABLE_BLOCK)
             .register();
 
     public static final BlockEntityEntry<CableBlockEntity> ENCASED_CABLE = REGISTRATE
-            .tileEntity("encased_cable", CableBlockEntity::new)
+            .blockEntity("encased_cable", CableBlockEntity::new)
             .validBlocks(TMBlocks.ENCASED_CABLE_BLOCK)
             .register();
     
     public static final BlockEntityEntry<LaserBlockEntity> LASER = REGISTRATE
-            .tileEntity("laser", LaserBlockEntity::new)
+            .blockEntity("laser", LaserBlockEntity::new)
             .validBlocks(TMBlocks.LASER)
-            .renderer(() -> LaserRenderer::new)
+            //.renderer(() -> LaserRenderer::new)
             .register();
     
     public static final BlockEntityEntry<SoulAccumulatorBlockEntity> SOUL_ACCUMULATOR = REGISTRATE
-            .tileEntity("soul_accumulator", SoulAccumulatorBlockEntity::new)
+            .blockEntity("soul_accumulator", SoulAccumulatorBlockEntity::new)
             .validBlocks(TMBlocks.SOUL_ACCUMULATOR)
             .register();
 
     public static final BlockEntityEntry<SparkGapBlockEntity> SPARK_GAP =REGISTRATE
-            .tileEntity("spark_gap", SparkGapBlockEntity::new)
+            .blockEntity("spark_gap", SparkGapBlockEntity::new)
             .validBlocks(TMBlocks.SPARK_GAP)
-            .renderer(() -> SparkGapRenderer::new)
+          //  .renderer(() -> SparkGapRenderer::new)
             .register();
 
     public static final BlockEntityEntry<SoulBurnerBlockEntity> SOUL_BURNER = REGISTRATE
-            .tileEntity("soul_burner", SoulBurnerBlockEntity::new)
+            .blockEntity("soul_burner", SoulBurnerBlockEntity::new)
             .validBlocks(TMBlocks.SOUL_BURNER)
 //            .renderer(() -> SoulBurnerRenderer:: new)
             .register();
 
     public static final BlockEntityEntry<TeslaPrimaryBlockEntity> TESLA_PRIMARY = REGISTRATE
-            .tileEntity("tesla_primary", TeslaPrimaryBlockEntity::new)
+            .blockEntity("tesla_primary", TeslaPrimaryBlockEntity::new)
             .validBlocks(TMBlocks.TESLA_PRIMARY)
             .register();
 
     public static final BlockEntityEntry<TeslaStalkBlockEntity> TESLA_STALK = REGISTRATE
-            .tileEntity("tesla_stalk", TeslaStalkBlockEntity::new)
+            .blockEntity("tesla_stalk", TeslaStalkBlockEntity::new)
             .validBlocks(TMBlocks.TESLA_STALK)
             .register();
 
     public static final BlockEntityEntry<CoilToploadTileEntity> COIL_TOPLOAD = REGISTRATE
-            .tileEntity("coil_topload", CoilToploadTileEntity::new)
+            .blockEntity("coil_topload", CoilToploadTileEntity::new)
             .validBlocks(TMBlocks.COIL_TOPLOAD)
             .register();
 
 
 //    public static final BlockEntityEntry<IonizedBulbTileEntity> IONIZED_BULB = REGISTRATE
-//            .tileEntity("ionized_bulb", IonizedBulbTileEntity::new)
+//            .blockEntity("ionized_bulb", IonizedBulbTileEntity::new)
 //            .validBlocks(TMBlocks.IONIZED_BULB)
 //            .register();
 

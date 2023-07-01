@@ -1,10 +1,12 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
-import com.simibubi.create.content.contraptions.components.structureMovement.ITransformableTE;
-import com.simibubi.create.content.contraptions.components.structureMovement.StructureTransform;
-import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+import com.simibubi.create.content.contraptions.ITransformableBlockEntity;
+import com.simibubi.create.content.contraptions.StructureTransform;
+
+import com.simibubi.create.content.decoration.bracket.BracketedBlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+
 import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
 import dev.Cosmos616.technomancy.registry.TMCapabilities;
@@ -19,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class CableBlockEntity extends SmartTileEntity implements ITransformableTE {
+public class CableBlockEntity extends SmartBlockEntity implements ITransformableBlockEntity {
 
     protected StandardAetherTransportBehaviour aether;
 
@@ -28,7 +30,7 @@ public class CableBlockEntity extends SmartTileEntity implements ITransformableT
     }
 
     @Override
-    public void addBehaviours(List<TileEntityBehaviour> behaviours) {
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         aether = new StandardAetherTransportBehaviour(this);
         behaviours.add(aether);
 //        behaviours.add(new BracketedTileEntityBehaviour(this, this::canHaveBracket));
@@ -45,7 +47,7 @@ public class CableBlockEntity extends SmartTileEntity implements ITransformableT
 
     @Override
     public void transform(StructureTransform transform) {
-        BracketedTileEntityBehaviour bracketBehaviour = getBehaviour(BracketedTileEntityBehaviour.TYPE);
+        BracketedBlockEntityBehaviour bracketBehaviour = getBehaviour(BracketedBlockEntityBehaviour.TYPE);
         if (bracketBehaviour != null) {
             bracketBehaviour.transformBracket(transform);
         }
@@ -57,7 +59,7 @@ public class CableBlockEntity extends SmartTileEntity implements ITransformableT
 
     class StandardAetherTransportBehaviour extends AetherTransportBehaviour {
 
-        public StandardAetherTransportBehaviour(SmartTileEntity te) {
+        public StandardAetherTransportBehaviour(SmartBlockEntity te) {
             super(te);
         }
 
@@ -76,7 +78,7 @@ public class CableBlockEntity extends SmartTileEntity implements ITransformableT
             if (attachment == AttachmentTypes.RIM
                     && !CableBlock.isCable(otherState)
                     && !TMBlocks.ENCASED_CABLE_BLOCK.has(otherState)) {
-                AetherTransportBehaviour cableBehaviour = TileEntityBehaviour.get(world, offsetPos, AetherTransportBehaviour.TYPE);
+                AetherTransportBehaviour cableBehaviour = BlockEntityBehaviour.get(world, offsetPos, AetherTransportBehaviour.TYPE);
                 if (cableBehaviour != null)
                     if (cableBehaviour.canFluxToward(otherState, direction.getOpposite()))
                         return CableBlock.shouldDrawCasing(level, pos, state) ? AttachmentTypes.GOLDEN : AttachmentTypes.NORMAL;

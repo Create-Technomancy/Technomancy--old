@@ -1,6 +1,7 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.tesla_primary;
 
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
+
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;

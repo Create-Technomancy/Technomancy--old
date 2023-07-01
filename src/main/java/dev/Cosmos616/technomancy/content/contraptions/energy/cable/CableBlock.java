@@ -1,11 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
-import com.simibubi.create.content.contraptions.fluids.FluidTransportBehaviour;
-import com.simibubi.create.content.contraptions.fluids.pipes.EncasedPipeBlock;
-import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileEntityBehaviour;
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.ITE;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+import com.simibubi.create.content.decoration.bracket.BracketedBlockEntityBehaviour;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
@@ -40,7 +38,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class CableBlock extends PipeBlock
-    implements SimpleWaterloggedBlock, /*IWrenchableWithBracket, */ITE<CableBlockEntity>, IWrenchable {
+    implements SimpleWaterloggedBlock, /*IWrenchableWithBracket, */IBE<CableBlockEntity>, IWrenchable {
 
     public CableBlock(Properties properties) {
         super(3 / 16f, properties);
@@ -111,9 +109,9 @@ public class CableBlock extends PipeBlock
     public static boolean canConnectTo(BlockAndTintGetter world, BlockPos neighbourPos, BlockState neighbour, Direction direction) {
         if (CablePropagator.hasAetherCapability(world, neighbourPos, direction.getOpposite()))
             return true;
-        AetherTransportBehaviour transport = TileEntityBehaviour.get(world, neighbourPos, AetherTransportBehaviour.TYPE);
-        BracketedTileEntityBehaviour bracket =
-                TileEntityBehaviour.get(world, neighbourPos, BracketedTileEntityBehaviour.TYPE);
+        AetherTransportBehaviour transport = BlockEntityBehaviour.get(world, neighbourPos, AetherTransportBehaviour.TYPE);
+        BracketedBlockEntityBehaviour bracket =
+                BlockEntityBehaviour.get(world, neighbourPos, BracketedBlockEntityBehaviour.TYPE);
         if (isCable(neighbour))
             return bracket == null || !bracket.isBracketPresent()
                     || CablePropagator.getStraightCableAxis(neighbour) == direction.getAxis();
@@ -185,7 +183,7 @@ public class CableBlock extends PipeBlock
 
     public BlockState updateBlockState(BlockState state, Direction preferredDirection, @Nullable Direction ignore, BlockAndTintGetter world, BlockPos pos) {
 
-        BracketedTileEntityBehaviour bracket = TileEntityBehaviour.get(world, pos, BracketedTileEntityBehaviour.TYPE);
+        BracketedBlockEntityBehaviour bracket = BlockEntityBehaviour.get(world, pos, BracketedBlockEntityBehaviour.TYPE);
         if (bracket != null && bracket.isBracketPresent())
             return state;
 
@@ -243,12 +241,12 @@ public class CableBlock extends PipeBlock
     }
 
     @Override
-    public Class<CableBlockEntity> getTileEntityClass() {
+    public Class<CableBlockEntity> getBlockEntityClass() {
         return CableBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends CableBlockEntity> getTileEntityType() {
+    public BlockEntityType<? extends CableBlockEntity> getBlockEntityType() {
         return TMBlockEntities.CABLE.get();
     }
 

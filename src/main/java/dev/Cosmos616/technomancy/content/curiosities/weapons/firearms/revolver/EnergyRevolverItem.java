@@ -29,6 +29,11 @@ public class EnergyRevolverItem extends AbstractFirearmItem {
 	}
 
 	@Override
+	public boolean usesMagazineReload() {
+		return true;
+	}
+
+	@Override
 	protected int getReloadTicks() {
 		return 5;
 	}
@@ -39,7 +44,7 @@ public class EnergyRevolverItem extends AbstractFirearmItem {
 	}
 
 	@Override
-	public AbstractFirearmItemRenderer<?> getRenderer() {
+	public AbstractFirearmItemRenderer getRenderer() {
 		return new EnergyRevolverItemRenderer();
 	}
 }

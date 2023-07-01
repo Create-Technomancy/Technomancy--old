@@ -1,32 +1,44 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import dev.Cosmos616.technomancy.registry.TMItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-@ParametersAreNonnullByDefault
+@OnlyIn(Dist.CLIENT)
 public class FirearmProjectileRenderer extends EntityRenderer<FirearmProjectileEntity> {
-	public FirearmProjectileRenderer(EntityRendererProvider.Context context) {
-		super(context);
+	private final ItemRenderer itemRenderer;
+
+	public FirearmProjectileRenderer(EntityRendererProvider.Context p_174114_) {
+		super(p_174114_);
+		this.itemRenderer = p_174114_.getItemRenderer();
 	}
-	
-	@Override
-	public void render(FirearmProjectileEntity entity, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light) {
-		Minecraft.getInstance()
-				.getItemRenderer()
-				.renderStatic(TMItems.HALLOWED_BULLET.asStack(), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, ms, buffer, 0);
+
+	public void render(FirearmProjectileEntity p_114656_, float p_114657_, float p_114658_, PoseStack p_114659_, MultiBufferSource p_114660_, int p_114661_) {
+		p_114659_.pushPose();
+		p_114659_.mulPose(this.entityRenderDispatcher.cameraOrientation());
+		p_114659_.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+
+
+		this.itemRenderer.renderStatic(TMItems.HALLOWED_BULLET.get().getDefaultInstance(), ItemTransforms.TransformType.GROUND, p_114661_, OverlayTexture.NO_OVERLAY, p_114659_, p_114660_, p_114656_.getId());
+		p_114659_.popPose();
+		super.render(p_114656_, p_114657_, p_114658_, p_114659_, p_114660_, p_114661_);
 	}
-	
-	@Override
-	public ResourceLocation getTextureLocation(FirearmProjectileEntity entity) {
-		return null;
+
+	public ResourceLocation getTextureLocation(FirearmProjectileEntity p_114654_) {
+		return TextureAtlas.LOCATION_BLOCKS;
 	}
+
 }

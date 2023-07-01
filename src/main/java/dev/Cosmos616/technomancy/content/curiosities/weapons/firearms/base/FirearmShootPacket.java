@@ -7,6 +7,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -32,10 +34,11 @@ public class FirearmShootPacket extends SimplePacketBase {
 	}
 	
 	@Override
-	public void handle(Supplier<NetworkEvent.Context> context) {
-		context.get().enqueueWork(() -> {
+	@OnlyIn(Dist.CLIENT)
+	public boolean handle(NetworkEvent.Context context) {
+		context.enqueueWork(() -> {
 			// Get data
-			ServerPlayer player = context.get().getSender();
+			ServerPlayer player = context.getSender();
 			if (player == null || !player.isAlive())
 				return;
 			ServerLevel world = player.getLevel();
@@ -48,7 +51,8 @@ public class FirearmShootPacket extends SimplePacketBase {
 				return;
 			gunItem.shootWeapon(player, heldItem, false, barrelVector);
 		});
-		context.get().setPacketHandled(true);
+		//context.setPacketHandled(true);
+		return true;
 	}
 	
 }

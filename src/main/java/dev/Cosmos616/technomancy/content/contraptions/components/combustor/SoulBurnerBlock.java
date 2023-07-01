@@ -1,12 +1,13 @@
 package dev.Cosmos616.technomancy.content.contraptions.components.combustor;
 
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.ITE;
+
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.foundation.block.IBE;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class SoulBurnerBlock extends Block implements IWrenchable, ITE<SoulBurnerBlockEntity> {
+public class SoulBurnerBlock extends Block implements IWrenchable, IBE<SoulBurnerBlockEntity> {
 	public SoulBurnerBlock(Properties properties) {
 		super(properties);
 	}
@@ -18,12 +19,12 @@ public class SoulBurnerBlock extends Block implements IWrenchable, ITE<SoulBurne
 
 
 	@Override
-	public Class<SoulBurnerBlockEntity> getTileEntityClass() {
+	public Class<SoulBurnerBlockEntity> getBlockEntityClass() {
 		return SoulBurnerBlockEntity.class;
 	}
 
 	@Override
-	public BlockEntityType<? extends SoulBurnerBlockEntity> getTileEntityType() {
+	public BlockEntityType<? extends SoulBurnerBlockEntity> getBlockEntityType() {
 		return TMBlockEntities.SOUL_BURNER.get();
 	}
 }

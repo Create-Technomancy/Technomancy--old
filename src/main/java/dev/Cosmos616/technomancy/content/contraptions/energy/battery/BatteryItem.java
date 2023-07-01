@@ -77,7 +77,7 @@ public class BatteryItem extends BlockItem {
         );
         if (batteryAt == null)
             return;
-        BatteryBlockEntity controllerTE = batteryAt.getControllerTE();
+        BatteryBlockEntity controllerTE = batteryAt.getControllerBE();
         if (controllerTE == null)
             return;
 

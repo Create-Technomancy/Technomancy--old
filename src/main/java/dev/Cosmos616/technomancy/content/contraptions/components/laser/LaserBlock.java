@@ -1,7 +1,8 @@
 package dev.Cosmos616.technomancy.content.contraptions.components.laser;
 
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.ITE;
+
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.foundation.block.IBE;
 import dev.Cosmos616.technomancy.registry.TMShapes;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class LaserBlock extends DirectionalBlock implements ITE<LaserBlockEntity>, IWrenchable {
+public class LaserBlock extends DirectionalBlock implements IBE<LaserBlockEntity>, IWrenchable {
 	public LaserBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(defaultBlockState()
@@ -52,7 +53,7 @@ public class LaserBlock extends DirectionalBlock implements ITE<LaserBlockEntity
 	}
 	
 	private void updateSignal(Level level, BlockPos pos) {
-		withTileEntityDo(level, pos, tile -> {
+		withBlockEntityDo(level, pos, tile -> {
 			tile.updateSignal(level.getBestNeighborSignal(pos));
 		});
 	}
@@ -63,12 +64,12 @@ public class LaserBlock extends DirectionalBlock implements ITE<LaserBlockEntity
 	}
 
 	@Override
-	public Class<LaserBlockEntity> getTileEntityClass() {
+	public Class<LaserBlockEntity> getBlockEntityClass() {
 		return LaserBlockEntity.class;
 	}
 	
 	@Override
-	public BlockEntityType<? extends LaserBlockEntity> getTileEntityType() {
+	public BlockEntityType<? extends LaserBlockEntity> getBlockEntityType() {
 		return TMBlockEntities.LASER.get();
 	}
 }

@@ -1,7 +1,8 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
 import com.simibubi.create.Create;
-import com.simibubi.create.content.contraptions.particle.AirParticleData;
+import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileEntity;
+import com.simibubi.create.foundation.particle.AirParticleData;
 import dev.Cosmos616.technomancy.Technomancy;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.soul_sparks.SoulSparkEntity;
 import dev.Cosmos616.technomancy.registry.TMEntities;
@@ -225,5 +226,11 @@ public class FirearmProjectileEntity extends AbstractHurtingProjectile implement
 	}
 	protected float getGravity() {
 		return 0.01F;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static EntityType.Builder<?> build(EntityType.Builder<?> builder) {
+		EntityType.Builder<FirearmProjectileEntity> entityBuilder = (EntityType.Builder<FirearmProjectileEntity>) builder;
+		return entityBuilder.sized(.25f, .25f);
 	}
 }

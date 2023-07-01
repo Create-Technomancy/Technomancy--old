@@ -28,7 +28,7 @@ public class Technomancy {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(MOD_ID);
+    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
     public Technomancy() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -36,15 +36,19 @@ public class Technomancy {
 
         forgeEventBus.register(this);
 
+        REGISTRATE.registerEventListeners(FMLJavaModLoadingContext.get().getModEventBus());
+
         TMBlocks.register();
         TMItems.register();
         TMFluids.register();
         TMBlockEntities.register();
         TMBlockPartials.init();
         TMEntities.register();
+        TMItemGroups.init();
         TMTags.register();
         TMKeys.register();
         TMPackets.registerPackets();
+
         
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));
     }
@@ -59,6 +63,6 @@ public class Technomancy {
     public static ResourceLocation TMLoc(String path) { return new ResourceLocation(MOD_ID, path); }
 
     public static CreateRegistrate getRegistrate() {
-        return REGISTRATE.get();
+        return REGISTRATE;
     }
 }

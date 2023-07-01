@@ -1,10 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.tesla_coil.teslastalk;
 
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.content.curiosities.girder.GirderPlacementHelper;
-import com.simibubi.create.foundation.utility.placement.IPlacementHelper;
-import com.simibubi.create.foundation.utility.placement.PlacementHelpers;
-import dev.Cosmos616.technomancy.registry.TMBlocks;
+
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.foundation.placement.IPlacementHelper;
+import com.simibubi.create.foundation.placement.PlacementHelpers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +34,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class TeslaStalkBlock extends Block implements IWrenchable, SimpleWaterloggedBlock {
 
-    private static final int placementHelperId = PlacementHelpers.register(new TeslaStalkPlacementHelper());
+    private static final int placementHelperId = PlacementHelpers.register((IPlacementHelper) new TeslaStalkPlacementHelper());
 
 
     public static final BooleanProperty X = BooleanProperty.create("x");

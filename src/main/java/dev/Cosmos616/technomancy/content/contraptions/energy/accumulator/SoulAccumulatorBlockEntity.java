@@ -1,11 +1,13 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.accumulator;
 
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
+
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankBehaviour;
+
 import dev.Cosmos616.technomancy.registry.TMFluids;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SoulAccumulatorBlockEntity extends SmartTileEntity implements IHaveGoggleInformation {
+public class SoulAccumulatorBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 	public SoulAccumulatorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		setLazyTickRate(20);
@@ -31,7 +33,7 @@ public class SoulAccumulatorBlockEntity extends SmartTileEntity implements IHave
 	private SmartFluidTankBehaviour tank;
 	
 	@Override
-	public void addBehaviours(List<TileEntityBehaviour> behaviours) {
+	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		tank = SmartFluidTankBehaviour.single(this, 1000);
 		tank.forbidInsertion();
 		behaviours.add(tank);

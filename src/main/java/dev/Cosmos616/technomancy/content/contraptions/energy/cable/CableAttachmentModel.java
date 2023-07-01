@@ -1,8 +1,8 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
-import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileEntityBehaviour;
-import com.simibubi.create.foundation.block.connected.BakedModelWrapperWithData;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+import com.simibubi.create.content.decoration.bracket.BracketedBlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.model.BakedModelWrapperWithData;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.foundation.energy.AetherTransportBehaviour;
 import dev.Cosmos616.technomancy.registry.TMBlockPartials;
@@ -32,11 +32,23 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
     }
 
     @Override
+    protected void gatherModelData(ModelDataMap.Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state, IModelData blockEntityData) {
+        //nothing :)
+    }
+
+    /**
+     * the method had some errors in it so i commented it
+     * but it showed it is unused anyway
+     * -DrMangoTea
+     */
+
+/*
+    @Override
     protected ModelDataMap.Builder gatherModelData(ModelDataMap.Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state) {
         CableModelData data = new CableModelData();
 //        BlockEntity te = world.getBlockEntity(pos);
-        AetherTransportBehaviour transport = TileEntityBehaviour.get(world, pos, AetherTransportBehaviour.TYPE);
-        BracketedTileEntityBehaviour bracket = TileEntityBehaviour.get(world, pos, BracketedTileEntityBehaviour.TYPE);
+        AetherTransportBehaviour transport = BlockEntityBehaviour.get(world, pos, AetherTransportBehaviour.TYPE);
+        BracketedBlockEntityBehaviour bracket = BlockEntityBehaviour.get(world, pos, BracketedBlockEntityBehaviour.TYPE);
 
         if (transport != null)
             for (Direction d : Iterate.directions)
@@ -49,6 +61,7 @@ public class CableAttachmentModel extends BakedModelWrapperWithData {
         data.setEncased(CableBlock.shouldDrawCasing(world, pos, state));
         return builder.withInitial(CABLE_PROPERTY, data);
     }
+ */
 
     @Override
     public @NotNull List<BakedQuad> getQuads(BlockState state, Direction side, @NotNull Random rand, @NotNull IModelData data) {

@@ -1,9 +1,7 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
 
-import com.simibubi.create.content.curiosities.zapper.ShootableGadgetItemMethods;
-import com.simibubi.create.content.curiosities.zapper.ShootableGadgetRenderHandler;
-import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import dev.Cosmos616.technomancy.TechnomancyClient;
+
+import com.simibubi.create.content.equipment.zapper.ShootableGadgetItemMethods;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherItem;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
 import dev.Cosmos616.technomancy.registry.TMPackets;

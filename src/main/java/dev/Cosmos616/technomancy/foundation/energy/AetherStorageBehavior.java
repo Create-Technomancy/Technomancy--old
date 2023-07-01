@@ -1,8 +1,9 @@
 package dev.Cosmos616.technomancy.foundation.energy;
 
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.BehaviourType;
+
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
 import dev.Cosmos616.technomancy.foundation.TMLang;
@@ -15,22 +16,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class AetherStorageBehavior extends TileEntityBehaviour {
+public class AetherStorageBehavior extends BlockEntityBehaviour {
 
 	public static final BehaviourType<AetherStorageBehavior> TYPE = new BehaviourType<>();
 
 	protected AetherStorage aether;
 	protected LazyOptional<IAetherStorage> capability;
 
-	public static AetherStorageBehavior generating(SmartTileEntity te, int capacity,  Consumer<Integer> updateCallback) {
+	public static AetherStorageBehavior generating(SmartBlockEntity te, int capacity,  Consumer<Integer> updateCallback) {
 		return new AetherStorageBehavior(te, capacity, 0, capacity, updateCallback);
 	}
 
-	public static AetherStorageBehavior consuming(SmartTileEntity te, int capacity,  Consumer<Integer> updateCallback) {
+	public static AetherStorageBehavior consuming(SmartBlockEntity te, int capacity, Consumer<Integer> updateCallback) {
 		return new AetherStorageBehavior(te, capacity, capacity, 0, updateCallback);
 	}
 
-	public AetherStorageBehavior(SmartTileEntity te, int capacity, int maxReceive, int maxExtract,  Consumer<Integer> updateCallback) {
+	public AetherStorageBehavior(SmartBlockEntity te, int capacity, int maxReceive, int maxExtract,  Consumer<Integer> updateCallback) {
 		super(te);
 		this.aether = new AetherStorage(capacity, maxReceive, maxExtract, updateCallback);
 		this.capability = LazyOptional.of(() -> aether);
@@ -41,11 +42,20 @@ public class AetherStorageBehavior extends TileEntityBehaviour {
 //
 //	}
 
+	/**
+	 * doesnt work for some reason
+	 * pls someone deal with this
+	 * -DrMangoTea
+	 */
+	/*
 	@Override
 	public void remove() {
 		super.remove();
 		capability.invalidate();
 	}
+
+	 */
+
 
 	public AetherStorage getHandler() {
 		return aether;

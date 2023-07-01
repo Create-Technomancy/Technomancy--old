@@ -1,9 +1,9 @@
 package dev.Cosmos616.technomancy.content.contraptions.energy.cable;
 
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.content.schematics.ISpecialBlockItemRequirement;
-import com.simibubi.create.content.schematics.ItemRequirement;
-import com.simibubi.create.foundation.block.ITE;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.content.schematics.requirement.ISpecialBlockItemRequirement;
+import com.simibubi.create.content.schematics.requirement.ItemRequirement;
+import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.utility.Iterate;
 import dev.Cosmos616.technomancy.registry.TMBlocks;
 import dev.Cosmos616.technomancy.registry.TMBlockEntities;
@@ -33,7 +33,7 @@ import java.util.Random;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.*;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.DOWN;
 
-public class EncasedCableBlock extends Block implements IWrenchable, ISpecialBlockItemRequirement, ITE<CableBlockEntity> {
+public class EncasedCableBlock extends Block implements IWrenchable,  ISpecialBlockItemRequirement, IBE<CableBlockEntity> {
 
     public static final Map<Direction, BooleanProperty> FACING_TO_PROPERTY_MAP = PipeBlock.PROPERTY_BY_DIRECTION;
 
@@ -127,12 +127,12 @@ public class EncasedCableBlock extends Block implements IWrenchable, ISpecialBlo
     }
 
     @Override
-    public Class<CableBlockEntity> getTileEntityClass() {
+    public Class<CableBlockEntity> getBlockEntityClass() {
         return CableBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends CableBlockEntity> getTileEntityType() {
+    public BlockEntityType<? extends CableBlockEntity> getBlockEntityType() {
         return TMBlockEntities.ENCASED_CABLE.get();
     }
 }
