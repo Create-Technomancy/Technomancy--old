@@ -1,4 +1,4 @@
-buildscript {
+buildscript { // legacy ew
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/maven' }
@@ -6,20 +6,24 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.61', changing: true
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.1.0'
+        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
         classpath 'org.parchmentmc:librarian:1.+'
     }
 }
+
 plugins {
-    id 'com.github.johnrengelman.shadow' version "${shadow_version}"
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'io.github.p03w.machete' version '2.0.1'
 }
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
+
 
 def getGitHash = { ->
     def stdout = new ByteArrayOutputStream()
@@ -33,8 +37,8 @@ def getGitHash = { ->
 boolean ci = System.getenv('CI') != null ? System.getenv('CI').toBoolean() : false
 
 version = "${mc_version}-${mod_version}" + (ci ? "-nightly-${getGitHash()}" : "")
-group = "dev.${author}.${modid}"
-archivesBaseName = modid
+group = project.maven_group
+archivesBaseName = project.archives_base_name
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -81,7 +85,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            args '--mod', "${modid}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', archivesBaseName, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 modid {
@@ -155,12 +159,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : modid,
-                "Specification-Vendor"    : author,
+                "Specification-Title"     : archivesBaseName,
+                "Specification-Vendor"    : "CHAZBOMB1",
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : author,
+                "Implementation-Version"  : version,
+                "Implementation-Vendor"   : "CHAZBOMB1",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
@@ -169,7 +173,7 @@ jar {
 shadowJar {
     classifier = ''
     configurations = [project.configurations.shade]
-    relocate 'com.tterrag.registrate', 'dev.Cosmos616.technomancy.repack.registrate'
+    relocate 'com.tterrag.registrate', "${group}.repack.registrate"
 }
 
 reobf {
@@ -193,4 +197,8 @@ artifacts {
 //        }
 //    }
 //}
+
+machete {
+    enabled = !ci
+}
 tasks.withType(Copy).all { duplicatesStrategy 'exclude' }
