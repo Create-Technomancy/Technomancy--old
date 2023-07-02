@@ -218,6 +218,6 @@ artifacts {
 //}
 
 machete {
-    enabled = !ci
+    enabled = ci
 }
 tasks.withType(Copy).all { duplicatesStrategy 'exclude' }
