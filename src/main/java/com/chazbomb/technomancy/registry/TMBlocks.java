@@ -2,12 +2,15 @@ package com.chazbomb.technomancy.registry;
 
 
 import com.chazbomb.technomancy.Technomancy;
+import com.chazbomb.technomancy.content.contraptions.components.cultivator.CultivatorBlock;
+import com.chazbomb.technomancy.content.contraptions.components.cultivator.CultivatorMovementBehavior;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.BatteryBlock;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.BatteryGenerator;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.BatteryItem;
 import com.chazbomb.technomancy.content.contraptions.energy.cable.CableAttachmentModel;
 import com.chazbomb.technomancy.content.contraptions.energy.cable.CableBlock;
 import com.chazbomb.technomancy.content.contraptions.energy.cable.EncasedCableBlock;
+import com.simibubi.create.AllTags;
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.foundation.data.*;
@@ -30,8 +33,10 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
 
+import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 
 public class TMBlocks {
     private static final CreateRegistrate REGISTRATE = Technomancy.REGISTRATE
@@ -140,9 +145,10 @@ public class TMBlocks {
             .block("spark_gap",SparkGapBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .transform(TMTags.pickaxeOnly())
-            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/spark_gap"))))
+            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx, prov, blockState -> prov.models().getExistingFile(prov.modLoc("block/"+ ctx.getName() +"/spark_gap"))))
             .simpleItem()
             .register();
+
     public static final BlockEntry<SoulBurnerBlock> SOUL_BURNER = REGISTRATE
             .block("soul_burner", SoulBurnerBlock::new)
             .initialProperties(SharedProperties::softMetal)
@@ -157,7 +163,7 @@ public class TMBlocks {
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .transform(TMTags.pickaxeOnly())
-            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx,prov,blockState -> prov.models().getExistingFile(prov.modLoc("block/soul_burner/burner_extension"))))
+            .blockstate((ctx, prov) -> BlockStateGen.simpleBlock(ctx, prov, blockState -> prov.models().getExistingFile(prov.modLoc("block/soul_burner/burner_extension"))))
             .addLayer(() -> RenderType::cutoutMipped)
             .simpleItem()
             .register();
@@ -205,7 +211,7 @@ public class TMBlocks {
     public static final BlockEntry<Block> ZIRCONIUM_BLOCK = REGISTRATE
             .block("zirconium_block", Block::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
-            .properties(p -> p.requiresCorrectToolForDrops())
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
             .blockstate(simpleCubeAll("zirconium_block"))
             .simpleItem()
             .register();
@@ -214,7 +220,7 @@ public class TMBlocks {
             .block("zirconium_oxidized_block", Block::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.color(MaterialColor.COLOR_BLACK))
-            .properties(p -> p.requiresCorrectToolForDrops())
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
             .blockstate(simpleCubeAll("zirconium_oxidized_block"))
             .simpleItem()
             .register();
@@ -223,7 +229,7 @@ public class TMBlocks {
             .block("zircaloy_block", Block::new)
             .initialProperties(() -> Blocks.IRON_BLOCK)
             .properties(p -> p.color(MaterialColor.TERRACOTTA_CYAN))
-            .properties(p -> p.requiresCorrectToolForDrops())
+            .properties(BlockBehaviour.Properties::requiresCorrectToolForDrops)
             .blockstate(simpleCubeAll("zircaloy_block"))
             .simpleItem()
             .register();
@@ -236,8 +242,21 @@ public class TMBlocks {
 
     public static final BlockEntry<Block> ENERGIZED_GOLD_BLOCK = REGISTRATE
             .block("energized_gold_block", Block::new)
-       .properties(p -> p.sound(SoundType.METAL))
-      .simpleItem()
+            .properties(p -> p.sound(SoundType.METAL))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<CultivatorBlock> CULTIVATOR_BLOCK = REGISTRATE
+            .block("mechanical_cultivator", CultivatorBlock::new)
+            .initialProperties(SharedProperties::stone)
+            .properties(p -> p.color(MaterialColor.COLOR_GRAY))
+            .transform(axeOrPickaxe())
+            .onRegister(movementBehaviour(new CultivatorMovementBehavior()))
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .addLayer(() -> RenderType::cutoutMipped)
+            .item()
+            .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
+            .transform(customItemModel())
             .register();
 
 

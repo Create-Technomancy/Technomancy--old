@@ -1,0 +1,19 @@
+package com.chazbomb.technomancy.mixin;
+
+import com.chazbomb.technomancy.Technomancy;
+import com.simibubi.create.content.contraptions.actors.plough.PloughMovementBehaviour;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+@Mixin(value = PloughMovementBehaviour.class, remap = false)
+public class PloughMovementBehaviourMixin {
+	@Redirect(method = "visitNewPosition", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;"))
+	private static InteractionResult noHoe(ItemStack instance, UseOnContext pContext) {
+		Technomancy.LOGGER.info("Mixed in!");
+		return null; // they don't use the return value so it doesn't matter
+	}
+}
