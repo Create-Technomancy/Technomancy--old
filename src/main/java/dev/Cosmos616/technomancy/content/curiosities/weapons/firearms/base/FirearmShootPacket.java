@@ -36,6 +36,9 @@ public class FirearmShootPacket extends SimplePacketBase {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public boolean handle(NetworkEvent.Context context) {
+
+
+
 		context.enqueueWork(() -> {
 			// Get data
 			ServerPlayer player = context.getSender();
@@ -45,13 +48,16 @@ public class FirearmShootPacket extends SimplePacketBase {
 			ItemStack heldItem = player.getItemInHand(InteractionHand.MAIN_HAND);
 			if (!(heldItem.getItem() instanceof AbstractFirearmItem gunItem))
 				return;
+
 			
 			// Fire gun
 			if ((!gunItem.hasAmmo(heldItem) && !player.isCreative()) || player.isSpectator())
 				return;
+
+
 			gunItem.shootWeapon(player, heldItem, false, barrelVector);
 		});
-		//context.setPacketHandled(true);
+
 		return true;
 	}
 	

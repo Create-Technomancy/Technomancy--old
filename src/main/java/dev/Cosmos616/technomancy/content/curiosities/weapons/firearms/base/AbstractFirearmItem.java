@@ -55,6 +55,10 @@ public abstract class AbstractFirearmItem extends Item {
 	protected abstract int getMaxAmmo();
 	
 	protected abstract int getFirerateTicks();
+
+	protected abstract int cooldownTicks();
+
+	protected abstract Item getItem();
 	
 	public void shootWeapon(Player player, ItemStack stack, boolean isClient) {
 		this.shootWeapon(player, stack, isClient, Vec3.ZERO);
@@ -87,6 +91,8 @@ public abstract class AbstractFirearmItem extends Item {
 
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
+		if(!usesMagazineReload())
+			return false;
 		LocalPlayer player = Minecraft.getInstance().player;
 		return player != null && !player.isCreative();
 	}
@@ -153,7 +159,7 @@ public abstract class AbstractFirearmItem extends Item {
 					}
 				if(getAmmo(stack)!=0&&itemstack.getCount()!=0) {
 					TechnomancyClient.FIREARM_RENDER_HANDLER.reload(InteractionHand.MAIN_HAND, Vec3.ZERO);
-					((Player) entity).getCooldowns().addCooldown(TMItems.ENERGY_REVOLVER.get(), 25);
+					((Player) entity).getCooldowns().addCooldown(getItem(), cooldownTicks());
 				}
 				}
 

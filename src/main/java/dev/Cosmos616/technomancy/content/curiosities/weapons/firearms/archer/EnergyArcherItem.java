@@ -12,6 +12,7 @@ import dev.Cosmos616.technomancy.registry.TMItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -92,6 +93,16 @@ public class EnergyArcherItem extends AbstractFirearmItem {
     @Override
     protected int getFirerateTicks() {
         return 10;
+    }
+
+    @Override
+    protected int cooldownTicks() {
+        return 25;
+    }
+
+    @Override
+    protected Item getItem() {
+        return TMItems.ENERGY_ARCHER.get();
     }
 
     @Override

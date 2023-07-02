@@ -1,7 +1,9 @@
 package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.revolver;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItem;
 import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItemRenderer;
+import dev.Cosmos616.technomancy.registry.TMItems;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -26,6 +28,16 @@ public class EnergyRevolverItem extends AbstractFirearmItem {
 	@Override
 	protected int getFirerateTicks() {
 		return 10;
+	}
+
+	@Override
+	protected int cooldownTicks() {
+		return 15;
+	}
+
+	@Override
+	protected Item getItem() {
+		return TMItems.ENERGY_REVOLVER.get();
 	}
 
 	@Override
