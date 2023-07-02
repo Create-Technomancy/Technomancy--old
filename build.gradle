@@ -42,6 +42,11 @@ archivesBaseName = project.archives_base_name
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
+mixin {
+    add sourceSets.main, 'technomancy.refmap.json'
+    config 'technomancy.mixins.json'
+}
+
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     mappings channel: 'parchment', version: "${parchment}-${mc_version}"
@@ -52,13 +57,14 @@ minecraft {
         client {
             workingDirectory project.file('run')
 //            arg "-mixin.config=createcommodities.mixins.json"
+            arg "-mixin.config=technomancy.mixins.json"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
-                modid {
+                technomancy {
                     source sourceSets.main
                 }
             }
@@ -73,7 +79,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
-                modid {
+                technomancy {
                     source sourceSets.main
                 }
             }
@@ -81,6 +87,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
+            arg "-mixin.config=technomancy.mixins.json"
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
@@ -88,7 +95,7 @@ minecraft {
             args '--mod', archivesBaseName, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                modid {
+                technomancy {
                     source sourceSets.main
                 }
             }
@@ -127,6 +134,20 @@ configurations {
     shade
 }
 
+processResources {
+    // set up properties for filling into metadata
+    Map<String, String> properties = Map.of(
+            "forge", forge_version.split("\\.")[0], // only specify major version of forge
+            "mc", mc_version,
+            "create", create_version.split("-")[0] // cut off build number
+    )
+    properties.forEach(inputs::property)
+
+    filesMatching("resources/META-INF/mods.toml") {
+        expand properties
+    }
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
@@ -136,19 +157,17 @@ dependencies {
 
     compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
-//    implementation fg.deobf("com.simibubi.create:Create:mc${mc_version}_v${create_version}")
-//    implementation fg.deobf("com.jozufozu.flywheel:Flywheel-Forge:${flywheel_version}")
-    /*
-    implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:all")
-    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
-
-     */
     implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:all") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
 
-    implementation fg.deobf("curse.maven:craftadditions-439890:4605624") // CC&A
+    //implementation fg.deobf("curse.maven:craftadditions-439890:4605624") //why tf is CC&A here
 
-    implementation fg.deobf("curse.maven:spark-361579:3824951")
+    //implementation fg.deobf("curse.maven:spark-361579:3824951")
+
+    //dev qol
+    runtimeOnly(fg.deobf("curse.maven:better-mods-button-541584:3963202"))
+    runtimeOnly(fg.deobf("curse.maven:ferritecore-429235:4117906"))
+    runtimeOnly(fg.deobf("curse.maven:catalogue-459701:4171024"))
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
