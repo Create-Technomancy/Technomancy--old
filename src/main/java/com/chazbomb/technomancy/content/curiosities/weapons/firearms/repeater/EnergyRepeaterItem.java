@@ -1,14 +1,15 @@
-package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.repeater;
+package com.chazbomb.technomancy.content.curiosities.weapons.firearms.repeater;
+import com.chazbomb.technomancy.TechnomancyClient;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItem;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItemRenderer;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileEntity;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.FirearmShootPacket;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.repeater.EnergyRepeaterItemRenderer;
+import com.chazbomb.technomancy.registry.TMEntities;
+import com.chazbomb.technomancy.registry.TMItems;
+import com.chazbomb.technomancy.registry.TMPackets;
 import com.simibubi.create.content.equipment.zapper.ShootableGadgetItemMethods;
-import dev.Cosmos616.technomancy.TechnomancyClient;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItem;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItemRenderer;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileEntity;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.FirearmShootPacket;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.revolver.EnergyRevolverItemRenderer;
-import dev.Cosmos616.technomancy.registry.TMEntities;
-import dev.Cosmos616.technomancy.registry.TMItems;
-import dev.Cosmos616.technomancy.registry.TMPackets;
+
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

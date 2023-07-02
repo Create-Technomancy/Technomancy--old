@@ -1,11 +1,13 @@
-package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base;
+package com.chazbomb.technomancy.content.curiosities.weapons.firearms.base;
 
 
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherItem;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItem;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.FirearmShootPacket;
+import com.chazbomb.technomancy.registry.TMPackets;
 import com.simibubi.create.content.equipment.zapper.ShootableGadgetItemMethods;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.EnergyArcherItem;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.repeater.EnergyRepeaterItem;
-import dev.Cosmos616.technomancy.registry.TMPackets;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;

@@ -1,12 +1,15 @@
-package dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.revolver;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItem;
-import dev.Cosmos616.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItemRenderer;
-import dev.Cosmos616.technomancy.registry.TMItems;
+package com.chazbomb.technomancy.content.curiosities.weapons.firearms.revolver;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItem;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.AbstractFirearmItemRenderer;
+import com.chazbomb.technomancy.content.curiosities.weapons.firearms.revolver.EnergyRevolverItemRenderer;
+import com.chazbomb.technomancy.registry.TMItems;
+
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.property.Properties;
 
 
 public class EnergyRevolverItem extends AbstractFirearmItem {
