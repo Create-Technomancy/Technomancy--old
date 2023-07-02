@@ -165,9 +165,9 @@ dependencies {
     //implementation fg.deobf("curse.maven:spark-361579:3824951")
 
     //dev qol
-    runtimeOnly(fg.deobf("curse.maven:better-mods-button-541584:3963202"))
-    runtimeOnly(fg.deobf("curse.maven:ferritecore-429235:4117906"))
-    runtimeOnly(fg.deobf("curse.maven:catalogue-459701:4171024"))
+    runtimeOnly(fg.deobf("curse.maven:better-mods-button-541584:4608772"))
+    runtimeOnly(fg.deobf("curse.maven:ferritecore-429235:4074294"))
+    runtimeOnly(fg.deobf("curse.maven:catalogue-459701:3803098"))
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency

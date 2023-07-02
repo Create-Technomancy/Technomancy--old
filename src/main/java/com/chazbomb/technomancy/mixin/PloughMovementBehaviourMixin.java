@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(value = PloughMovementBehaviour.class, remap = false)
 public class PloughMovementBehaviourMixin {
 	@Redirect(method = "visitNewPosition", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;"))
-	private static InteractionResult noHoe(ItemStack instance, UseOnContext pContext) {
-		Technomancy.LOGGER.info("Mixed in!");
+	private InteractionResult noHoe(ItemStack instance, UseOnContext pContext) {
 		return null; // they don't use the return value so it doesn't matter
 	}
 }
