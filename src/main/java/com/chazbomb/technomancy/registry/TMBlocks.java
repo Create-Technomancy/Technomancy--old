@@ -38,6 +38,7 @@ import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 
+@SuppressWarnings("unused")
 public class TMBlocks {
     private static final CreateRegistrate REGISTRATE = Technomancy.REGISTRATE
             .creativeModeTab(() -> TMItemGroups.MAIN_GROUP);

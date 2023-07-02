@@ -55,6 +55,7 @@ public class TMBlockStateGen {
             String NONE = "none";
 
             List<String> orientations = ImmutableList.of(LU, RU, LD, RD, LR, UD, NONE);
+            // why not couples?
             Map<String, Pair<Integer, Integer>> uvs = ImmutableMap.<String, Pair<Integer, Integer>>builder() // uv coordinates as if texture was 16x16
                     .put(LU, Pair.of(3, 13))
                     .put(RU, Pair.of(0, 13))

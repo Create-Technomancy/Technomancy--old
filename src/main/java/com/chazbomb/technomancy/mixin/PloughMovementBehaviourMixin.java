@@ -1,6 +1,5 @@
 package com.chazbomb.technomancy.mixin;
 
-import com.chazbomb.technomancy.Technomancy;
 import com.simibubi.create.content.contraptions.actors.plough.PloughMovementBehaviour;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class PloughMovementBehaviourMixin {
 	@Redirect(method = "visitNewPosition", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;"))
 	private InteractionResult noHoe(ItemStack instance, UseOnContext pContext) {
-		return null; // they don't use the return value so it doesn't matter
+		return InteractionResult.PASS;
 	}
 }

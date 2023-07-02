@@ -1,6 +1,5 @@
 {
   "block.technomancy.battery": "\u028E\u0279\u01DD\u0287\u0287\u0250\u15FA",
-  "block.technomancy.blackstone_casing": "bu\u0131s\u0250\u0186 \u01DDuo\u0287s\u029E\u0254\u0250\u05DF\u15FA",
   "block.technomancy.cable": "\u01DD\u05DFq\u0250\u0186",
   "block.technomancy.ceramic_casing": "bu\u0131s\u0250\u0186 \u0254\u0131\u026F\u0250\u0279\u01DD\u0186",
   "block.technomancy.coil_topload": "p\u0250o\u05DFdo\u27D8 \u05DF\u0131o\u0186",
@@ -10,6 +9,7 @@
   "block.technomancy.ionized_bulb": "q\u05DFn\u15FA p\u01DDz\u0131uoI",
   "block.technomancy.laser": "\u0279\u01DDs\u0250\uA780",
   "block.technomancy.liquid_souls": "s\u05DFnoS p\u0131nb\u0131\uA780",
+  "block.technomancy.mechanical_cultivator": "\u0279o\u0287\u0250\u028C\u0131\u0287\u05DFn\u0186 \u05DF\u0250\u0254\u0131u\u0250\u0265\u0254\u01DDW",
   "block.technomancy.silver_block": "\u029E\u0254o\u05DF\u15FA \u0279\u01DD\u028C\u05DF\u0131S",
   "block.technomancy.soul_accumulator": "\u0279o\u0287\u0250\u05DFn\u026Fn\u0254\u0254\u2C6F \u05DFnoS",
   "block.technomancy.soul_burner": "\u0279\u01DDu\u0279n\u15FA \u05DFnoS",
@@ -22,7 +22,6 @@
   "block.technomancy.zirconium_block": "\u029E\u0254o\u05DF\u15FA \u026Fn\u0131uo\u0254\u0279\u0131Z",
   "block.technomancy.zirconium_casing": "bu\u0131s\u0250\u0186 \u026Fn\u0131uo\u0254\u0279\u0131Z",
   "block.technomancy.zirconium_oxidized_block": "\u029E\u0254o\u05DF\u15FA p\u01DDz\u0131p\u0131xO \u026Fn\u0131uo\u0254\u0279\u0131Z",
-  "entity.technomancy.firearm_projectile": "\u01DD\u05DF\u0131\u0287\u0254\u01DD\u0638o\u0279\u0500 \u026F\u0279\u0250\u01DD\u0279\u0131\u2132",
   "item.technomancy.ceramic_dust": "\u0287sn\u15E1 \u0254\u0131\u026F\u0250\u0279\u01DD\u0186",
   "item.technomancy.ceramic_plate": "\u01DD\u0287\u0250\u05DF\u0500 \u0254\u0131\u026F\u0250\u0279\u01DD\u0186",
   "item.technomancy.energized_gold_ingot": "\u0287obuI p\u05DFo\u2141 p\u01DDz\u0131b\u0279\u01DDu\u018E",

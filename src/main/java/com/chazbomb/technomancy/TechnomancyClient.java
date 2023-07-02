@@ -3,6 +3,7 @@ package com.chazbomb.technomancy;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.archer.ui.EnergyArcherUI;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.FirearmInteractionHandler;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.FirearmRenderHandler;
+import com.chazbomb.technomancy.foundation.keys.TMKeys;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -15,6 +16,7 @@ public class TechnomancyClient {
 		FIREARM_RENDER_HANDLER.registerListeners(forgeEventBus);
 		forgeEventBus.register(FIREARM_INTERACTION_HANDLER);
 		registerOverlays();
+		TMKeys.register();
 	}
 	private static void registerOverlays() {
 		// Register overlays in reverse order

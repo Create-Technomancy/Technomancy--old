@@ -58,6 +58,4 @@ public class TMConfigs {
                     .getSpec())
                 config.onReload();
     }
-
-
 }

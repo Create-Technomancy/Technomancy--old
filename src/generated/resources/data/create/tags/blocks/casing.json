@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "technomancy:zirconium_casing",
-    "technomancy:ceramic_casing",
-    "technomancy:blackstone_casing"
+    "technomancy:ceramic_casing"
   ]
 }

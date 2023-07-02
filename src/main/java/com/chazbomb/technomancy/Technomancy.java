@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.chazbomb.technomancy.foundation.LangMerger;
 import com.chazbomb.technomancy.foundation.TMLangPartials;
 import com.chazbomb.technomancy.foundation.keys.TMKeys;
+import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,11 +43,10 @@ public class Technomancy {
         TMEntities.register();
         TMItemGroups.register();
         TMTags.register();
-        TMKeys.register();
         TMPackets.registerPackets();
 
-        
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));
+        if(Minecraft.getInstance() != null) // required for datagen to work
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));
     }
 
     public static void gatherData(GatherDataEvent event) {
