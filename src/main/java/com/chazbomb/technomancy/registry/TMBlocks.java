@@ -253,11 +253,11 @@ public class TMBlocks {
             .properties(p -> p.color(MaterialColor.COLOR_GRAY))
             .transform(axeOrPickaxe())
             .onRegister(movementBehaviour(new CultivatorMovementBehavior()))
-            .blockstate(BlockStateGen.horizontalBlockProvider(true))
-            .addLayer(() -> RenderType::cutoutMipped)
+            .blockstate(BlockStateGen.horizontalBlockProvider(false))
+            //.addLayer(() -> RenderType::cutoutMipped)
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
-            .transform(customItemModel())
+            .build()
             .register();
 
 

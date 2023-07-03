@@ -1,33 +1,33 @@
 {
   "variants": {
     "facing=north,waterlogged=false": {
-      "model": "technomancy:block/mechanical_cultivator/block"
+      "model": "technomancy:block/mechanical_cultivator"
     },
     "facing=south,waterlogged=false": {
-      "model": "technomancy:block/mechanical_cultivator/block",
+      "model": "technomancy:block/mechanical_cultivator",
       "y": 180
     },
     "facing=west,waterlogged=false": {
-      "model": "technomancy:block/mechanical_cultivator/block",
+      "model": "technomancy:block/mechanical_cultivator",
       "y": 270
     },
     "facing=east,waterlogged=false": {
-      "model": "technomancy:block/mechanical_cultivator/block",
+      "model": "technomancy:block/mechanical_cultivator",
       "y": 90
     },
     "facing=north,waterlogged=true": {
-      "model": "technomancy:block/mechanical_cultivator/block"
+      "model": "technomancy:block/mechanical_cultivator"
     },
     "facing=south,waterlogged=true": {
-      "model": "technomancy:block/mechanical_cultivator/block",
+      "model": "technomancy:block/mechanical_cultivator",
       "y": 180
     },
     "facing=west,waterlogged=true": {
-      "model": "technomancy:block/mechanical_cultivator/block",
+      "model": "technomancy:block/mechanical_cultivator",
       "y": 270
     },
     "facing=east,waterlogged=true": {
-      "model": "technomancy:block/mechanical_cultivator/block",
+      "model": "technomancy:block/mechanical_cultivator",
       "y": 90
     }
   }
