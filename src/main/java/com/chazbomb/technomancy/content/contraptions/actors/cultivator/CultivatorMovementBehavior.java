@@ -1,6 +1,5 @@
-package com.chazbomb.technomancy.content.contraptions.components.cultivator;
+package com.chazbomb.technomancy.content.contraptions.actors.cultivator;
 
-import com.simibubi.create.content.contraptions.actors.plough.PloughBlock;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
@@ -12,11 +11,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoulSandBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-
-import com.chazbomb.technomancy.content.contraptions.components.cultivator.CultivatorBlock.CultivatorFakePlayer;
 
 
 public class CultivatorMovementBehavior implements MovementBehaviour {
@@ -38,8 +36,12 @@ public class CultivatorMovementBehavior implements MovementBehaviour {
 		if (!world.isLoaded(below))
 			return;
 
+		if(world.getBlockState(below).getBlock() instanceof SoulSandBlock) {
+			// todo: make particles
+			// todo: send souls to internal storage
+		}
 		Vec3 vec = VecHelper.getCenterOf(pos);
-		CultivatorFakePlayer player = getPlayer(context);
+		CultivatorBlock.CultivatorFakePlayer player = getPlayer(context);
 
 		if (player == null)
 			return;
@@ -55,19 +57,17 @@ public class CultivatorMovementBehavior implements MovementBehaviour {
 	@Override
 	public void stopMoving(MovementContext context) {
 		MovementBehaviour.super.stopMoving(context);
-		if (context.temporaryData instanceof CultivatorFakePlayer)
-			((CultivatorFakePlayer) context.temporaryData).discard();
+		if (context.temporaryData instanceof CultivatorBlock.CultivatorFakePlayer)
+			((CultivatorBlock.CultivatorFakePlayer) context.temporaryData).discard();
 	}
 
-	private CultivatorFakePlayer getPlayer(MovementContext context) {
-		if (!(context.temporaryData instanceof CultivatorFakePlayer) && context.world != null) {
-			CultivatorFakePlayer player = new CultivatorFakePlayer((ServerLevel) context.world);
+	private CultivatorBlock.CultivatorFakePlayer getPlayer(MovementContext context) {
+		if (!(context.temporaryData instanceof CultivatorBlock.CultivatorFakePlayer) && context.world != null) {
+			CultivatorBlock.CultivatorFakePlayer player = new CultivatorBlock.CultivatorFakePlayer((ServerLevel) context.world);
 			player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_HOE));
 			context.temporaryData = player;
 		}
-		if(context.temporaryData instanceof CultivatorFakePlayer)
-			return (CultivatorFakePlayer) context.temporaryData;
-		// this is easier to debug than if it throws a ClassCastException
-		throw new RuntimeException("Cultivator Fake Player not found! Please report this.");
+		//noinspection DataFlowIssue - temporaryData instaceof CultivatorFakePlayer is asserted above
+		return (CultivatorBlock.CultivatorFakePlayer) context.temporaryData;
 	}
 }

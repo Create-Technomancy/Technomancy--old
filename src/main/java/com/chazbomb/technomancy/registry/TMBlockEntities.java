@@ -1,6 +1,7 @@
 package com.chazbomb.technomancy.registry;
 
 import com.chazbomb.technomancy.Technomancy;
+import com.chazbomb.technomancy.content.contraptions.actors.liquidator.SoulLiquidatorBlockEntity;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.BatteryBlockEntity;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.CreativeBatteryBlockEntity;
 import com.chazbomb.technomancy.content.contraptions.energy.cable.CableBlockEntity;
@@ -59,6 +60,9 @@ public class TMBlockEntities {
 
     public static final BlockEntityEntry<CoilToploadTileEntity> COIL_TOPLOAD =
             be("coil_topload", CoilToploadTileEntity::new, TMBlocks.COIL_TOPLOAD);
+
+    public static final BlockEntityEntry<SoulLiquidatorBlockEntity> SOUL_LIQUIDATOR =
+            be("soul_liquidator", SoulLiquidatorBlockEntity::new, TMBlocks.SOUL_LIQUIDATOR);
 
 
 //    public static final BlockEntityEntry<IonizedBulbTileEntity> IONIZED_BULB =

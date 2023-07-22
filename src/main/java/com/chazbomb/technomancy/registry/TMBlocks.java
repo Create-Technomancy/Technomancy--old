@@ -2,8 +2,9 @@ package com.chazbomb.technomancy.registry;
 
 
 import com.chazbomb.technomancy.Technomancy;
-import com.chazbomb.technomancy.content.contraptions.components.cultivator.CultivatorBlock;
-import com.chazbomb.technomancy.content.contraptions.components.cultivator.CultivatorMovementBehavior;
+import com.chazbomb.technomancy.content.contraptions.actors.cultivator.CultivatorBlock;
+import com.chazbomb.technomancy.content.contraptions.actors.cultivator.CultivatorMovementBehavior;
+import com.chazbomb.technomancy.content.contraptions.actors.liquidator.SoulLiquidatorBlock;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.BatteryBlock;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.BatteryGenerator;
 import com.chazbomb.technomancy.content.contraptions.energy.battery.BatteryItem;
@@ -258,6 +259,15 @@ public class TMBlocks {
             .item()
             .tag(AllTags.AllItemTags.CONTRAPTION_CONTROLLED.tag)
             .build()
+            .register();
+
+    public static final BlockEntry<SoulLiquidatorBlock> SOUL_LIQUIDATOR = REGISTRATE // fixme im an idiot and idk why the collision box is the full block
+            .block("soul_liquidator", SoulLiquidatorBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .transform(axeOrPickaxe())
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
+            .simpleItem()
             .register();
 
 

@@ -1,4 +1,4 @@
-package com.chazbomb.technomancy.content.contraptions.components.cultivator;
+package com.chazbomb.technomancy.content.contraptions.actors.cultivator;
 
 import com.mojang.authlib.GameProfile;
 import com.simibubi.create.content.contraptions.actors.AttachedActorBlock;
