@@ -28,8 +28,8 @@ import java.util.Objects;
 import static com.chazbomb.technomancy.registry.TMTags.NameSpace.MOD;
 
 public class TMTags {
-    private static final CreateRegistrate REGISTRATE = Create.REGISTRATE
-            .creativeModeTab(() -> AllCreativeModeTabs.BASE_CREATIVE_TAB);
+    private static final CreateRegistrate REGISTRATE = Technomancy.REGISTRATE
+            .creativeModeTab(() -> TMItemGroups.MAIN_GROUP);
 
     public static <T extends IForgeRegistryEntry<T>> TagKey<T> optionalTag(IForgeRegistry<T> registry,
                                                                            ResourceLocation id) {

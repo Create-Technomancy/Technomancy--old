@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "technomancy:block/layered_blackstone"
+    }
+  }
+}

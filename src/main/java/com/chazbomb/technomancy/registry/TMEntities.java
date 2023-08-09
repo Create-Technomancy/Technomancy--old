@@ -42,7 +42,7 @@ public class TMEntities {
 																		 MobCategory group, int range, int updateFrequency, boolean sendVelocity, boolean immuneToFire,
 																		 NonNullConsumer<EntityType.Builder<T>> propertyBuilder) {
 		String id = Lang.asId(name);
-		return (CreateEntityBuilder<T, ?>) Create.REGISTRATE
+		return (CreateEntityBuilder<T, ?>) Technomancy.REGISTRATE
 				.entity(id, factory, group)
 				.properties(b -> b.setTrackingRange(range)
 						.setUpdateInterval(updateFrequency)

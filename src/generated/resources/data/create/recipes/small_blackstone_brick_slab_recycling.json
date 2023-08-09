@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "technomancy:small_blackstone_brick_slab"
+    },
+    {
+      "item": "technomancy:small_blackstone_brick_slab"
+    }
+  ],
+  "result": {
+    "item": "technomancy:small_blackstone_bricks"
+  }
+}

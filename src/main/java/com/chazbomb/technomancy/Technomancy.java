@@ -1,5 +1,6 @@
 package com.chazbomb.technomancy;
 
+import com.chazbomb.technomancy.content.decoration.palettes.TMPaletteBlocks;
 import com.chazbomb.technomancy.registry.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.chazbomb.technomancy.foundation.LangMerger;
@@ -44,8 +45,11 @@ public class Technomancy {
         TMItemGroups.register();
         TMTags.register();
         TMPackets.registerPackets();
+        TMPaletteBlocks.register();
 
-        if(Minecraft.getInstance() != null) // required for datagen to work
+
+        //noinspection ConstantValue - required for datagen to work
+        if(Minecraft.getInstance() != null)
             DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> TechnomancyClient.onClient(modEventBus, forgeEventBus));
     }
 

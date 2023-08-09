@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "technomancy:cut_blackstone_stairs",
+    "technomancy:polished_cut_blackstone_stairs",
+    "technomancy:cut_blackstone_brick_stairs",
+    "technomancy:small_blackstone_brick_stairs"
+  ]
+}

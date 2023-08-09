@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "tag": "technomancy:stone_types/blackstone"
+  },
+  "result": "technomancy:cut_blackstone_slab",
+  "count": 2
+}

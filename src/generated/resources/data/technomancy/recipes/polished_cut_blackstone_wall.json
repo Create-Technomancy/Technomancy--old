@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "technomancy:polished_cut_blackstone"
+    }
+  },
+  "result": {
+    "item": "technomancy:polished_cut_blackstone_wall",
+    "count": 6
+  }
+}

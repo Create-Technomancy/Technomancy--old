@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "technomancy:small_blackstone_brick_stairs"
+    ]
+  },
+  "criteria": {
+    "has_small_blackstone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "technomancy:small_blackstone_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "technomancy:small_blackstone_brick_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_small_blackstone_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

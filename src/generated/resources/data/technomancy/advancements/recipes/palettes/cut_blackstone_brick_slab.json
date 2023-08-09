@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "technomancy:cut_blackstone_brick_slab"
+    ]
+  },
+  "criteria": {
+    "has_cut_blackstone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "technomancy:cut_blackstone_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "technomancy:cut_blackstone_brick_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cut_blackstone_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

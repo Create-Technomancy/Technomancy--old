@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "technomancy:small_blackstone_brick_wall_from_stone_types_blackstone_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_stone_types_blackstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "technomancy:stone_types/blackstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "technomancy:small_blackstone_brick_wall_from_stone_types_blackstone_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stone_types_blackstone",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "technomancy:cut_blackstone_brick_slab"
+    },
+    {
+      "item": "technomancy:cut_blackstone_brick_slab"
+    }
+  ],
+  "result": {
+    "item": "technomancy:cut_blackstone_bricks"
+  }
+}

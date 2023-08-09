@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "technomancy:cut_blackstone",
+    "technomancy:cut_blackstone_stairs",
+    "technomancy:cut_blackstone_wall",
+    "technomancy:polished_cut_blackstone",
+    "technomancy:polished_cut_blackstone_stairs",
+    "technomancy:polished_cut_blackstone_wall",
+    "technomancy:cut_blackstone_bricks",
+    "technomancy:cut_blackstone_brick_stairs",
+    "technomancy:cut_blackstone_brick_wall",
+    "technomancy:small_blackstone_bricks",
+    "technomancy:small_blackstone_brick_stairs",
+    "technomancy:small_blackstone_brick_wall",
+    "technomancy:layered_blackstone",
+    "technomancy:blackstone_pillar",
+    "minecraft:blackstone"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "technomancy:block/palettes/stone_types/cut/blackstone_cut",
+    "bottom": "technomancy:block/palettes/stone_types/cut/blackstone_cut",
+    "top": "technomancy:block/palettes/stone_types/cut/blackstone_cut"
+  }
+}

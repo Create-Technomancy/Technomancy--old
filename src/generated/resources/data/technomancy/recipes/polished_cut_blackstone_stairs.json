@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "polished_cut_blackstone_stairs",
+  "pattern": [
+    "X  ",
+    "XX ",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "technomancy:polished_cut_blackstone"
+    }
+  },
+  "result": {
+    "item": "technomancy:polished_cut_blackstone_stairs",
+    "count": 4
+  }
+}
