@@ -2,16 +2,18 @@ package com.chazbomb.technomancy;
 
 import com.chazbomb.technomancy.content.decoration.palettes.TMPaletteBlocks;
 import com.chazbomb.technomancy.registry.*;
+import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.chazbomb.technomancy.foundation.LangMerger;
 import com.chazbomb.technomancy.foundation.TMLangPartials;
-import com.chazbomb.technomancy.foundation.keys.TMKeys;
+import com.simibubi.create.foundation.data.LangMerger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -47,6 +49,7 @@ public class Technomancy {
         TMPackets.registerPackets();
         TMPaletteBlocks.register();
 
+        modEventBus.addListener(EventPriority.LOWEST, Technomancy::gatherData);
 
         //noinspection ConstantValue - required for datagen to work
         if(Minecraft.getInstance() != null)

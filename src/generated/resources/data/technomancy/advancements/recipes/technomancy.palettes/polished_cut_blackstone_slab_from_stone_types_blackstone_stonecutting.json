@@ -2,18 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "create:polished_cut_blackstone_slab_recycling"
+      "technomancy:polished_cut_blackstone_slab_from_stone_types_blackstone_stonecutting"
     ]
   },
   "criteria": {
-    "has_polished_cut_blackstone_slab": {
+    "has_stone_types_blackstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "technomancy:polished_cut_blackstone_slab"
-            ]
+            "tag": "create:stone_types/blackstone"
           }
         ]
       }
@@ -21,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "create:polished_cut_blackstone_slab_recycling"
+        "recipe": "technomancy:polished_cut_blackstone_slab_from_stone_types_blackstone_stonecutting"
       }
     }
   },
   "requirements": [
     [
-      "has_polished_cut_blackstone_slab",
+      "has_stone_types_blackstone",
       "has_the_recipe"
     ]
   ]

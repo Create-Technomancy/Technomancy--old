@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "technomancy:polished_cut_blackstone_from_stone_types_blackstone_stonecutting"
+      "technomancy:layered_blackstone_from_stone_types_blackstone_stonecutting"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "technomancy:stone_types/blackstone"
+            "tag": "create:stone_types/blackstone"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "technomancy:polished_cut_blackstone_from_stone_types_blackstone_stonecutting"
+        "recipe": "technomancy:layered_blackstone_from_stone_types_blackstone_stonecutting"
       }
     }
   },

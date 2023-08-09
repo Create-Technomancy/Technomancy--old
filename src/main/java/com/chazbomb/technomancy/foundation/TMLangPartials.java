@@ -2,33 +2,31 @@ package com.chazbomb.technomancy.foundation;
 
 import com.chazbomb.technomancy.Technomancy;
 import com.google.gson.JsonElement;
-import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.foundation.advancement.AllAdvancements;
-import com.simibubi.create.foundation.ponder.PonderLocalization;
+import com.simibubi.create.foundation.data.LangPartial;
 import com.simibubi.create.foundation.utility.Lang;
 
 import java.util.function.Supplier;
 
 public enum TMLangPartials implements LangPartial {
 
-    ADVANCEMENTS("Advancements", AllAdvancements::provideLangEntries),
+    //ADVANCEMENTS("Advancements"),
     INTERFACE("UI & Messages"),
-    SUBTITLES("Subtitles", AllSoundEvents::provideLangEntries),
+    //SUBTITLES("Subtitles"),
     TOOLTIPS("Item Descriptions"),
-    PONDER("Ponder Content", PonderLocalization::provideLangEntries),
+    //PONDER("Ponder Content"),
 
     ;
 
     private final String displayName;
     private final Supplier<JsonElement> provider;
 
-    private TMLangPartials(String displayName) {
+    TMLangPartials(String displayName) {
         this.displayName = displayName;
         String fileName = Lang.asId(name());
         this.provider = () -> LangPartial.fromResource(Technomancy.MOD_ID, fileName);
     }
 
-    private TMLangPartials(String displayName, Supplier<JsonElement> provider) {
+    TMLangPartials(String displayName, Supplier<JsonElement> provider) {
         this.displayName = displayName;
         this.provider = provider;
     }
