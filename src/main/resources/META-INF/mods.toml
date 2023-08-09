@@ -9,12 +9,13 @@ version="${file.jarVersion}"
 displayName="Create: Technomancy"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
-#logoFile="icon.png"
-credits=""
-authors="Cosmos616, The_seVen_, CHAZBOMB1"
+logoFile="icon.png"
+credits="DrMangoTea, Cak, rdh, The_seVen_"
+authors="CHAZBOMB1"
 description='''
-???
+Employ magic as an alternative to all things technical.
 '''
+
 [[dependencies.technomancy]]
     modId="forge"
     mandatory=true
@@ -33,9 +34,3 @@ description='''
     versionRange="[${create},)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.technomancy]]
-    modId="flywheel"
-    mandatory=true
-    versionRange="[0.6.5-91,)"
-    ordering="AFTER"
-    side="CLIENT"

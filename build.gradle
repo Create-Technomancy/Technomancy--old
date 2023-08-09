@@ -136,12 +136,12 @@ configurations {
 
 processResources {
     // set up properties for filling into metadata
-    Map<String, String> properties = Map.of(
-            "forge", forge_version.split("\\.")[0], // only specify major version of forge
-            "mc", mc_version,
-            "create", create_version.split("-")[0] // cut off build number
-    )
-    properties.forEach(inputs::property)
+    def properties = [
+            "forge": forge_version.split("\\.")[0], // only specify major version of forge
+            "mc": mc_version,
+            "create": create_version.split("-")[0] // cut off build number
+    ]
+    inputs.properties properties
 
     filesMatching("resources/META-INF/mods.toml") {
         expand properties
