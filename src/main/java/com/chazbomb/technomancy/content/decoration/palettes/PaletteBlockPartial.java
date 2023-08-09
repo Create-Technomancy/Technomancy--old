@@ -1,7 +1,6 @@
 package com.chazbomb.technomancy.content.decoration.palettes;
 
 import com.chazbomb.technomancy.Technomancy;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.builders.BlockBuilder;
@@ -28,7 +27,7 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraftforge.client.model.generators.ModelFile;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
@@ -122,19 +121,19 @@ public abstract class PaletteBlockPartial<B extends Block> {
 
 		@Override
 		protected Iterable<TagKey<Block>> getBlockTags() {
-			return Arrays.asList(BlockTags.STAIRS);
+			return List.of(BlockTags.STAIRS);
 		}
 
 		@Override
 		protected Iterable<TagKey<Item>> getItemTags() {
-			return Arrays.asList(ItemTags.STAIRS);
+			return List.of(ItemTags.STAIRS);
 		}
 
 		@Override
 		protected void createRecipes(TMPaletteStoneTypes type, BlockEntry<? extends Block> patternBlock,
 									 DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p) {
-			p.stairs(DataIngredient.items(patternBlock), c::get, c.getName(), false);
-			p.stonecutting(DataIngredient.tag(type.materialTag), c::get, 1);
+			p.stairs(DataIngredient.items(patternBlock), c, c.getName(), false);
+			p.stonecutting(DataIngredient.tag(type.materialTag), c, 1);
 		}
 
 	}
@@ -184,25 +183,25 @@ public abstract class PaletteBlockPartial<B extends Block> {
 
 		@Override
 		protected Iterable<TagKey<Block>> getBlockTags() {
-			return Arrays.asList(BlockTags.SLABS);
+			return List.of(BlockTags.SLABS);
 		}
 
 		@Override
 		protected Iterable<TagKey<Item>> getItemTags() {
-			return Arrays.asList(ItemTags.SLABS);
+			return List.of(ItemTags.SLABS);
 		}
 
 		@Override
 		protected void createRecipes(TMPaletteStoneTypes type, BlockEntry<? extends Block> patternBlock,
 									 DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p) {
-			p.slab(DataIngredient.items(patternBlock), c::get, c.getName(), false);
-			p.stonecutting(DataIngredient.tag(type.materialTag), c::get, 2);
+			p.slab(DataIngredient.items(patternBlock), c, c.getName(), false);
+			p.stonecutting(DataIngredient.tag(type.materialTag), c, 2);
 			DataIngredient ingredient = DataIngredient.items(c.get());
 			ShapelessRecipeBuilder.shapeless(patternBlock.get())
 				.requires(ingredient)
 				.requires(ingredient)
 				.unlockedBy("has_" + c.getName(), ingredient.getCritereon(p))
-				.save(p, Create.ID + ":" + c.getName() + "_recycling");
+				.save(p, Technomancy.MOD_ID + ":" + c.getName() + "_recycling");
 		}
 
 		@Override
@@ -241,18 +240,18 @@ public abstract class PaletteBlockPartial<B extends Block> {
 
 		@Override
 		protected Iterable<TagKey<Block>> getBlockTags() {
-			return Arrays.asList(BlockTags.WALLS);
+			return List.of(BlockTags.WALLS);
 		}
 
 		@Override
 		protected Iterable<TagKey<Item>> getItemTags() {
-			return Arrays.asList(ItemTags.WALLS);
+			return List.of(ItemTags.WALLS);
 		}
 
 		@Override
 		protected void createRecipes(TMPaletteStoneTypes type, BlockEntry<? extends Block> patternBlock,
 									 DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p) {
-			p.stonecutting(DataIngredient.tag(type.materialTag), c::get, 1);
+			p.stonecutting(DataIngredient.tag(type.materialTag), c, 1);
 			DataIngredient ingredient = DataIngredient.items(patternBlock);
 			ShapedRecipeBuilder.shaped(c.get(), 6)
 				.pattern("XXX")

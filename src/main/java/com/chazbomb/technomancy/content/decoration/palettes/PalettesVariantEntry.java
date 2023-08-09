@@ -1,8 +1,6 @@
 package com.chazbomb.technomancy.content.decoration.palettes;
 
-import com.chazbomb.technomancy.Technomancy;
 import com.google.common.collect.ImmutableList;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;

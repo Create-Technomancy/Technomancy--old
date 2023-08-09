@@ -1,7 +1,7 @@
 package com.chazbomb.technomancy.content.decoration.palettes;
 
-import com.chazbomb.technomancy.Technomancy;
 import com.simibubi.create.AllTags;
+import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
@@ -19,7 +19,6 @@ import static com.chazbomb.technomancy.content.decoration.palettes.PaletteBlockP
 public enum TMPaletteStoneTypes {
 
 	BLACKSTONE(VANILLA_RANGE, r -> () -> Blocks.BLACKSTONE),
-
 	;
 
 	private Function<CreateRegistrate, NonNullSupplier<Block>> factory;
@@ -49,9 +48,8 @@ public enum TMPaletteStoneTypes {
 			paletteStoneVariants.baseBlock = baseBlock;
 			String id = Lang.asId(paletteStoneVariants.name());
 			paletteStoneVariants.materialTag =
-				AllTags.optionalTag(ForgeRegistries.ITEMS, Technomancy.asResource("stone_types/" + id));
+				AllTags.optionalTag(ForgeRegistries.ITEMS, Create.asResource("stone_types/" + id));
 			paletteStoneVariants.variants = new PalettesVariantEntry(id, paletteStoneVariants);
 		}
 	}
-
 }

@@ -251,11 +251,11 @@ public class PaletteBlockPattern {
 		private Function<String, ResourceLocation> srcFactory;
 		private Function<String, ResourceLocation> targetFactory;
 
-		private CTs(CTType type, Function<String, ResourceLocation> factory) {
+		CTs(CTType type, Function<String, ResourceLocation> factory) {
 			this(type, factory, factory);
 		}
 
-		private CTs(CTType type, Function<String, ResourceLocation> srcFactory,
+		CTs(CTType type, Function<String, ResourceLocation> srcFactory,
 			Function<String, ResourceLocation> targetFactory) {
 			this.type = type;
 			this.srcFactory = srcFactory;

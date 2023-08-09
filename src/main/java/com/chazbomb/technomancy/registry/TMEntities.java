@@ -7,7 +7,6 @@ import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.Firear
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.FirearmProjectileRenderer;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.soul_sparks.SoulSparkEntity;
 import com.chazbomb.technomancy.content.curiosities.weapons.firearms.base.soul_sparks.SoulSparkRenderer;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateEntityBuilder;
 import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.entry.EntityEntry;

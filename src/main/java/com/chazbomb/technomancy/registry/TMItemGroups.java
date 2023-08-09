@@ -1,20 +1,18 @@
 package com.chazbomb.technomancy.registry;
 
 import com.chazbomb.technomancy.Technomancy;
-import com.chazbomb.technomancy.content.decoration.palettes.PalettesCreativeModeTab;
 import com.chazbomb.technomancy.content.decoration.palettes.TMPaletteStoneTypes;
-import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
 public class TMItemGroups {
-    public static CreativeModeTab MAIN_GROUP = new CreativeModeTab("main_group") {
+    public static CreativeModeTab MAIN_GROUP = new CreativeModeTab(Technomancy.MOD_ID + "base") {
         @Override
         public ItemStack makeIcon() { return TMBlocks.BATTERY_BLOCK.asStack();
         }
-
     };
-    public static CreativeModeTab PALETTES_TAB = new CreativeModeTab("palettes") {
+
+    public static CreativeModeTab PALETTES_TAB = new CreativeModeTab(Technomancy.MOD_ID + "palettes") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(TMPaletteStoneTypes.BLACKSTONE.getBaseBlock().get().asItem());
