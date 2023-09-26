@@ -12,7 +12,4 @@ For more information on mod use the in-game tooltips or go for feedback on the d
 
 [<img src="https://i.imgur.com/aWrjfKJ.jpg" width="200">](https://discord.gg/acQ2tgkW "Feedback & Help")
 
-- Support for Minecraft 1.16: Not planned
-- Support for Fabric: Not planned
-
-
+- Support: Not planned
